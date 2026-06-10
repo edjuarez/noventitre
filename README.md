@@ -1,75 +1,76 @@
-# React + TypeScript + Vite
+# Noventitre - Handmade Bags Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and artistic landing page created for **Noventitre**, a handmade accessories brand based in Barcelona.
 
-Currently, two official plugins are available:
+The goal of this project is to showcase unique handcrafted bags through an engaging visual experience, combining editorial design, smooth animations, and a highly visual product gallery.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- Modern editorial-inspired design
+- Fully responsive layout
+- Animated hero section
+- Product showcase gallery
+- Product detail views
+- Custom order section
+- WhatsApp contact integration
+- Instagram-inspired lookbook
+- Smooth scroll animations
+- Optimized images using WebP
+- Handmade brand storytelling
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🎨 Design Concept
 
-## Expanding the ESLint configuration
+Noventitre is not a traditional ecommerce store.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The website was designed to communicate:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Creativity
+- Handmade craftsmanship
+- Unique pieces
+- Colorful aesthetics
+- Personal expression
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The experience focuses on visual storytelling rather than a classic product catalog.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Technologies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Responsive Design
+- WebP Image Optimization
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🚀 Performance Goals
+
+- Fast loading times
+- Mobile-first experience
+- Optimized assets
+- Lightweight animations
+- Accessibility-friendly navigation
+
+---
+
+## 🎯 Challenges & Learnings
+
+This project was built to improve skills in:
+
+- React component architecture
+- Responsive layouts
+- Modern UI design
+- Animation with Framer Motion
+- Image optimization strategies
+- Visual storytelling through web interfaces
+
+One of the main goals was creating a unique brand experience without relying on a traditional ecommerce structure.
+
+
+## 👨‍💻 Author
+
+Eduardo Juarez
