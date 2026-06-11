@@ -4,9 +4,16 @@
   /* Colores de tu marca */
   --color-brand-crema: #fcfaf7;
   --color-brand-rosa: #ff69b4;
+  --color-brand-violeta: #b49eff;
 
   /* Tipografías: Asegúrate de que termine en -heading (singular) */
   --font-heading: "League Gothic", sans-serif;
   --font-hand: "Caveat", cursive;
   --font-sans: "Inter", sans-serif;
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+  }
 }

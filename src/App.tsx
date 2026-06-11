@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import Hero from './components/Hero'
+import WhyNoventitre from './components/WhyNoventitre'
+import TickerBanner from './components/TickerBanner'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-<div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
+    <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
       
       {/* ========================================================================= */}
       {/* NAVBAR MINIMALISTA                                                        */}
@@ -43,27 +45,10 @@ function App() {
       {/* CONTENIDO PRINCIPAL                                                       */}
       {/* ========================================================================= */}
       <main>
-        {/* Sección 1: El Hero que desarrollamos anteriormente */}
-        <div id="inicio">
-          <Hero />
-        </div>
-
-        {/* Sección 2: Explicativo de personalización (Placeholder basado en tu diseño) */}
-        {/* <div id="personalizar">
-             <CustomSteps />
-           </div> */}
-
-        {/* Sección 3: Galería de Productos Destacados con el botón de WhatsApp */}
-        {/* <div id="productos">
-             <ProductGallery />
-           </div> */}
+        <Hero />
+        <TickerBanner />
+        <WhyNoventitre />  
       </main>
-
-      {/* ========================================================================= */}
-      {/* FOOTER (Estructura base del boceto)                                       */}
-      {/* ========================================================================= */}
-      {/* <Footer /> */}
-
     </div>
   )
 }
