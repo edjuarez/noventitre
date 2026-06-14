@@ -3,6 +3,8 @@ import './App.css'
 import Hero from './components/Hero'
 import WhyNoventitre from './components/WhyNoventitre'
 import TickerBanner from './components/TickerBanner'
+import Gallery from './components/Gallery'
+import FeaturedProducts from './components/FeaturedProducts/FeaturedProducts'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -47,7 +49,9 @@ function App() {
       <main>
         <Hero />
         <TickerBanner />
-        <WhyNoventitre />  
+        <WhyNoventitre />
+        <Gallery />
+        <FeaturedProducts />
       </main>
     </div>
   )
