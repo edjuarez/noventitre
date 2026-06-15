@@ -1,4 +1,5 @@
 import { ArrowRight, MessageSquare } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function HeroV2() {
   const handleWhatsAppContact = () => {
@@ -22,7 +23,6 @@ export default function HeroV2() {
             <span className="block text-6xl md:text-7xl lg:text-8xl">
             Bolsos
             </span>
-
             <span className="block text-6xl md:text-7xl lg:text-8xl">
             que no se
             </span>
@@ -30,8 +30,8 @@ export default function HeroV2() {
             parecen a <span className="text-brand-rosa">nadie.</span>
             </span>
           </h1>
-          <p className="text-lg text-gray-800 leading-relaxed font-sans">Diseños hechos a mano.</p>
-          <p className="text-lg text-gray-800 leading-relaxed font-sans">Color, textura y personalidad en cada pieza.</p>
+          <p className="text-lg text-gray-800 leading-relaxed font-hand">Diseños hechos a mano.</p>
+          <p className="text-lg text-gray-800 leading-relaxed font-hand">Color, textura y personalidad en cada pieza.</p>
             <div className="flex flex-wrap gap-4 mt-10">
 
               <button className="bg-black text-white px-8 py-4 rounded-full flex items-center gap-2">
@@ -44,7 +44,8 @@ export default function HeroV2() {
                 className="bg-brand-rosa text-white px-8 py-4 rounded-full flex items-center gap-2"
               >
                 Pedir por WhatsApp
-                <MessageSquare size={18} />
+                {/* <MessageSquare size={18} /> */}
+                <FaWhatsapp />
               </button>
 
             </div>

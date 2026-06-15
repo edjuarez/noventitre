@@ -24,7 +24,6 @@ export default function WhyNoventitre(): React.JSX.Element {
       {/* Elemento decorativo de fondo (opcional) */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-white/30 -skew-x-12 translate-x-20 z-0"></div>
 
-      <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           
           {/* COLUMNA 1: MANIFIESTO (4 columnas de grid) */}
@@ -33,7 +32,7 @@ export default function WhyNoventitre(): React.JSX.Element {
               <span className="font-hand text-3xl text-brand-rosa -rotate-1 inline-block">
                 why noventitre?
               </span>
-              <h2 className="text-[4rem] sm:text-[5rem] xl:text-[6.5rem] font-normal text-black leading-[0.85] uppercase font-heading tracking-wide">
+              <h2 className="text-7xl font-normal text-black leading-[0.85] uppercase font-heading tracking-wide">
                 No hacemos <br />
                 productos <br />
                 <span className="text-brand-rosa">masivos.</span>
@@ -85,7 +84,6 @@ export default function WhyNoventitre(): React.JSX.Element {
           </div>
 
         </div>
-      </div>
     </section>
   );
 }
