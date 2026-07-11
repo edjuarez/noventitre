@@ -13,18 +13,18 @@ export const heroSlides: HeroSlide[] = [
     image: "/assets/hero_banner_1.webp",
     title: "Bolsos\nque no se\nparecen a\nnadie.",
     subtitle:
-      "Diseños hechos a mano en Barcelona. Cada pieza combina materiales, color y personalidad para acompañarte todos los días.",
+      "Cada pieza combina materiales, color y personalidad para acompañarte todos los días.",
     background: "#F7F3EE",
-    textColor: "#111111",
+    textColor: "#290801",
   },
   {
     id: 2,
     image: "/assets/hero_banner_2.webp",
     title: "Cada pieza\ncuenta una\nhistoria.",
     subtitle:
-      "No hay dos iguales. Cada bolso se confecciona de manera artesanal cuidando cada detalle.",
+      "No hay dos iguales. Cada pieza se confecciona de manera artesanal cuidando cada detalle.",
     background: "#E9DDD2",
-    textColor: "#111111",
+    textColor: "#E9DDD2",
   },
   {
     id: 3,
@@ -33,6 +33,6 @@ export const heroSlides: HeroSlide[] = [
     subtitle:
       "Elegí colores, telas y detalles para crear un bolso completamente personalizado.",
     background: "#2D2B2A",
-    textColor: "#FFFFFF",
+    textColor: "#111111",
   },
 ];

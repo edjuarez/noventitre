@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { heroSlides } from "../data/heroSlides";
+import { FaWhatsapp } from "react-icons/fa";
 
 const AUTO_PLAY_DELAY = 6000;
 
@@ -74,9 +75,9 @@ export default function Hero() {
             color: slide.textColor ?? "#fff",
           }}
         >
-          <span className="uppercase tracking-[0.3em] text-xs">
+          {/* <span className="uppercase tracking-[0.3em] text-xs">
             Handmade in Barcelona
-          </span>
+          </span> */}
 
           <h1 className="mt-6 font-heading text-6xl lg:text-8xl leading-[0.9] whitespace-pre-line">
             {slide.title}
@@ -92,8 +93,8 @@ export default function Hero() {
               <ArrowRight size={18} />
             </button>
 
-            <button className="bg-black text-white px-8 py-4 rounded-full flex items-center gap-3">
-              <MessageCircle size={18} />
+            <button className="bg-[#ff69b4] hover:bg-gray-800 text-white px-8 py-4 rounded-full flex items-center gap-3 cursor-pointer transition-all duration-300">
+              <FaWhatsapp size={25} />
               WhatsApp
             </button>
           </div>

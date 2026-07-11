@@ -102,7 +102,7 @@ export default function MyWorld() {
                   object-cover
                   transition-transform
                   duration-700
-                  group-hover:scale-105
+                  group-hover:scale-120
                   cursor-pointer
                 "
               />

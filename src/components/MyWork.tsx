@@ -1,8 +1,6 @@
-import {
-  Hand,
-  Scissors,
-  Sparkles,
-} from "lucide-react";
+import { FaHandSparkles } from "react-icons/fa";
+import { GiSparklingSabre } from "react-icons/gi";
+import { RiScissorsCutFill } from "react-icons/ri";
 
 export default function MyWork() {
   return (
@@ -49,7 +47,7 @@ export default function MyWork() {
 
           <div className="px-10 py-14 text-center md:border-r border-neutral-200">
 
-            <Hand
+            <FaHandSparkles 
               size={34}
               strokeWidth={1.5}
               className="mx-auto"
@@ -70,9 +68,8 @@ export default function MyWork() {
 
           <div className="px-10 py-14 text-center md:border-r border-neutral-200">
 
-            <Scissors
+            <RiScissorsCutFill
               size={34}
-              strokeWidth={1.5}
               className="mx-auto"
             />
 
@@ -91,7 +88,7 @@ export default function MyWork() {
 
           <div className="px-10 py-14 text-center">
 
-            <Sparkles
+            <GiSparklingSabre
               size={34}
               strokeWidth={1.5}
               className="mx-auto"

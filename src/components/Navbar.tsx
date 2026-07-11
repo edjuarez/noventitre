@@ -15,13 +15,14 @@ export default function Navbar() {
         inset-x-0
         top-0
         z-50
+        bg-white
     "
 >
       <nav className="mx-auto flex h-20 items-center justify-between px-6 md:px-12 lg:px-20">
         {/* Logo */}
         <a
           href="#"
-          className="text-xl font-light uppercase tracking-[0.3em]"
+          className="text-xl font-light uppercase"
         >
           NOVENTITRE
         </a>
