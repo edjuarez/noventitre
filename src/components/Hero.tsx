@@ -110,7 +110,7 @@ export default function Hero() {
             aria-label={`Slide ${index + 1}`}
             onClick={() => goToSlide(index)}
             className={`
-              transition-all duration-300 rounded-full
+              transition-all duration-300 rounded-full cursor-pointer
 
               ${
                 current === index

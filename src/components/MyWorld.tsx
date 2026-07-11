@@ -5,12 +5,12 @@ import {
 import { FaInstagram } from "react-icons/fa6";
 
 const images = [
-  "/assets/world/world-1.webp",
-  "/assets/world/world-2.webp",
-  "/assets/world/world-3.webp",
-  "/assets/world/world-4.webp",
-  "/assets/world/world-5.webp",
-  "/assets/world/world-6.webp",
+  "/assets/myWorld/myworld_1.webp",
+  "/assets/myWorld/myworld_2.webp",
+  "/assets/myWorld/myworld_3.webp",
+  "/assets/myWorld/myworld_4.webp",
+  "/assets/myWorld/myworld_5.webp",
+  "/assets/myWorld/myworld_6.webp",
 ];
 
 export default function MyWorld() {
@@ -103,10 +103,11 @@ export default function MyWorld() {
                   transition-transform
                   duration-700
                   group-hover:scale-105
+                  cursor-pointer
                 "
               />
 
-              <div
+{/*               <div
                 className="
                   absolute
                   inset-0
@@ -129,7 +130,7 @@ export default function MyWorld() {
                   size={28}
                 />
 
-              </div>
+              </div> */}
 
             </article>
 
