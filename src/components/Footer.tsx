@@ -6,7 +6,7 @@ import { FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-neutral-200">
+    <footer id="contacto"className="bg-white border-t border-neutral-200">
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
 

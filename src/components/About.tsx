@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function About() {
   return (
-    <section className="bg-brand-crema py-28 px-6 md:px-12 lg:px-20">
+    <section id="sobre-mi" className="bg-brand-crema py-28 px-6 md:px-12 lg:px-20">
 
       <div className="max-w-7xl mx-auto">
 
@@ -13,7 +13,7 @@ export default function About() {
           <div className="overflow-hidden rounded-sm">
 
             <img
-              src="/assets/about/about-creator.webp"
+              src="/assets/carla_working.webp"
               alt="Noe trabajando en Noventitre"
               className="
                 w-full
@@ -53,7 +53,7 @@ export default function About() {
             <div className="mt-10 space-y-6 text-neutral-700 leading-8 text-lg">
 
               <p>
-                Soy Noe, la persona detrás de Noventitre.
+                Hola soy Carla! La persona detrás de Noventitre.
                 Cada bolso nace en mi taller, donde combino telas,
                 colores y detalles para crear piezas que no se
                 repiten.
@@ -73,7 +73,7 @@ export default function About() {
 
             </div>
 
-            <button
+            {/* <button
               className="
                 mt-12
                 inline-flex
@@ -97,7 +97,7 @@ export default function About() {
                 strokeWidth={1.7}
               />
 
-            </button>
+            </button> */}
 
           </div>
 

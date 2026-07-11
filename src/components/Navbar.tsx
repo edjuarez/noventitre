@@ -1,13 +1,12 @@
 import React from "react";
 
 const navItems = [
-  { label: "Colección", href: "#coleccion" },
-  { label: "Lookbook", href: "#lookbook" },
-  { label: "Historia", href: "#historia" },
-  { label: "Encargos", href: "#encargos" },
+  { label: "Inicio", href: "#home" },
+  { label: "Sobre mí", href: "#sobre-mi" },
+  { label: "Mi trabajo", href: "#mi-trabajo" },
+  { label: "Mi mundo", href: "#mi-mundo" },
   { label: "Contacto", href: "#contacto" },
 ];
-
 export default function Navbar() {
   return (
 <header
