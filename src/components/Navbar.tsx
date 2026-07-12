@@ -1,39 +1,43 @@
 import React from "react";
+import { FaInstagram } from "react-icons/fa6";
 
 const navItems = [
   { label: "Inicio", href: "#home" },
-  { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Mi trabajo", href: "#mi-trabajo" },
   { label: "Mi mundo", href: "#mi-mundo" },
+  { label: "Mi trabajo", href: "#mi-trabajo" },
+  { label: "Sobre mí", href: "#sobre-mi" },
   { label: "Contacto", href: "#contacto" },
 ];
 export default function Navbar() {
   return (
-<header
-    className="
-        absolute
-        inset-x-0
-        top-0
-        z-50
-        bg-white
-    "
->
-      <nav className="mx-auto flex h-20 items-center justify-between px-6 md:px-12 lg:px-20">
+    <header
+        className="
+            fixed
+            inset-x-0
+            top-0
+            z-50
+            hover:bg-white
+            transition duration-700
+            cursor-pointer
+        "
+    >
+      <nav className="mx-auto flex h-16 items-center justify-between px-6 md:px-12 lg:px-20">
         {/* Logo */}
-        <a
-          href="#"
-          className="text-xl font-light uppercase"
-        >
-          NOVENTITRE
+        <a href="/" className="h-16 w-32 p-2 flex items-center justify-center">
+          <img
+            src="/assets/logo.webp"
+            alt="Noventitre Logo"
+            className="h-full w-full object-contain"
+          />
         </a>
 
         {/* Navigation */}
-        <ul className="hidden md:flex items-center gap-10">
+        <ul className="hidden md:flex items-center gap-5 h-full">
           {navItems.map((item) => (
-            <li key={item.label}>
+            <li key={item.label} className="h-full flex items-center p-[10px] transition-colors   ">
               <a
                 href={item.href}
-                className="text-sm uppercase tracking-[0.15em] transition-opacity hover:opacity-60"
+                className="text-sm uppercase transition-opacity hover:opacity-60 hover:text-[#ff69b4]"
               >
                 {item.label}
               </a>
@@ -46,9 +50,9 @@ export default function Navbar() {
           href="https://instagram.com/noventitre"
           target="_blank"
           rel="noopener noreferrer"
-          className="border border-black px-4 py-2 text-xs uppercase tracking-[0.15em] transition-colors hover:bg-black hover:text-white"
+          className="px-4 py-2 text-xs uppercase tracking-[0.15em] transition-colors hover:bg-black hover:text-white"
         >
-          Instagram
+          <FaInstagram size={30} />
         </a>
       </nav>
     </header>

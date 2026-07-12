@@ -3,6 +3,7 @@ import {
   Camera,
 } from "lucide-react";
 import { FaInstagram } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 const images = [
   "/assets/myWorld/myworld_1.webp",
@@ -15,13 +16,13 @@ const images = [
 
 export default function MyWorld() {
   return (
-    <section id="mi-mundo" className="bg-brand-crema py-32 px-6 md:px-12 lg:px-20">
+    <section id="mi-mundo" className="bg-brand-crema py-20 px-6 md:px-12 lg:px-20">
 
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
 
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-10 mb-16">
+        {/* <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-10 mb-16">
 
           <div>
 
@@ -73,26 +74,61 @@ export default function MyWorld() {
 
           </a>
 
-        </div>
+        </div> */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2
+            className="
+              mt-4
+              font-heading
+              text-5xl
+              md:text-6xl
+              leading-tight
+              text-neutral-900
+            "
+          >
+             Un vistazo
+              <br />
+              a mi mundo.
+          </h2>
 
+          <p className="mt-6 text-lg text-neutral-600 leading-8">
+            Cada pieza empieza mucho antes de estar terminado.
+            Acá comparto parte del proceso, los materiales,
+            las ideas y algunos momentos del taller.
+          </p>
+
+        </div>
         {/* Galería */}
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-
           {images.map((image, index) => (
-
-            <article
+            <motion.article
               key={index}
+              initial={{
+                opacity: 0,
+                x: 35,
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{
+                once: false,
+                amount: 0.2,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.12,
+                ease: "easeOut",
+              }}
               className="
                 group
                 overflow-hidden
-                rounded-xl
                 bg-neutral-100
                 relative
                 aspect-square
               "
             >
-
               <img
                 src={image}
                 alt={`Noventitre ${index + 1}`}
@@ -102,12 +138,15 @@ export default function MyWorld() {
                   object-cover
                   transition-transform
                   duration-700
-                  group-hover:scale-120
+                  group-hover:scale-110
                   cursor-pointer
                 "
               />
 
-{/*               <div
+              {/* Overlay opcional */}
+
+              {/*
+              <div
                 className="
                   absolute
                   inset-0
@@ -119,7 +158,6 @@ export default function MyWorld() {
                   justify-center
                 "
               >
-
                 <Camera
                   className="
                     opacity-0
@@ -129,17 +167,12 @@ export default function MyWorld() {
                   "
                   size={28}
                 />
-
-              </div> */}
-
-            </article>
-
+              </div>
+              */}
+            </motion.article>
           ))}
-
         </div>
-
       </div>
-
     </section>
   );
 }

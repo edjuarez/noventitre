@@ -13,8 +13,8 @@ export const heroSlides: HeroSlide[] = [
     image: "/assets/hero_banner_1.webp",
     title: "Bolsos\nque no se\nparecen a\nnadie.",
     subtitle:
-      "Cada pieza combina materiales, color y personalidad para acompañarte todos los días.",
-    background: "#F7F3EE",
+      "Cada pieza combina materiales, color y personalidad\npara acompañarte todos los días.",
+    background: "#dbaa6e",
     textColor: "#290801",
   },
   {
@@ -22,8 +22,8 @@ export const heroSlides: HeroSlide[] = [
     image: "/assets/hero_banner_2.webp",
     title: "Cada pieza\ncuenta una\nhistoria.",
     subtitle:
-      "No hay dos iguales. Cada pieza se confecciona de manera artesanal cuidando cada detalle.",
-    background: "#E9DDD2",
+      "No hay dos iguales. Cada pieza se confecciona\nde manera artesanal cuidando cada detalle.",
+    background: "#ea4989",
     textColor: "#E9DDD2",
   },
   {
@@ -31,8 +31,8 @@ export const heroSlides: HeroSlide[] = [
     image: "/assets/hero_banner_3.webp",
     title: "Diseños\nhechos para\nvos.",
     subtitle:
-      "Elegí colores, telas y detalles para crear un bolso completamente personalizado.",
-    background: "#2D2B2A",
+      "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
+    background: "#ba6a42",
     textColor: "#111111",
   },
 ];

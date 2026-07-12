@@ -17,7 +17,7 @@ export default function Footer() {
           <div>
 
             <img
-              src="/assets/logo.svg"
+              src="/assets/logo.webp"
               alt="Noventitre"
               className="h-10"
             />
@@ -115,13 +115,13 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-neutral-200 mt-20 pt-8 flex flex-col md:flex-row justify-between gap-4 text-sm text-neutral-500">
+        <div className="border-t border-neutral-200 mt-20 pt-8 flex flex-col md:flex-row justify-between centergap-4 text-sm text-neutral-500">
 
-          <p>© {new Date().getFullYear()} Noventitre.</p>
+          <p>© 2026 Noventitre.</p>
 
-          <p>
-            Diseñado y desarrollado por Eduardo Juarez.
-          </p>
+          {/* <p>
+            Diseñado y desarrollado por edujuarez.dev
+          </p> */}
 
         </div>
 
