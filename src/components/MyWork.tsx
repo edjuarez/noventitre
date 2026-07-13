@@ -7,7 +7,7 @@ export default function MyWork() {
   return (
     <section
       id="mi-trabajo"
-      className="relative overflow-hidden bg-brand-crema py-20 px-6 md:px-12 lg:px-20"
+      className="relative overflow-hidden bg-brand-crema py-20 px-6 md:px-12 lg:px-20 pb-150 mb-50 mt-50"
     >
       {/* Imagen decorativa */}
 

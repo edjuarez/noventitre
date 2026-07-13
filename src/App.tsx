@@ -13,6 +13,7 @@ import CustomOrder from './components/CustomOrder'
 import Hero from './components/Hero'
 import { useEffect, useState } from 'react'
 import FloatingWhatsapp from './components/FloatingWhatsapp'
+import FollowMe from './components/FollowMe'
 
 function App() {
   const [showFloatingWhatsapp, setShowFloatingWhatsapp] = useState(false);
@@ -39,7 +40,9 @@ function App() {
         <MyWork />
         <CustomOrder />
         <About />
+        <FollowMe />
         <Footer />
+        
         {/* <TickerBanner />
         <WhyNoventitre />
         <Gallery />

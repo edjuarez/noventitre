@@ -1,8 +1,31 @@
-import { ArrowRight, MessageCircle } from "lucide-react";
+
+import { motion } from "framer-motion";
 
 export default function CustomOrder() {
+  const container = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.25,
+      },
+    },
+  };
+
+  const item = {
+    hidden: {
+      opacity: 0,
+      x: 80,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
   return (
-    <section className="bg-brand-crema py-32 px-6 md:px-12 lg:px-20">
+    <section  id="custom-order"className="bg-brand-crema py-30 px-6 md:px-12 lg:px-20 pb-60">
 
       <div className="max-w-7xl mx-auto">
 
@@ -12,9 +35,9 @@ export default function CustomOrder() {
 
           <div>
 
-            <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
+            {/* <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
               Personalizados
-            </span>
+            </span> */}
 
             <h2 className="mt-4 font-heading text-5xl md:text-6xl leading-tight">
               Tu idea.
@@ -36,47 +59,70 @@ export default function CustomOrder() {
 
             </p>
 
-            <button
-              className="
-                mt-12
-                inline-flex
-                items-center
-                gap-3
-                rounded-full
-                bg-black
-                text-white
-                px-8
-                py-4
-                hover:bg-neutral-800
-                transition
-              "
-            >
-              <MessageCircle size={18} />
-
-              Pedir por WhatsApp
-
-              <ArrowRight size={18} />
-
-            </button>
-
           </div>
 
           {/* Imagen */}
 
-          <div>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.4 }}
+            className="
+              flex
+              items-center
+              justify-center
+              gap-5
+              flex-wrap
+            "
+          >
 
-            <img
-              src="/assets/custom/custom-order.webp"
-              alt="Proceso creativo Noventitre"
-              className="
-                w-full
-                h-[520px]
-                object-cover
-                rounded-sm
-              "
+            <motion.img
+              variants={item}
+              src="/assets/customOrder/pieza_1.webp"
+              className="w-28 md:w-36"
             />
 
-          </div>
+            <motion.span
+              variants={item}
+              className="text-4xl font-light"
+            >
+              +
+            </motion.span>
+
+            <motion.img
+              variants={item}
+              src="/assets/customOrder/pieza_2.webp"
+              className="w-28 md:w-36"
+            />
+
+            <motion.span
+              variants={item}
+              className="text-4xl font-light"
+            >
+              +
+            </motion.span>
+
+            <motion.img
+              variants={item}
+              src="/assets/customOrder/pieza_3.webp"
+              className="w-24 md:w-32"
+            />
+
+            <motion.span
+              variants={item}
+              className="text-5xl font-light"
+            >
+              =
+            </motion.span>
+
+            <motion.img
+              variants={item}
+              src="/assets/customOrder/producto_final.webp"
+              className="w-48 md:w-60"
+            />
+
+          </motion.div>
 
         </div>
 

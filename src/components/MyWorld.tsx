@@ -16,7 +16,7 @@ const images = [
 
 export default function MyWorld() {
   return (
-    <section id="mi-mundo" className="bg-brand-crema py-20 px-6 md:px-12 lg:px-20">
+    <section id="mi-mundo" className="bg-brand-crema pt-20 px-6 md:px-12 lg:px-20 pb-60">
 
       <div className="max-w-7xl mx-auto">
 
@@ -92,9 +92,7 @@ export default function MyWorld() {
           </h2>
 
           <p className="mt-6 text-lg text-neutral-600 leading-8">
-            Cada pieza empieza mucho antes de estar terminado.
-            Acá comparto parte del proceso, los materiales,
-            las ideas y algunos momentos del taller.
+            Cada pieza empieza mucho antes de estar terminada...
           </p>
 
         </div>
@@ -172,7 +170,52 @@ export default function MyWorld() {
             </motion.article>
           ))}
         </div>
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: false, amount: 0.4 }}
+  transition={{ duration: 0.6, delay: 0.4 }}
+  className="flex justify-center mt-16"
+>
+  <motion.a
+    href="https://photos.google.com/share/AF1QipPZWCT5MR8D_PBaBaZjMkJPRe53NHmb-czXhYqTj_6OvgteAaHy3Kmsd86Jm4lb5g?key=YXlSVF9pbEVfaXMxem9xb3FEamNYOEg0MkpKdm9B"
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{
+      scale: 1.05,
+      y: -2,
+    }}
+    whileTap={{
+      scale: 0.97,
+    }}
+    transition={{
+      type: "spring",
+      stiffness: 400,
+      damping: 18,
+    }}
+    className="
+      inline-flex
+      items-center
+      gap-3
+      bg-black
+      text-white
+      px-8
+      py-4
+      rounded-full
+      hover:scale-105
+      hover:bg-brand-rosa
+      hover:text-white
+      transition-all
+      duration-300
+      shadow-sm
+    "
+  >
+    Ver galería completa
+    <ArrowRight size={18} />
+  </motion.a>
+</motion.div>
       </div>
     </section>
   );
 }
+

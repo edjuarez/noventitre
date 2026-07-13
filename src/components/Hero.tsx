@@ -52,7 +52,7 @@ export default function Hero() {
   return (
     <motion.section
       id="home"
-      className="relative h-screen overflow-hidden"
+      className="relative h-screen overflow-hidden mb-160"
       animate={{
         backgroundColor: slide.background,
       }}
@@ -211,7 +211,7 @@ export default function Hero() {
       <button
         onClick={handleWhatsAppContact}
         className="
-          bg-[#ff69b4]
+          bg-brand-rosa
           hover:bg-gray-800
           text-white
           px-8

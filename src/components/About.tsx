@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="sobre-mi" className="bg-brand-crema py-28 px-6 md:px-12 lg:px-20">
+    <section id="sobre-mi" className="bg-brand-crema py-28 px-6 md:px-12 lg:px-20 pb-60">
 
       <div className="max-w-7xl mx-auto">
 
@@ -31,9 +31,9 @@ export default function About() {
 
           <div className="max-w-xl">
 
-            <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
+            {/* <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
               Sobre mí
-            </span>
+            </span> */}
 
             <h2
               className="

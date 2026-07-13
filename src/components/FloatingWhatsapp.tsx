@@ -29,7 +29,7 @@ export default function FloatingWhatsapp({ visible }: Props) {
             w-16
             h-16
             rounded-full
-            bg-[#ff69b4]
+            bg-brand-rosa
             hover:bg-gray-800
             text-white
             shadow-xl

@@ -4,9 +4,10 @@ import { FaInstagram } from "react-icons/fa6";
 const navItems = [
   { label: "Inicio", href: "#home" },
   { label: "Mi mundo", href: "#mi-mundo" },
-  { label: "Mi trabajo", href: "#mi-trabajo" },
+  // { label: "Mi trabajo", href: "#mi-trabajo" },
+  { label: "Mi Propuesta", href: "#mi-trabajo" },
   { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Contacto", href: "#contacto" },
+  //{ label: "Contacto", href: "#contacto" },
 ];
 export default function Navbar() {
   return (
@@ -37,7 +38,7 @@ export default function Navbar() {
             <li key={item.label} className="h-full flex items-center p-[10px] transition-colors   ">
               <a
                 href={item.href}
-                className="text-sm uppercase transition-opacity hover:opacity-60 hover:text-[#ff69b4]"
+                className="text-sm uppercase transition-opacity hover:opacity-60 hover:text-brand-rosa"
               >
                 {item.label}
               </a>
@@ -46,14 +47,14 @@ export default function Navbar() {
         </ul>
 
         {/* Instagram */}
-        <a
+        {/* <a
           href="https://instagram.com/noventitre"
           target="_blank"
           rel="noopener noreferrer"
           className="px-4 py-2 text-xs uppercase tracking-[0.15em] transition-colors hover:bg-black hover:text-white"
         >
           <FaInstagram size={30} />
-        </a>
+        </a> */}
       </nav>
     </header>
   );
