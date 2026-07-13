@@ -46,8 +46,7 @@ export default function Hero() {
   return (
     <motion.section
       id="home"
-      /* Cambiamos a flex-col en móvil y mantenemos block/pantalla completa en desktop */
-      className="relative min-h-screen md:h-screen flex flex-col md:block overflow-hidden md:mb-160 mb-60"
+      className="relative min-h-screen md:h-screen flex flex-col md:block overflow-hidden mb-[240px] md:mb-[280px]"
       animate={{
         backgroundColor: slide.background,
       }}
@@ -55,9 +54,8 @@ export default function Hero() {
         duration: 0.8,
       }}
     >
-      {/* --- Contenedor de la Imagen --- */}
-      {/* En móvil ocupa un 55% de la pantalla, en desktop es absoluto y cubre todo */}
-      <div className="relative w-full h-[55vh] shrink-0 md:absolute md:inset-0 md:h-full z-0">
+      {/* --- Contenedor de la Imagen (z-10 para estar por encima del fondo, pero bajo el texto) --- */}
+      <div className="relative w-full h-[55vh] shrink-0 md:absolute md:inset-0 md:h-full z-10">
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/10 z-10" />
 
@@ -87,14 +85,17 @@ export default function Hero() {
                 <img
                   src={item.image}
                   alt=""
-                  className="w-full h-full object-cover object-[65%_center] md:object-center"
+                  className="w-full h-full object-cover object-[80%_center] md:object-center"
                 />
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Indicadores movidos aquí para que siempre se queden sobre la imagen */}
+        {/* Indicadores: Al estar dentro de este contenedor (que mide h-[55vh] en móvil y h-full en desktop),
+          quedarán perfectamente encuadrados sobre la imagen en móvil y abajo del todo en desktop.
+          Añadimos z-30 para asegurar que se posicionen sobre el overlay de la foto.
+        */}
         <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-30">
           {heroSlides.map((_, index) => (
             <button
@@ -118,9 +119,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* --- Contenedor del Contenido --- */}
-      {/* flex-1 permite que ocupe el resto del espacio en móvil debajo de la imagen */}
-      <div className="relative z-20 flex-1 flex items-center w-full max-w-7xl mx-auto px-6 py-12 md:py-0 md:h-full md:px-12 lg:px-20">
+      {/* --- Contenedor del Contenido (z-20) --- */}
+      {/* Le agregamos pointer-events-none al contenedor padre en desktop, y pointer-events-auto al cuadro de texto interno.
+        De esta forma, el "área invisible" del contenedor de texto ya no bloquea los clics en los botones de abajo.
+      */}
+      <div className="relative z-20 flex-1 flex items-center w-full max-w-7xl mx-auto px-6 py-12 md:py-0 md:h-full md:px-12 lg:px-20 pointer-events-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
@@ -128,7 +131,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.45 }}
-            className="max-w-xl"
+            className="max-w-xl pointer-events-auto" // Reactiva los clics solo para el texto y botones
             style={{
               color: slide.textColor,
             }}
@@ -137,7 +140,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="font-heading text-5xl md:text-6xl lg:text-8xl leading-[0.9] whitespace-pre-line"
+              className="font-heading uppercase text-5xl md:text-3xl lg:text-7xl leading-[0.9] whitespace-pre-line tracking-tighter"
             >
               {slide.title}
             </motion.h1>

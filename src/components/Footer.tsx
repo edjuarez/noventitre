@@ -1,14 +1,17 @@
 
-import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { userData } from "../data/userData";
+import { FaMobileScreen } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
+import { BiLogoInstagramAlt } from "react-icons/bi";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer id="contacto"className="bg-white border-t border-neutral-100 pb-60">
+    <footer id="contacto"className="bg-white border-t border-neutral-100 mb-40">
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
 
-        <div className="grid lg:grid-cols-[2fr_1fr_1fr_1fr] gap-14">
+        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-14">
 
           {/* Logo */}
 
@@ -67,16 +70,16 @@ export default function Footer() {
 
               <li><a href="#home">Inicio</a></li>
 
-              <li><a href="#mi-mundo">Mi Mundo</a></li>
+              <li><a href="#mi-mundo">Sobre mí</a></li>
 
-              <li><a href="#mi-trabajo">Mi Propuesta</a></li>
+              <li><a href="#mi-trabajo">Galería</a></li>
 
-              <li><a href="#custom-order">Sobre mi</a></li>
+              <li><a href="#custom-order">Seguime</a></li>
 
             </ul>
 
           </div>
-          <div>
+          {/* <div>
 
             <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">
               INFORMACIÓN
@@ -89,28 +92,40 @@ export default function Footer() {
               <li><a href="#mi-trabajo">Políticas</a></li>
 
             </ul>
-          </div>
+          </div> */}
           <div>
             <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">
               Contacto
             </h3>
             <ul className="space-y-5 text-neutral-600">
-
-                <li><a href={userData.number} target="_blank" rel="noopener noreferrer">
+                
+                <li className="flex items-center gap-3">
+                  <FaMobileScreen size={20} />
+                  <a href={userData.number} target="_blank" rel="noopener noreferrer">
                   {userData.number}
-                </a></li>
+                  </a>
+                </li>
 
-                <li><a href={userData.email} target="_blank" rel="noopener noreferrer">
+                <li className="flex items-center gap-3">
+                  <IoIosMail size={20} />
+                  <a href={userData.email} target="_blank" rel="noopener noreferrer">
                   {userData.email}
-                </a></li>
+                  </a>
+                </li>
 
-                <li><a href={userData.instagram} target="_blank" rel="noopener noreferrer">
+                <li className="flex items-center gap-3">
+                  <BiLogoInstagramAlt size={20} />
+                  <a href={userData.instagram} target="_blank" rel="noopener noreferrer">
                   instagram.com/noventitre
-                </a></li>
+                  </a>
+                </li>
 
-                <p className="mt-5 text-neutral-600 leading-7">
-                  Barcelona, España
-                </p>
+                <li className="flex items-center gap-3">
+                  <FaMapLocationDot size={20} />
+                  <p className="text-neutral-600 leading-7">
+                    Barcelona, España
+                  </p>
+                </li>
               </ul>
           </div>
           {/* Contacto */}

@@ -7,7 +7,7 @@ export default function MyWork() {
   return (
     <section
       id="mi-trabajo"
-      className="relative overflow-hidden bg-brand-crema py-20 px-6 md:px-12 lg:px-20 md:pb-60 md:mb-50 mb-30 md:mt-50"
+      className="relative overflow-hidden bg-brand-crema py-12 md:pb-12 pb-50 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]"
     >
       {/* Imagen decorativa */}
 
@@ -16,13 +16,14 @@ export default function MyWork() {
         alt=""
         aria-hidden="true"
         initial={{ x: 120, opacity: 0 }}
-        whileInView={{ x: 0, opacity: 0.50 }}
+        whileInView={{ x: 0, opacity: 0.70 }}
         viewport={{ once: false }}
         transition={{ duration: 1 }}
         className="
           absolute
           right-[80px]
-          top-1/2
+          top-[93%]
+          md:top-1/2
           -translate-y-1/2
           w-[220px]
           md:w-[300px]
@@ -30,7 +31,9 @@ export default function MyWork() {
           pointer-events-none
           select-none
           z-0
-          hidden md:block
+          md:block
+          rotate-90
+          md:rotate-0
         "
       />
 
@@ -52,7 +55,7 @@ export default function MyWork() {
             Qué hago
           </span> */}
 
-          <h2 className="mt-4 font-heading text-5xl md:text-6xl leading-tight text-neutral-900">
+          <h2 className="mt-4 font-heading leading-tight text-neutral-900 text-4xl md:text-5xl tracking-tighter">
             Bolsos pensados
             <br />
             para durar.

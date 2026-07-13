@@ -1,35 +1,13 @@
-import { FaInstagram, FaWhatsapp } from "react-icons/fa";
-import { MdPhotoLibrary } from "react-icons/md";
+import { FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { IoMdImages } from "react-icons/io";
 import { userData } from "../data/userData";
-
-const links = [
-  {
-    title: "Instagram",
-    subtitle: "Proceso, novedades y detrás de escena",
-    icon: <FaInstagram size={22} />,
-    href: "https://instagram.com",
-  },
-  {
-    title: "WhatsApp",
-    subtitle: "Consultas y pedidos personalizados",
-    icon: <FaWhatsapp size={22} />,
-    href: "https://wa.me/34600000000",
-  },
-  {
-    title: "Google Fotos",
-    subtitle: "Todos los diseños y colecciones",
-    icon: <MdPhotoLibrary size={22} />,
-    href: "https://photos.google.com",
-  },
-];
 
 export default function FollowMe() {
   return (
     <section
       id="contacto"
-      className="bg-brand-crema py-36 px-6 md:px-12 lg:px-20 pb-60"
+      className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]"
     >
       <div className="max-w-5xl mx-auto text-center">
 
@@ -50,10 +28,9 @@ export default function FollowMe() {
           transition={{ duration: .6, delay: .1 }}
           className="              mt-4
               font-heading
-              text-5xl
-              md:text-6xl
               leading-tight
-              text-neutral-900"
+              text-neutral-900
+              text-4xl md:text-5xl tracking-tighter"
         >
           El próximo<br /> ya está en camino.
         </motion.h2>
@@ -63,7 +40,7 @@ export default function FollowMe() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: .6, delay: .2 }}
-          className="mt-8 max-w-2xl mx-auto text-lg leading-8 text-neutral-600"
+          className="mt-8 md:mt-14 max-w-2xl mx-auto text-lg leading-8 text-neutral-600"
         >
           Detrás de cada bolso hay tiempo, pruebas,
           combinaciones de telas y mucho trabajo hecho a mano.
@@ -148,7 +125,7 @@ export default function FollowMe() {
       min-w-[280px]
     "
   >
-    <MdPhotoLibrary size={22} />
+    <IoMdImages size={22} />
 
     Ver galería completa
   </motion.a>

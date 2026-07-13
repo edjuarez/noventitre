@@ -1,8 +1,6 @@
-import { ArrowRight } from "lucide-react";
-
 export default function About() {
   return (
-    <section id="sobre-mi" className="bg-brand-crema py-28 px-6 md:px-12 lg:px-20 pb-60">
+    <section id="sobre-mi" className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]">
 
       <div className="max-w-7xl mx-auto">
 
@@ -10,7 +8,7 @@ export default function About() {
 
           {/* Imagen */}
 
-          <div className="overflow-hidden rounded-sm">
+          <div className="overflow-hidden rounded-sm order-2 lg:order-1">
 
             <img
               src="/assets/carla_working.webp"
@@ -22,6 +20,7 @@ export default function About() {
                 transition-transform
                 duration-700
                 hover:scale-105
+                
               "
             />
 
@@ -29,7 +28,7 @@ export default function About() {
 
           {/* Texto */}
 
-          <div className="max-w-xl">
+          <div className="max-w-xl order-1 lg:order-2">
 
             {/* <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
               Sobre mí
@@ -39,10 +38,11 @@ export default function About() {
               className="
                 mt-5
                 font-heading
-                text-5xl
-                lg:text-6xl
                 leading-tight
                 text-neutral-900
+                text-4xl
+                md:text-5xl
+                tracking-tighter
               "
             >
               Lo que ves,

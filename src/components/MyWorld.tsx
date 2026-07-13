@@ -1,8 +1,5 @@
-import {
-  ArrowRight,
-  Camera,
-} from "lucide-react";
 import { motion } from "framer-motion";
+import { IoMdImages } from "react-icons/io";
 
 const images = [
   "/assets/myWorld/myworld_1.webp",
@@ -18,7 +15,7 @@ const images = [
 
 export default function MyWorld() {
   return (
-    <section id="mi-mundo" className="bg-brand-crema md:pt-20 md:px-6 px-3 md:px-12 lg:px-20 md:pb-60 pb-40">
+    <section id="mi-mundo" className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]">
 
       <div className="max-w-7xl mx-auto">
 
@@ -28,10 +25,9 @@ export default function MyWorld() {
             className="
               mt-4
               font-heading
-              text-5xl
-              md:text-6xl
               leading-tight
               text-neutral-900
+              text-4xl md:text-5xl tracking-tighter
             "
           >
              Un vistazo
@@ -119,50 +115,50 @@ export default function MyWorld() {
             </motion.article>
           ))}
         </div>
-<motion.div
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: false, amount: 0.4 }}
-  transition={{ duration: 0.6, delay: 0.4 }}
-  className="flex justify-center mt-16 pt-20"
->
-  <motion.a
-    href="https://photos.google.com/share/AF1QipPZWCT5MR8D_PBaBaZjMkJPRe53NHmb-czXhYqTj_6OvgteAaHy3Kmsd86Jm4lb5g?key=YXlSVF9pbEVfaXMxem9xb3FEamNYOEg0MkpKdm9B"
-    target="_blank"
-    rel="noopener noreferrer"
-    whileHover={{
-      scale: 1.05,
-      y: -2,
-    }}
-    whileTap={{
-      scale: 0.97,
-    }}
-    transition={{
-      type: "spring",
-      stiffness: 400,
-      damping: 18,
-    }}
-    className="
-      inline-flex
-      items-center
-      gap-3
-      bg-black
-      text-white
-      px-8
-      py-4
-      rounded-full
-      hover:scale-105
-      hover:bg-brand-rosa
-      hover:text-white
-      transition-all
-      duration-300
-      shadow-sm
-    "
-  >
-    Ver galería completa
-    <ArrowRight size={18} />
-  </motion.a>
-</motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex justify-center md:mt-16 md:pt-20 pt-5 mt-10"
+        >
+          <motion.a
+            href="https://photos.google.com/share/AF1QipPZWCT5MR8D_PBaBaZjMkJPRe53NHmb-czXhYqTj_6OvgteAaHy3Kmsd86Jm4lb5g?key=YXlSVF9pbEVfaXMxem9xb3FEamNYOEg0MkpKdm9B"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{
+              scale: 1.05,
+              y: -2,
+            }}
+            whileTap={{
+              scale: 0.97,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 18,
+            }}
+            className="
+              inline-flex
+              items-center
+              gap-3
+              bg-black
+              text-white
+              px-8
+              py-4
+              rounded-full
+              hover:scale-105
+              hover:bg-brand-rosa
+              hover:text-white
+              transition-all
+              duration-300
+              shadow-sm
+            "
+          >
+            <IoMdImages size={22} />
+            Ver galería completa
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   );

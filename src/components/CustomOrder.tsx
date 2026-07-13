@@ -25,7 +25,7 @@ export default function CustomOrder() {
     },
   };
   return (
-    <section  id="custom-order"className="bg-brand-crema py-30 px-6 md:px-12 lg:px-20 md:pb-60 pb-40">
+    <section  id="custom-order" className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]">
 
       <div className="max-w-7xl mx-auto">
 
@@ -39,7 +39,7 @@ export default function CustomOrder() {
               Personalizados
             </span> */}
 
-            <h2 className="mt-4 font-heading text-5xl md:text-6xl leading-tight">
+            <h2 className="mt-4 font-heading leading-tight text-4xl md:text-5xl tracking-tighter">
               Tu idea.
               <br />
               Tu bolso.
