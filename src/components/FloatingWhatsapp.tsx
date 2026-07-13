@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
+import { userData } from "../data/userData";
 
 interface Props {
   visible: boolean;
@@ -11,7 +12,7 @@ export default function FloatingWhatsapp({ visible }: Props) {
       {visible && (
         <motion.a
           layoutId="floating-whatsapp-button"
-          href="https://wa.me/34600000000"
+          href={`https://wa.me/${userData.number}?text=${encodeURIComponent(userData.defaultMessageText)}`}
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0, scale: 0.7 }}

@@ -7,7 +7,7 @@ export default function MyWork() {
   return (
     <section
       id="mi-trabajo"
-      className="relative overflow-hidden bg-brand-crema py-20 px-6 md:px-12 lg:px-20 pb-150 mb-50 mt-50"
+      className="relative overflow-hidden bg-brand-crema py-20 px-6 md:px-12 lg:px-20 md:pb-60 md:mb-50 mb-30 md:mt-50"
     >
       {/* Imagen decorativa */}
 
@@ -24,14 +24,13 @@ export default function MyWork() {
           right-[80px]
           top-1/2
           -translate-y-1/2
-
           w-[220px]
           md:w-[300px]
           lg:w-[420px]
-
           pointer-events-none
           select-none
           z-0
+          hidden md:block
         "
       />
 
@@ -139,12 +138,11 @@ export default function MyWork() {
             />
 
             <h3 className="mt-8 uppercase tracking-widest text-sm font-semibold">
-              Ediciones limitadas
+              Únicos
             </h3>
 
             <p className="mt-5 text-neutral-600 leading-7">
-              Muchas combinaciones se realizan en pocas unidades para
-              mantener el carácter único de cada colección.
+              No trabajo en producción masiva. Cada combinación cambia y hace que cada bolso tenga su propia identidad.
             </p>
 
           </motion.div>

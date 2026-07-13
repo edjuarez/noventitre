@@ -1,7 +1,8 @@
-import { ArrowUpRight } from "lucide-react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { MdPhotoLibrary } from "react-icons/md";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { userData } from "../data/userData";
 
 const links = [
   {
@@ -45,17 +46,22 @@ export default function FollowMe() {
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: .6, delay: .1 }}
-          className="mt-6 font-heading text-5xl md:text-7xl leading-none"
+          className="              mt-4
+              font-heading
+              text-5xl
+              md:text-6xl
+              leading-tight
+              text-neutral-900"
         >
-          Gracias.
+          El próximo<br /> ya está en camino.
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: .6, delay: .2 }}
           className="mt-8 max-w-2xl mx-auto text-lg leading-8 text-neutral-600"
         >
@@ -68,8 +74,87 @@ export default function FollowMe() {
           Si querés seguir viendo nuevos diseños o tenés
           una idea para crear juntos, te espero por acá.
         </motion.p>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: .3, duration: .6 }}
+  className="mt-14 flex flex-col items-center gap-5"
+>
+  {/* Instagram */}
 
-        <div className="mt-24 divide-y divide-neutral-200">
+  <motion.a
+    href={userData.instagram}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{
+      scale: 1.05,
+      y: -3,
+    }}
+    whileTap={{
+      scale: .97,
+    }}
+    className="
+      inline-flex
+      items-center
+      justify-center
+      gap-3
+      bg-black
+      text-white
+      px-8
+      py-4
+      rounded-full
+      hover:bg-brand-rosa
+      transition-all
+      duration-300
+      shadow-sm
+      min-w-[280px]
+    "
+  >
+    <FaInstagram size={22} />
+
+    Seguir en Instagram
+  </motion.a>
+
+  {/* Google Fotos */}
+
+  <motion.a
+    href={userData.googleFotos}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{
+      scale: 1.05,
+      y: -3,
+    }}
+    whileTap={{
+      scale: .97,
+    }}
+    className="
+      inline-flex
+      items-center
+      justify-center
+      gap-3
+      border
+      border-black
+      bg-transparent
+      text-black
+      px-8
+      py-4
+      rounded-full
+      hover:bg-black
+      hover:text-white
+      transition-all
+      duration-300
+      min-w-[280px]
+    "
+  >
+    <MdPhotoLibrary size={22} />
+
+    Ver galería completa
+  </motion.a>
+</motion.div>
+
+        {/* <div className="mt-24 divide-y divide-neutral-200">
 
           {links.map((link, index) => (
 
@@ -127,7 +212,7 @@ export default function FollowMe() {
 
           ))}
 
-        </div>
+        </div> */}
 
       </div>
     </section>

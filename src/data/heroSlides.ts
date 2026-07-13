@@ -14,7 +14,7 @@ export const heroSlides: HeroSlide[] = [
     title: "Bolsos\nque no se\nparecen a\nnadie.",
     subtitle:
       "Cada pieza combina materiales, color y personalidad\npara acompañarte todos los días.",
-    background: "#dbaa6e",
+    background: "#dfd5c6",
     textColor: "#290801",
   },
   {
@@ -32,7 +32,7 @@ export const heroSlides: HeroSlide[] = [
     title: "Diseños\nhechos para\nvos.",
     subtitle:
       "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
-    background: "#ba6a42",
+    background: "#dfd5c6",
     textColor: "#111111",
   },
 ];

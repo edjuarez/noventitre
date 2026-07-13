@@ -1,9 +1,10 @@
 
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { userData } from "../data/userData";
 
 export default function Footer() {
   return (
-    <footer id="contacto"className="bg-white border-t border-neutral-200 pb-60">
+    <footer id="contacto"className="bg-white border-t border-neutral-100 pb-60">
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
 
@@ -95,9 +96,17 @@ export default function Footer() {
             </h3>
             <ul className="space-y-5 text-neutral-600">
 
-                <li><a href="#mi-mundo">+617978451</a></li>
+                <li><a href={userData.number} target="_blank" rel="noopener noreferrer">
+                  {userData.number}
+                </a></li>
 
-                <li><a href="#mi-trabajo">hola@gmail.com</a></li>
+                <li><a href={userData.email} target="_blank" rel="noopener noreferrer">
+                  {userData.email}
+                </a></li>
+
+                <li><a href={userData.instagram} target="_blank" rel="noopener noreferrer">
+                  instagram.com/noventitre
+                </a></li>
 
                 <p className="mt-5 text-neutral-600 leading-7">
                   Barcelona, España

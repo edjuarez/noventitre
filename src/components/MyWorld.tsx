@@ -2,7 +2,6 @@ import {
   ArrowRight,
   Camera,
 } from "lucide-react";
-import { FaInstagram } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const images = [
@@ -12,69 +11,18 @@ const images = [
   "/assets/myWorld/myworld_4.webp",
   "/assets/myWorld/myworld_5.webp",
   "/assets/myWorld/myworld_6.webp",
+  "/assets/myWorld/myworld_7.webp",
+  "/assets/myWorld/myworld_8.webp",
+  "/assets/myWorld/myworld_9.webp",
 ];
 
 export default function MyWorld() {
   return (
-    <section id="mi-mundo" className="bg-brand-crema pt-20 px-6 md:px-12 lg:px-20 pb-60">
+    <section id="mi-mundo" className="bg-brand-crema md:pt-20 md:px-6 px-3 md:px-12 lg:px-20 md:pb-60 pb-40">
 
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-
-        {/* <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-10 mb-16">
-
-          <div>
-
-            <span className="uppercase tracking-[0.25em] text-xs text-neutral-500">
-              Detrás de escena
-            </span>
-
-            <h2 className="mt-4 font-heading text-5xl md:text-6xl leading-tight">
-
-              Un vistazo
-              <br />
-              a mi mundo.
-
-            </h2>
-
-            <p className="mt-6 max-w-xl text-neutral-600 leading-8 text-lg">
-
-              Cada bolso empieza mucho antes de estar terminado.
-              Acá comparto parte del proceso, los materiales,
-              las ideas y algunos momentos del taller.
-
-            </p>
-
-          </div>
-
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noreferrer"
-            className="
-              inline-flex
-              items-center
-              gap-3
-              border
-              border-black
-              rounded-full
-              px-7
-              py-4
-              hover:bg-black
-              hover:text-white
-              transition-all
-            "
-          >
-            <FaInstagram />
-
-            Seguir en Instagram
-
-            <ArrowRight size={18} />
-
-          </a>
-
-        </div> */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2
             className="
@@ -92,13 +40,14 @@ export default function MyWorld() {
           </h2>
 
           <p className="mt-6 text-lg text-neutral-600 leading-8">
-            Cada pieza empieza mucho antes de estar terminada...
+            Una selección de bolsos creados a mano, donde cada combinación de telas, colores y detalles da lugar a una pieza diferente. <br />
+           Ninguno es igual al anterior, y esa es justamente la idea.
           </p>
 
         </div>
         {/* Galería */}
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-3">
           {images.map((image, index) => (
             <motion.article
               key={index}
@@ -175,7 +124,7 @@ export default function MyWorld() {
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: false, amount: 0.4 }}
   transition={{ duration: 0.6, delay: 0.4 }}
-  className="flex justify-center mt-16"
+  className="flex justify-center mt-16 pt-20"
 >
   <motion.a
     href="https://photos.google.com/share/AF1QipPZWCT5MR8D_PBaBaZjMkJPRe53NHmb-czXhYqTj_6OvgteAaHy3Kmsd86Jm4lb5g?key=YXlSVF9pbEVfaXMxem9xb3FEamNYOEg0MkpKdm9B"

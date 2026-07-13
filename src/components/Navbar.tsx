@@ -1,12 +1,9 @@
-import React from "react";
-import { FaInstagram } from "react-icons/fa6";
-
 const navItems = [
   { label: "Inicio", href: "#home" },
+  { label: "Sobre mí", href: "#sobre-mi" },
   { label: "Mi mundo", href: "#mi-mundo" },
   // { label: "Mi trabajo", href: "#mi-trabajo" },
   { label: "Mi Propuesta", href: "#mi-trabajo" },
-  { label: "Sobre mí", href: "#sobre-mi" },
   //{ label: "Contacto", href: "#contacto" },
 ];
 export default function Navbar() {

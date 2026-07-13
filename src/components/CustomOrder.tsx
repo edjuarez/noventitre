@@ -25,7 +25,7 @@ export default function CustomOrder() {
     },
   };
   return (
-    <section  id="custom-order"className="bg-brand-crema py-30 px-6 md:px-12 lg:px-20 pb-60">
+    <section  id="custom-order"className="bg-brand-crema py-30 px-6 md:px-12 lg:px-20 md:pb-60 pb-40">
 
       <div className="max-w-7xl mx-auto">
 
@@ -67,7 +67,7 @@ export default function CustomOrder() {
             variants={container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.4 }}
+            viewport={{ once: false, amount: 0 }}
             className="
               flex
               items-center

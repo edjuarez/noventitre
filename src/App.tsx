@@ -36,10 +36,10 @@ function App() {
       {/* ========================================================================= */}
       <main>
         <Hero />
+        <About />
         <MyWorld />
         <MyWork />
         <CustomOrder />
-        <About />
         <FollowMe />
         <Footer />
         
