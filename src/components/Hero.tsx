@@ -4,6 +4,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import { heroSlides } from "../data/heroSlides";
 import { userData } from "../data/userData";
+import { IoMdImages } from "react-icons/io";
 
 const AUTO_PLAY_DELAY = 6000;
 
@@ -196,10 +197,10 @@ dragElastic={0.05}
                 className="w-full sm:w-auto"
               >
                 <button
-                  className="w-full sm:w-56 bg-white text-black px-8 py-4 rounded-full flex items-center justify-center gap-3 hover:scale-105 transition cursor-pointer"
+                  className="w-full sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
                 >
+                  <IoMdImages size={24} />
                   Ver colección
-                  <ArrowRight size={18} />
                 </button>
               </a>
 

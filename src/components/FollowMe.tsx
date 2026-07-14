@@ -51,26 +51,19 @@ export default function FollowMe() {
           Si querés seguir viendo nuevos diseños o tenés
           una idea para crear juntos, te espero por acá.
         </motion.p>
-<motion.div
-  initial={{ opacity: 0, y: 30 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ delay: .3, duration: .6 }}
-  className="mt-14 flex flex-col items-center gap-5"
->
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: .3, duration: .6 }}
+    className="mt-14 flex flex-col items-center gap-5"
+  >
   {/* Instagram */}
 
   <motion.a
     href={userData.instagram}
     target="_blank"
     rel="noopener noreferrer"
-    whileHover={{
-      scale: 1.05,
-      y: -3,
-    }}
-    whileTap={{
-      scale: .97,
-    }}
     className="
       inline-flex
       items-center
@@ -86,6 +79,7 @@ export default function FollowMe() {
       duration-300
       shadow-sm
       min-w-[280px]
+      hover:scale-105
     "
   >
     <FaInstagram size={22} />
@@ -99,13 +93,6 @@ export default function FollowMe() {
     href={userData.googleFotos}
     target="_blank"
     rel="noopener noreferrer"
-    whileHover={{
-      scale: 1.05,
-      y: -3,
-    }}
-    whileTap={{
-      scale: .97,
-    }}
     className="
       inline-flex
       items-center
@@ -122,6 +109,7 @@ export default function FollowMe() {
       hover:text-white
       transition-all
       duration-300
+      hover:scale-105
       min-w-[280px]
     "
   >
