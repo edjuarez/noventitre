@@ -114,7 +114,7 @@ dragElastic={0.05}
                 <img
                   src={item.image}
                   alt=""
-                  className="w-full h-full object-cover object-[80%_center] md:object-center"
+                  className="w-full h-full object-cover object-[100%_center] md:object-center"
                 />
               </div>
             ))}

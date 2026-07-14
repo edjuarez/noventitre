@@ -67,15 +67,15 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-5 text-neutral-600">
-
               <li><a href="#home">Inicio</a></li>
 
-              <li><a href="#mi-mundo">Sobre mí</a></li>
+              <li><a href="#sobre-mi">Sobre mí</a></li>
 
-              <li><a href="#mi-trabajo">Galería</a></li>
+              <li><a href="#mi-mundo">Galería</a></li>
 
-              <li><a href="#custom-order">Seguime</a></li>
+              <li><a href="#mi-trabajo">Proceso</a></li>
 
+              <li><a href="#contacto">Seguime</a></li>
             </ul>
 
           </div>
