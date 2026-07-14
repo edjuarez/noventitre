@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import { heroSlides } from "../data/heroSlides";
