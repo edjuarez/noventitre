@@ -152,17 +152,18 @@ export default function MyWorld() {
               inline-flex
               items-center
               gap-3
-              bg-black
-              text-white
+              bg-white
+              text-black
+              hover:bg-gray-800
               px-8
               py-4
               rounded-full
               hover:scale-105
-              hover:bg-brand-rosa
               hover:text-white
               transition-all
               duration-300
               shadow-sm
+              border border-black
             "
           >
             <IoMdImages size={22} />

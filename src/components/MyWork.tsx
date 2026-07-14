@@ -34,6 +34,7 @@ export default function MyWork() {
           md:block
           rotate-90
           md:rotate-0
+          
         "
       />
 
@@ -81,7 +82,7 @@ export default function MyWork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ delay: .1 }}
-            className="px-10 py-14 text-center md:border-r border-neutral-200"
+            className="px-10 py-14 text-center bg-white/50 md:border-r border-neutral-200"
           >
 
             <FaHandSparkles
@@ -107,7 +108,7 @@ export default function MyWork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ delay: .25 }}
-            className="px-10 py-14 text-center md:border-r border-neutral-200"
+            className="px-10 py-14 text-center md:border-r border-neutral-200 bg-white/50"
           >
 
             <RiScissorsCutFill
@@ -133,7 +134,7 @@ export default function MyWork() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ delay: .4 }}
-            className="px-10 py-14 text-center"
+            className="px-10 py-14 text-center bg-white/50"
           >
 
             <GiSparklingSabre

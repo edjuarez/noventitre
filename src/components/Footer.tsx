@@ -101,16 +101,16 @@ export default function Footer() {
                 
                 <li className="flex items-center gap-3">
                   <FaMobileScreen size={20} />
-                  <a href={userData.number} target="_blank" rel="noopener noreferrer">
+                  <p>
                   {userData.number}
-                  </a>
+                  </p>
                 </li>
 
                 <li className="flex items-center gap-3">
                   <IoIosMail size={20} />
-                  <a href={userData.email} target="_blank" rel="noopener noreferrer">
+                  <p>
                   {userData.email}
-                  </a>
+                  </p>
                 </li>
 
                 <li className="flex items-center gap-3">
