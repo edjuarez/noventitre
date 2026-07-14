@@ -32,7 +32,7 @@ export const heroSlides: HeroSlide[] = [
     title: "hechos a\nmano,\ncreados a tu manera.",
     subtitle:
       "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
-    background: "#ebcd81",
+    background: "#c48ebd",
     textColor: "#111111",
   },
 ];
