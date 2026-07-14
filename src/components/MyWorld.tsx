@@ -15,7 +15,7 @@ const images = [
 
 export default function MyWorld() {
   return (
-    <section id="mi-mundo" className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]">
+    <section id="mi-mundo" className="bg-brand-crema py-17 md:py-15 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className="max-w-7xl mx-auto">
 

@@ -7,7 +7,7 @@ export default function FollowMe() {
   return (
     <section
       id="contacto"
-      className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]"
+      className="bg-brand-crema py-17 md:py-0 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]"
     >
       <div className="max-w-5xl mx-auto text-center">
 
@@ -42,7 +42,7 @@ export default function FollowMe() {
           transition={{ duration: .6, delay: .2 }}
           className="mt-8 md:mt-14 max-w-2xl mx-auto text-lg leading-8 text-neutral-600"
         >
-          Detrás de cada bolso hay tiempo, pruebas,
+          Detrás de cada creación hay tiempo, pruebas,
           combinaciones de telas y mucho trabajo hecho a mano.
 
           <br />

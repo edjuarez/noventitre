@@ -11,7 +11,7 @@ export const heroSlides: HeroSlide[] = [
   {
     id: 1,
     image: "/assets/hero_banner_1.webp",
-    title: "Bolsos\nque no se\nparecen a\nnadie.",
+    title: "Diseños\nhechos para\nvos.",
     subtitle:
       "Cada pieza combina materiales, color y personalidad\npara acompañarte todos los días.",
     background: "#dfd5c6",
@@ -29,10 +29,10 @@ export const heroSlides: HeroSlide[] = [
   {
     id: 3,
     image: "/assets/hero_banner_3.webp",
-    title: "Diseños\nhechos para\nvos.",
+    title: "hechos a\nmano,\ncreados a tu manera.",
     subtitle:
       "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
-    background: "#dfd5c6",
+    background: "#ebcd81",
     textColor: "#111111",
   },
 ];

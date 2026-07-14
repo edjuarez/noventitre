@@ -3,12 +3,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colores de tu marca */
   --color-brand-crema: #fcfaf7;
   --color-brand-rosa: #ff69b4;
   --color-brand-violeta: #b49eff;
 
-  /* Tipografías: Asegúrate de que termine en -heading (singular) */
   /* --font-heading: "League Gothic", sans-serif; */
   --font-hand: "Caveat", cursive;
   --font-sans: "Inter", sans-serif;
@@ -17,6 +15,12 @@
   --font-heading: "Hanken Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-hand: "Caveat", cursive;
+  --section-mb-mobile: 60px;
+  --section-mb-desktop: 280px;
+
+  --section-pt-mobile: 40px;
+  --section-pt-desktop: 100px;
+
   @keyframes marquee {
     from { transform: translateX(0%); }
     to { transform: translateX(-50%); }

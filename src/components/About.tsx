@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="sobre-mi" className="bg-brand-crema py-12 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]">
+    <section id="sobre-mi" className="bg-brand-crema py-17 md:py-15 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className="max-w-7xl mx-auto">
 
@@ -54,7 +54,7 @@ export default function About() {
 
               <p>
                 Hola soy Carla! La persona detrás de Noventitre.
-                Cada bolso nace en mi taller, donde combino telas,
+                Cada artículo nace en mi taller, donde combino telas,
                 colores y detalles para crear piezas que no se
                 repiten.
               </p>

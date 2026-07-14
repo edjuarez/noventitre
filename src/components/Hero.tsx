@@ -11,6 +11,7 @@ export default function Hero() {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const slide = heroSlides[current];
+  const isMobile = window.innerWidth < 768;
 
   const handleWhatsAppContact = () => {
     const phoneNumber = userData.number;
@@ -42,16 +43,40 @@ export default function Hero() {
     setCurrent(index);
     startAutoPlay();
   };
+  const nextSlide = () => {
+    setCurrent((prev) => (prev + 1) % heroSlides.length);
+    startAutoPlay();
+  };
 
+  const prevSlide = () => {
+    setCurrent((prev) =>
+      prev === 0 ? heroSlides.length - 1 : prev - 1
+    );
+    startAutoPlay();
+  };
   return (
     <motion.section
       id="home"
-      className="relative min-h-screen md:h-screen flex flex-col md:block overflow-hidden mb-[240px] md:mb-[280px]"
+      className="relative min-h-screen md:h-screen flex flex-col md:block overflow-hidden mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]"
       animate={{
         backgroundColor: slide.background,
       }}
       transition={{
         duration: 0.8,
+      }}
+      drag={isMobile ? "x" : false}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0}
+      dragMomentum={false}
+
+      onDragEnd={(_, info) => {
+        if (info.offset.x < -80) {
+          nextSlide();
+        }
+
+        if (info.offset.x > 80) {
+          prevSlide();
+        }
       }}
     >
       {/* --- Contenedor de la Imagen (z-10 para estar por encima del fondo, pero bajo el texto) --- */}
@@ -73,6 +98,10 @@ export default function Hero() {
             style={{
               width: `${heroSlides.length * 100}%`,
             }}
+            drag="x"
+dragConstraints={{ left: 0, right: 0 }}
+dragElastic={0.05}
+
           >
             {heroSlides.map((item) => (
               <div

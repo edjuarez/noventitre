@@ -7,7 +7,7 @@ export default function MyWork() {
   return (
     <section
       id="mi-trabajo"
-      className="relative overflow-hidden bg-brand-crema py-12 md:pb-12 pb-50 md:py-20 md:px-6 px-3 mb-[240px] md:mb-[280px]"
+      className="relative overflow-hidden bg-brand-crema py-17 md:py-15 md:px-6 px-3 mb-5 md:mb-[var(--section-mb-desktop)] pb-80 md:pb-40"
     >
       {/* Imagen decorativa */}
 
@@ -56,15 +56,16 @@ export default function MyWork() {
           </span> */}
 
           <h2 className="mt-4 font-heading leading-tight text-neutral-900 text-4xl md:text-5xl tracking-tighter">
-            Bolsos pensados
+            Diseños creados
             <br />
-            para durar.
+            para acompañarte.
           </h2>
 
           <p className="mt-6 text-lg text-neutral-600 leading-8">
-            Cada pieza nace de una idea simple: crear accesorios que
-            acompañen el día a día, hechos con dedicación y materiales
-            seleccionados.
+            No existen dos iguales. <br />
+            Cada diseño nace de la combinación de telas, colores y detalles elegidos<br />
+             para crear 
+             algo verdaderamente personal.
           </p>
 
         </motion.div>
@@ -93,7 +94,7 @@ export default function MyWork() {
             </h3>
 
             <p className="mt-5 text-neutral-600 leading-7">
-              Cada bolso está confeccionado uno por uno, con tiempo,
+              Cada accesorio está confeccionado uno por uno, con tiempo,
               atención y cuidado en cada detalle.
             </p>
 
@@ -145,7 +146,7 @@ export default function MyWork() {
             </h3>
 
             <p className="mt-5 text-neutral-600 leading-7">
-              No trabajo en producción masiva. Cada combinación cambia y hace que cada bolso tenga su propia identidad.
+              No trabajo en producción masiva. Cada combinación cambia y hace que cada producto tenga su propia identidad.
             </p>
 
           </motion.div>
