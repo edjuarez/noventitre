@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
+import { useState } from "react";
+
 
 const images = [
   "/assets/myWorld/myworld_1.webp",
@@ -14,6 +16,7 @@ const images = [
 ];
 
 export default function MyWorld() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
     <section id="mi-mundo" className="bg-brand-crema py-17 md:py-15 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
@@ -64,13 +67,19 @@ export default function MyWorld() {
                 delay: index * 0.12,
                 ease: "easeOut",
               }}
-              className="
-                group
-                overflow-hidden
-                bg-neutral-100
-                relative
-                aspect-square
-              "
+              className={`
+      group
+      overflow-hidden
+      bg-neutral-100
+      relative
+      aspect-square
+
+      ${
+        index === images.length - 1
+          ? "col-span-2 md:col-span-1"
+          : ""
+      }
+    `}
             >
               <img
                 src={image}
@@ -84,6 +93,7 @@ export default function MyWorld() {
                   group-hover:scale-110
                   cursor-pointer
                 "
+                onClick={() => setSelectedImage(image)}
               />
 
               {/* Overlay opcional */}
@@ -160,6 +170,39 @@ export default function MyWorld() {
           </motion.a>
         </motion.div>
       </div>
+      <AnimatePresence>
+  {selectedImage && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={() => setSelectedImage(null)}
+      className="
+        fixed
+        inset-0
+        bg-black/90
+        z-[999]
+        flex
+        items-center
+        justify-center
+        p-6
+      "
+    >
+      <motion.img
+        initial={{ scale: .9 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: .9 }}
+        transition={{ duration: .25 }}
+        src={selectedImage}
+        className="
+          max-h-[90vh]
+          max-w-[90vw]
+          object-contain
+        "
+      />
+    </motion.div>
+  )}
+</AnimatePresence>
     </section>
   );
 }
