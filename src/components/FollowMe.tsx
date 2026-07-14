@@ -7,7 +7,7 @@ export default function FollowMe() {
   return (
     <section
       id="contacto"
-      className="bg-brand-crema py-17 md:py-0 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]"
+      className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]"
     >
       <div className="max-w-5xl mx-auto text-center">
 

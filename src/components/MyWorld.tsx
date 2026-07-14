@@ -18,7 +18,7 @@ const images = [
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   return (
-    <section id="mi-mundo" className="bg-brand-crema py-17 md:py-15 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
+    <section id="mi-mundo" className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className="max-w-7xl mx-auto">
 
