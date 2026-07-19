@@ -1,32 +1,148 @@
-export const galleryImages = [
+export const products = [
   {
     id: 1,
-    image: "/assets/homeGallery/home_lookbook_1.webp",
-    alt: "Look 01",
+    name: "Bolso Nube",
+    price: 95,
+    images: [
+      "/assets/myWorld/myworld_1.webp",
+      "/assets/myWorld/myworld_2.webp",
+      "/assets/myWorld/myworld_3.webp",
+    ],
   },
   {
     id: 2,
-    image: "/assets/homeGallery/home_lookbook_2.webp",
-    alt: "Look 02",
+    name: "Tote Camel",
+    price: 82,
+    images: [
+      "/assets/myWorld/myworld_2.webp",
+      "/assets/myWorld/myworld_3.webp",
+      "/assets/myWorld/myworld_4.webp",
+    ],
   },
   {
     id: 3,
-    image: "/assets/homeGallery/home_lookbook_3.webp",
-    alt: "Look 03",
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_3.webp"
+    ],
   },
   {
-    id: 4,
-    image: "/assets/homeGallery/home_lookbook_4.webp",
-    alt: "Look 04",
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_4.webp"
+    ],
   },
   {
-    id: 5,
-    image: "/assets/homeGallery/home_lookbook_5.webp",
-    alt: "Look 05",
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_5.webp"
+    ],
   },
   {
-    id: 6,
-    image: "/assets/homeGallery/home_lookbook_6.webp",
-    alt: "Look 06",
-  }
+    id: 2,
+    name: "Tote Camel",
+    price: 82,
+    images: [
+      "/assets/myWorld/myworld_2.webp",
+      "/assets/myWorld/myworld_3.webp",
+      "/assets/myWorld/myworld_4.webp",
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_3.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_4.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_5.webp"
+    ],
+  },
+  {
+    id: 2,
+    name: "Tote Camel",
+    price: 82,
+    images: [
+      "/assets/myWorld/myworld_2.webp",
+      "/assets/myWorld/myworld_3.webp",
+      "/assets/myWorld/myworld_4.webp",
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_3.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_4.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_5.webp"
+    ],
+  },
+  {
+    id: 2,
+    name: "Tote Camel",
+    price: 82,
+    images: [
+      "/assets/myWorld/myworld_2.webp",
+      "/assets/myWorld/myworld_3.webp",
+      "/assets/myWorld/myworld_4.webp",
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_3.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_4.webp"
+    ],
+  },
+  {
+    id: 3,
+    name: "Necessaire",
+    price: 35,
+    images: [
+      "/assets/myWorld/myworld_5.webp"
+    ],
+  },
 ];

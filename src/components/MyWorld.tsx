@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
 import { useState } from "react";
+import { userData } from "../data/userData"
+import { useProducts } from '../hooks/useProducts';
 
 
 const images = [
@@ -17,6 +19,9 @@ const images = [
 
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { products, loading, error } = useProducts({ mode: 'featured', limit: 3 });
+  //const { products, loading } = useFeaturedProducts(1);
+console.log({ products });
   return (
     <section id="mi-mundo" className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
@@ -44,87 +49,104 @@ export default function MyWorld() {
           </p>
 
         </div>
+
+        {/* Estados de Carga y Error */}
+
+        {loading && (
+          <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-3 animate-pulse">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="bg-neutral-200/60 aspect-square rounded-sm" />
+            ))}
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-12 border border-dashed border-red-200 rounded-xl bg-red-50/50">
+            <p className="text-red-600 font-medium">{error}</p>
+          </div>
+        )}
+
         {/* Galería */}
+{!loading && !error && (
+          <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-3">
+            {products.map((product, index) => {
+              const imageSrc = product.images[0];
+              const productName = product.name;
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 md:gap-6 gap-3">
-          {images.map((image, index) => (
-            <motion.article
-              key={index}
-              initial={{
-                opacity: 0,
-                x: 35,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: false,
-                amount: 0.2,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.12,
-                ease: "easeOut",
-              }}
-              className={`
-      group
-      overflow-hidden
-      bg-neutral-100
-      relative
-      aspect-square
+              return (
+                <motion.article
+                  key={product.id || index}
+                  initial={{ opacity: 0, x: 35 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: false, amount: 0.2 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.12,
+                    ease: "easeOut",
+                  }}
+                  className={`
+                    group
+                    overflow-hidden
+                    bg-neutral-100
+                    relative
+                    aspect-square
+                    ${index === products.length - 1 ? "col-span-2 md:col-span-1" : ""}
+                  `}
+                >
+                  <img
+                    src={imageSrc}
+                    alt={productName}
+                    className="
+                      w-full
+                      h-full
+                      object-cover
+                      transition-transform
+                      duration-700
+                      group-hover:scale-110
+                      cursor-pointer
+                    "
+                    onClick={() => setSelectedImage(imageSrc)}
+                  />
 
-      ${
-        index === images.length - 1
-          ? "col-span-2 md:col-span-1"
-          : ""
-      }
-    `}
-            >
-              <img
-                src={image}
-                alt={`Noventitre ${index + 1}`}
-                className="
-                  w-full
-                  h-full
-                  object-cover
-                  transition-transform
-                  duration-700
-                  group-hover:scale-110
-                  cursor-pointer
-                "
-                onClick={() => setSelectedImage(image)}
-              />
+                  {/* 🏷️ Info Overlay (Aparece en Hover) */}
+                  <div className="
+                    absolute
+                    inset-0
+                    bg-black/0
+                    group-hover:bg-black/40
+                    transition-all
+                    duration-300
+                    flex
+                    flex-col
+                    justify-end
+                    p-4
+                    pointer-events-none
+                  ">
+                    <div className="
+                      transform
+                      translate-y-4
+                      group-hover:translate-y-0
+                      opacity-0
+                      group-hover:opacity-100
+                      transition-all
+                      duration-300
+                    ">
+                      <p className="text-white font-heading text-lg md:text-xl">
+                        {productName}
+                      </p>
+                      {product.price && (
+                        <p className="text-neutral-200 text-sm mt-0.5">
+                          ${product.price}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        )}
 
-              {/* Overlay opcional */}
-
-              {/*
-              <div
-                className="
-                  absolute
-                  inset-0
-                  bg-black/0
-                  group-hover:bg-black/20
-                  transition
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <Camera
-                  className="
-                    opacity-0
-                    group-hover:opacity-100
-                    text-white
-                    transition
-                  "
-                  size={28}
-                />
-              </div>
-              */}
-            </motion.article>
-          ))}
-        </div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +155,7 @@ export default function MyWorld() {
           className="flex justify-center md:mt-16 md:pt-20 pt-5 mt-10"
         >
           <motion.a
-            href="https://photos.google.com/share/AF1QipPZWCT5MR8D_PBaBaZjMkJPRe53NHmb-czXhYqTj_6OvgteAaHy3Kmsd86Jm4lb5g?key=YXlSVF9pbEVfaXMxem9xb3FEamNYOEg0MkpKdm9B"
+            href={userData.googleFotos}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{
@@ -172,38 +194,38 @@ export default function MyWorld() {
         </motion.div>
       </div>
       <AnimatePresence>
-  {selectedImage && (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={() => setSelectedImage(null)}
-      className="
-        fixed
-        inset-0
-        bg-black/90
-        z-[999]
-        flex
-        items-center
-        justify-center
-        p-6
-      "
-    >
-      <motion.img
-        initial={{ scale: .9 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: .9 }}
-        transition={{ duration: .25 }}
-        src={selectedImage}
-        className="
-          max-h-[90vh]
-          max-w-[90vw]
-          object-contain
-        "
-      />
-    </motion.div>
-  )}
-</AnimatePresence>
+      {selectedImage && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSelectedImage(null)}
+          className="
+            fixed
+            inset-0
+            bg-black/90
+            z-[999]
+            flex
+            items-center
+            justify-center
+            p-6
+          "
+        >
+          <motion.img
+            initial={{ scale: .9 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: .9 }}
+            transition={{ duration: .25 }}
+            src={selectedImage}
+            className="
+              max-h-[90vh]
+              max-w-[90vw]
+              object-contain
+            "
+          />
+        </motion.div>
+      )}
+      </AnimatePresence>
     </section>
   );
 }
