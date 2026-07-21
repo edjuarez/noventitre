@@ -5,17 +5,17 @@ import { userData } from "../data/userData"
 import { useProducts } from '../hooks/useProducts';
 
 
-const images = [
-  "/assets/myWorld/myworld_1.webp",
-  "/assets/myWorld/myworld_2.webp",
-  "/assets/myWorld/myworld_3.webp",
-  "/assets/myWorld/myworld_4.webp",
-  "/assets/myWorld/myworld_5.webp",
-  "/assets/myWorld/myworld_6.webp",
-  "/assets/myWorld/myworld_7.webp",
-  "/assets/myWorld/myworld_8.webp",
-  "/assets/myWorld/myworld_9.webp",
-];
+// const images = [
+//   "/assets/myWorld/myworld_1.webp",
+//   "/assets/myWorld/myworld_2.webp",
+//   "/assets/myWorld/myworld_3.webp",
+//   "/assets/myWorld/myworld_4.webp",
+//   "/assets/myWorld/myworld_5.webp",
+//   "/assets/myWorld/myworld_6.webp",
+//   "/assets/myWorld/myworld_7.webp",
+//   "/assets/myWorld/myworld_8.webp",
+//   "/assets/myWorld/myworld_9.webp",
+// ];
 
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);

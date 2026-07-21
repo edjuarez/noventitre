@@ -1,164 +1,167 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useProducts } from '../hooks/useProducts';
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   images: string[];
 }
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Bolso Nube",
-    price: 95,
-    images: [
-      "/assets/myWorld/myworld_1.webp",
-      "/assets/myWorld/myworld_2.webp",
-      "/assets/myWorld/myworld_3.webp",
-    ],
-  },
-  {
-    id: 2,
-    name: "Tote Camel",
-    price: 82,
-    images: [
-      "/assets/myWorld/myworld_2.webp",
-      "/assets/myWorld/myworld_3.webp",
-      "/assets/myWorld/myworld_4.webp",
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_3.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_4.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_5.webp"
-    ],
-  },
-  {
-    id: 2,
-    name: "Tote Camel",
-    price: 82,
-    images: [
-      "/assets/myWorld/myworld_2.webp",
-      "/assets/myWorld/myworld_3.webp",
-      "/assets/myWorld/myworld_4.webp",
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_3.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_4.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_5.webp"
-    ],
-  },
-  {
-    id: 2,
-    name: "Tote Camel",
-    price: 82,
-    images: [
-      "/assets/myWorld/myworld_2.webp",
-      "/assets/myWorld/myworld_3.webp",
-      "/assets/myWorld/myworld_4.webp",
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_3.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_4.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_5.webp"
-    ],
-  },
-  {
-    id: 2,
-    name: "Tote Camel",
-    price: 82,
-    images: [
-      "/assets/myWorld/myworld_2.webp",
-      "/assets/myWorld/myworld_3.webp",
-      "/assets/myWorld/myworld_4.webp",
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_3.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_4.webp"
-    ],
-  },
-  {
-    id: 3,
-    name: "Necessaire",
-    price: 35,
-    images: [
-      "/assets/myWorld/myworld_5.webp"
-    ],
-  },
-];
+// const products: Product[] = [
+//   {
+//     id: 1,
+//     name: "Bolso Nube",
+//     price: 95,
+//     images: [
+//       "/assets/myWorld/myworld_1.webp",
+//       "/assets/myWorld/myworld_2.webp",
+//       "/assets/myWorld/myworld_3.webp",
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Tote Camel",
+//     price: 82,
+//     images: [
+//       "/assets/myWorld/myworld_2.webp",
+//       "/assets/myWorld/myworld_3.webp",
+//       "/assets/myWorld/myworld_4.webp",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_3.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_4.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_5.webp"
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Tote Camel",
+//     price: 82,
+//     images: [
+//       "/assets/myWorld/myworld_2.webp",
+//       "/assets/myWorld/myworld_3.webp",
+//       "/assets/myWorld/myworld_4.webp",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_3.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_4.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_5.webp"
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Tote Camel",
+//     price: 82,
+//     images: [
+//       "/assets/myWorld/myworld_2.webp",
+//       "/assets/myWorld/myworld_3.webp",
+//       "/assets/myWorld/myworld_4.webp",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_3.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_4.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_5.webp"
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Tote Camel",
+//     price: 82,
+//     images: [
+//       "/assets/myWorld/myworld_2.webp",
+//       "/assets/myWorld/myworld_3.webp",
+//       "/assets/myWorld/myworld_4.webp",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_3.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_4.webp"
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Necessaire",
+//     price: 35,
+//     images: [
+//       "/assets/myWorld/myworld_5.webp"
+//     ],
+//   },
+// ];
 
 export default function Collection() {
+  const { products, loading, error } = useProducts({ mode: 'all'});
+  //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -184,13 +187,20 @@ export default function Collection() {
   };
 
   return (
-    <section className="min-h-screen bg-white pt-12 pb-24 m-0">
+    <section className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className=" mx-auto px-6">
 
-        <div className="mb-20 text-center">
-
-          <h1 className="font-heading text-5xl lg:text-7xl">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h1
+            className="
+              mt-4
+              font-heading
+              leading-tight
+              text-neutral-900
+              text-4xl md:text-5xl tracking-tighter
+            "
+          >
             Colección
           </h1>
 
@@ -201,7 +211,7 @@ export default function Collection() {
 
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
 
           {products.map((product) => (
             <motion.button
@@ -214,7 +224,7 @@ export default function Collection() {
               }}
               className="text-left cursor-pointer"
             >
-              <div className="overflow-hidden rounded-sm">
+              <div className="overflow-hidden">
 
                 <img
                   src={product.images[0]}
@@ -224,11 +234,11 @@ export default function Collection() {
 
               </div>
 
-              <h3 className="mt-4 text-lg font-medium">
+              <h3 className="mt-4 text-md">
                 {product.name}
               </h3>
 
-              <p className="mt-1 text-neutral-500">
+              <p className="mt-1 text-sm">
                 € {product.price}
               </p>
 
@@ -254,7 +264,7 @@ export default function Collection() {
               initial={{ scale: .95 }}
               animate={{ scale: 1 }}
               exit={{ scale: .95 }}
-              className="relative bg-white rounded-sm max-w-5xl w-full overflow-hidden"
+              className="relative bg-white rounded-sm overflow-hidden"
             >
 
               <button
@@ -264,14 +274,14 @@ export default function Collection() {
                 <X size={22} />
               </button>
 
-              <div className="grid lg:grid-cols-2">
+  
 
                 <div className="relative bg-neutral-100">
 
                   <img
                     src={selectedProduct.images[currentImage]}
                     alt={selectedProduct.name}
-                    className="w-full h-[70vh] object-cover"
+                    className="w-full h-[70vh] object-contain"
                   />
 
                   {selectedProduct.images.length > 1 && (
@@ -294,7 +304,7 @@ export default function Collection() {
 
                 </div>
 
-                <div className="p-10 flex flex-col justify-center">
+                {/* <div className="p-10 flex flex-col justify-center">
 
                   <h2 className="font-heading text-4xl">
                     {selectedProduct.name}
@@ -323,9 +333,9 @@ export default function Collection() {
 
                   </div>
 
-                </div>
+                </div> */}
 
-              </div>
+      
 
             </motion.div>
 

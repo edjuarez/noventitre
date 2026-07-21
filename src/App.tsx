@@ -2,7 +2,11 @@ import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
 import CollectionScreen from "./pages/CollectionScreen";
-import Navbar from './components/Navbar'
+import LoginScreen from "./pages/LoginScreen";
+import Navbar from './components/Navbar';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminLayout from './components/admin/AdminLayout';
+
 
 function App() {
   const MainLayout = () => (
@@ -21,6 +25,19 @@ function App() {
       children: [
         { path: "/", element: <HomeScreen /> },
         { path: "/collection", element: <CollectionScreen /> }
+      ]
+    },
+    // Ruta de Login
+    {
+      path: "/login",
+      element: <LoginScreen />
+    },
+    // Rutas de Administración Protegidas
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        { path: "/admin", element: <AdminDashboard /> }
       ]
     }
   ]);

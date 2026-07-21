@@ -14,6 +14,61 @@ export interface Product {
   created_at: string;
 }
 
+// Tipo para la creación/edición de productos (sin id ni fecha)
+export type ProductInput = Omit<Product, 'id' | 'created_at'>;
+
+/**
+ * Sube una lista de archivos File al Storage de Supabase y retorna las URLs públicas.
+ */
+export const uploadProductImages = async (files: File[]): Promise<string[]> => {
+  if (!files || files.length === 0) return [];
+
+  const uploadPromises = files.map(async (file) => {
+    // Sanitizamos el nombre del archivo y agregamos un timestamp para evitar colisiones
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+    const filePath = `items/${fileName}`;
+
+    // Nombre del bucket en Supabase Storage (cámbialo si tu bucket se llama distinto, ej: 'products')
+    const BUCKET_NAME = 'product-images';
+
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET_NAME)
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    if (uploadError) {
+      throw new Error(`[uploadProductImages]: ${uploadError.message}`);
+    }
+
+    // Obtener la URL pública del archivo subido
+    const { data } = supabase.storage
+      .from(BUCKET_NAME)
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  });
+
+  return Promise.all(uploadPromises);
+};
+
+/**
+ * Operación de Escritura: Crea un producto en la base de datos.
+ */
+export const createProduct = async (product: ProductInput): Promise<Product> => {
+  const { data, error } = await supabase
+    .from('products')
+    .insert([product])
+    .select()
+    .single();
+
+  if (error) throw new Error(`[createProduct]: ${error.message}`);
+  return data;
+};
+
+// Servicio unificado exportado por defecto/objeto
 export const productService = {
   /**
    * Obtiene únicamente los productos destacados (featured = true) y visibles para el Home.
@@ -90,19 +145,9 @@ export const productService = {
     return data || [];
   },
 
-  /**
-   * Operación de Escritura: Crea un producto (Exclusivo del Panel de Administración).
-   */
-  async createProduct(product: Omit<Product, 'id' | 'created_at'>): Promise<Product> {
-    const { data, error } = await supabase
-      .from('products')
-      .insert([product])
-      .select()
-      .single();
+  createProduct,
+  uploadProductImages,
 
-    if (error) throw new Error(`[createProduct]: ${error.message}`);
-    return data;
-  },
 
   /**
    * Operación de Modificación: Actualiza parcialmente un producto (Exclusivo del Panel).
@@ -130,4 +175,5 @@ export const productService = {
 
     if (error) throw new Error(`[deleteProduct]: ${error.message}`);
   }
+  
 };
