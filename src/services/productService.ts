@@ -1,6 +1,5 @@
 import { supabase } from '../lib/supabase';
 
-// Tipo unificado de TypeScript para toda la aplicación
 export interface Product {
   id: string;
   name: string;
@@ -14,7 +13,6 @@ export interface Product {
   created_at: string;
 }
 
-// Tipo para la creación/edición de productos (sin id ni fecha)
 export type ProductInput = Omit<Product, 'id' | 'created_at'>;
 
 /**
@@ -24,12 +22,9 @@ export const uploadProductImages = async (files: File[]): Promise<string[]> => {
   if (!files || files.length === 0) return [];
 
   const uploadPromises = files.map(async (file) => {
-    // Sanitizamos el nombre del archivo y agregamos un timestamp para evitar colisiones
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
     const filePath = `items/${fileName}`;
-
-    // Nombre del bucket en Supabase Storage (cámbialo si tu bucket se llama distinto, ej: 'products')
     const BUCKET_NAME = 'product-images';
 
     const { error: uploadError } = await supabase.storage

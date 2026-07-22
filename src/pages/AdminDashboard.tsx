@@ -7,7 +7,6 @@ import { productService } from '../services/productService';
 import type { Product } from '../services/productService';
 
 export const AdminDashboard = () => {
-  // 1. Obtenemos la carga inicial desde el hook
   const { products: initialProducts, loading, error, refetch } = useProducts({ mode: 'all' });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   // 2. Estado local para actualizaciones instantáneas en UI (optimistas)
@@ -15,7 +14,6 @@ export const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // 3. Sincronizamos el estado local cuando el hook termina de traer los datos
   useEffect(() => {
     if (initialProducts) {
       setProductsList(initialProducts);
@@ -33,23 +31,18 @@ export const AdminDashboard = () => {
     if (!confirmed) return;
 
     try {
-      // Borrado en Supabase
       await productService.deleteProduct(id);
 
-      // Eliminación instantánea de la UI
       setProductsList((prev) => prev.filter((product) => product.id !== id));
     } catch (err: any) {
       alert(`Error al eliminar el producto: ${err.message}`);
     }
   };
 
-  // 6. Manejo de alta de producto
   const handleProductAdded = (newProduct?: Product) => {
     if (newProduct) {
-      // Agregamos el producto nuevo al principio del array local
       setProductsList((prev) => [newProduct, ...prev]);
     } else if (refetch) {
-      // Si el modal no devuelve el objeto, pedimos la lista de nuevo al servidor
       refetch();
     }
   };

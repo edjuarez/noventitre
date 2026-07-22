@@ -160,7 +160,7 @@ interface Product {
 // ];
 
 export default function Collection() {
-  const { products, loading, error } = useProducts({ mode: 'all'});
+  const { products } = useProducts({ mode: 'all'});
   //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
