@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type {ChangeEvent, FormEvent} from 'react';
 import { X, Upload } from 'lucide-react';
 import { productService, uploadProductImages } from '../../services/productService';
-import type { Product } from '../../services/productService';
+import type { Product } from '../../types/product';
 
 interface EditProductModalProps {
   isOpen: boolean;

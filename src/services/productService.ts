@@ -1,17 +1,5 @@
 import { supabase } from '../lib/supabase';
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  images: string[];
-  stock: number;
-  category: string;
-  featured: boolean;
-  visible: boolean;
-  created_at: string;
-}
+import type { Product } from "../types/product";
 
 export type ProductInput = Omit<Product, 'id' | 'created_at'>;
 
@@ -102,7 +90,7 @@ export const productService = {
     const { data, error } = await supabase
       .from('products')
       .select('*')
-      .eq('id', id)
+      .eq('slug', id)
       .eq('visible', true)
       .single();
 

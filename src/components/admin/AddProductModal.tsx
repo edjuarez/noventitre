@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { uploadProductImages, createProduct } from '../../services/productService';
 import type {ProductInput} from '../../services/productService';
 import type {ChangeEvent, FormEvent} from 'react';
-import type { Product } from '../../services/productService';
+import type { Product } from '../../types/product';
 
 interface AddProductModalProps {
   isOpen: boolean;
@@ -22,6 +22,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
     stock: '5',
     featured: false,
     visible: true,
+    slug: '',
   });
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -69,6 +70,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
         featured: formData.featured,
         visible: formData.visible,
         images: imageUrls,
+        slug: formData.slug,
       };
 
       // 3. Crear registro en PostgreSQL

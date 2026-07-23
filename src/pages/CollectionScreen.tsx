@@ -2,13 +2,9 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
+import { useNavigate } from 'react-router-dom';
+import type { Product } from "../types/product";
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  images: string[];
-}
 
 // const products: Product[] = [
 //   {
@@ -164,6 +160,7 @@ export default function Collection() {
   //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const navigate = useNavigate();
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -218,10 +215,11 @@ export default function Collection() {
               key={product.id}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => {
-                setSelectedProduct(product);
-                setCurrentImage(0);
-              }}
+              // onClick={() => {
+              //   setSelectedProduct(product);
+              //   setCurrentImage(0);
+              // }}
+              onClick={() => navigate(`/product/${product.slug}`)}
               className="text-left cursor-pointer"
             >
               <div className="overflow-hidden">

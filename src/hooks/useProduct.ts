@@ -2,13 +2,8 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { productService } from '../services/productService';
 import type { Product } from '../types/product';
 
-interface UseProductsOptions {
-  mode: 'featured' | 'all';
-  limit?: number;
-}
-
-export function useProducts({ mode, limit }: UseProductsOptions) {
-  const [products, setProducts] = useState<Product[]>([]);
+export function useProduct(slug?: string) {
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const isMounted = useRef(true);
@@ -20,21 +15,15 @@ export function useProducts({ mode, limit }: UseProductsOptions) {
       };
     }, []);
 
-  const loadProducts = useCallback(async () => {
+  const loadProduct = useCallback(async () => {
   try {
     setLoading(true);
     setError(null);
-    
-    let data: Product[] = [];
 
-    if (mode === 'featured') {
-      data = await productService.getFeaturedProducts(limit);
-    } else if (mode === 'all') {
-      data = await productService.getProducts();
-    }
+    let data = await productService.getProduct(slug!);
 
     if (isMounted.current) {
-      setProducts(data);
+      setProduct(data);
     }
   } catch (err: unknown) {
     if (isMounted.current) {
@@ -46,11 +35,11 @@ export function useProducts({ mode, limit }: UseProductsOptions) {
       setLoading(false);
     }
   }
-  }, [mode, limit])
+  }, [slug])
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    loadProduct();
+  }, [loadProduct]);
 
-  return { products, loading, error, refetch: loadProducts , setProducts };
+  return { product, loading, error, refetch: loadProduct , setProduct };
 }
