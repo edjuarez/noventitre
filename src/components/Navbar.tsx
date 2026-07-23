@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
-  { label: "Inicio", href: "#home" },
-  { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Galería", href: "#mi-mundo" },
-  // { label: "Mi trabajo", href: "#mi-trabajo" },
-  { label: "Proceso", href: "#mi-trabajo" },
-  { label: "Seguime", href: "#contacto" },
+  { label: "Inicio", href: "#home", navigate: "/" },
+  { label: "Sobre mí", href: "#sobre-mi", navigate: "/" },
+  // { label: "Galería", href: "#mi-mundo", navigate: "/" },
+  { label: "Proceso", href: "#mi-trabajo", navigate: "/" },
+  { label: "Colección", href: "/collection", navigate: "/collection" },
+  { label: "Seguime", href: "#contacto", navigate: "/" },
+  { label: "Admin", href: "/admin", navigate: "/admin" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Bloquear el scroll del body cuando el menú de pantalla completa esté abierto
   // useEffect(() => {
@@ -52,6 +55,7 @@ export default function Navbar() {
               <a
                 href={item.href}
                 className="text-sm uppercase transition-opacity hover:opacity-60 hover:text-brand-rosa"
+                onClick={() => navigate(item.navigate)}
               >
                 {item.label}
               </a>

@@ -1,51 +1,49 @@
 import './App.css'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import About from './components/About'
-import MyWork from './components/MyWork'
-import MyWorld from './components/MyWorld'
-import CustomOrder from './components/CustomOrder'
-import Hero from './components/Hero'
-import { useEffect, useState } from 'react'
-import FloatingWhatsapp from './components/FloatingWhatsapp'
-import FollowMe from './components/FollowMe'
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import HomeScreen from "./pages/HomeScreen";
+import CollectionScreen from "./pages/CollectionScreen";
+import LoginScreen from "./pages/LoginScreen";
+import Navbar from './components/Navbar';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminLayout from './components/admin/AdminLayout';
+
 
 function App() {
-  const [showFloatingWhatsapp, setShowFloatingWhatsapp] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      setShowFloatingWhatsapp(window.scrollY > window.innerHeight * 0.7);
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
+  const MainLayout = () => (
     <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
-
       <Navbar />
-      {/* ========================================================================= */}
-      {/* CONTENIDO PRINCIPAL                                                       */}
-      {/* ========================================================================= */}
       <main>
-        <Hero />
-        <About />
-        <MyWorld />
-        <MyWork />
-        <CustomOrder />
-        <FollowMe />
-        <Footer />
-        
-        {/* <TickerBanner />
-        <WhyNoventitre />
-        <Gallery />
-        <FeaturedProducts />
-         */}
-         <FloatingWhatsapp visible={showFloatingWhatsapp} />
+        <Outlet />
       </main>
     </div>
+  );
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <MainLayout />,
+      children: [
+        { path: "/", element: <HomeScreen /> },
+        { path: "/collection", element: <CollectionScreen /> }
+      ]
+    },
+    // Ruta de Login
+    {
+      path: "/login",
+      element: <LoginScreen />
+    },
+    // Rutas de Administración Protegidas
+    {
+      path: "/admin",
+      element: <AdminLayout />,
+      children: [
+        { path: "/admin", element: <AdminDashboard /> }
+      ]
+    }
+  ]);
+
+  return (
+    <RouterProvider router={router} />
   )
 }
 
