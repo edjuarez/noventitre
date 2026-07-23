@@ -14,7 +14,6 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Estado del formulario
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -30,25 +29,21 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
 
   if (!isOpen) return null;
 
-  // Manejar selección de imágenes
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
     const filesArray = Array.from(e.target.files);
     setSelectedFiles((prev) => [...prev, ...filesArray]);
 
-    // Crear blobs locales para mostrar previews al instante
     const newPreviews = filesArray.map((file) => URL.createObjectURL(file));
     setPreviews((prev) => [...prev, ...newPreviews]);
   };
 
-  // Eliminar una imagen de la lista previa a la subida
   const removeImage = (index: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
     setPreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Submit del formulario
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 

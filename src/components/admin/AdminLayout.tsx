@@ -8,13 +8,11 @@ export default function AdminLayout() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 1. Obtener la sesión actual al cargar
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setLoading(false);
     });
 
-    // 2. Escuchar cambios de estado en tiempo real (login/logout)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       setLoading(false);
@@ -28,7 +26,6 @@ export default function AdminLayout() {
     navigate('/login');
   };
 
-  // Spinner mientras se verifica la sesión en Supabase
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-brand-crema">
@@ -37,12 +34,10 @@ export default function AdminLayout() {
     );
   }
 
-  // Redirección si no hay usuario autenticado
   if (!session) {
     return <Navigate to="/login" replace />;
   }
 
-  // Si hay sesión válida, mostramos el panel de admin con la barra superior
   return (
     <div className="min-h-screen bg-neutral-50 flex flex-col">
       <header className="bg-neutral-900 text-white px-6 py-4 flex justify-between items-center shadow-md">

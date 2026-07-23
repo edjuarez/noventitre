@@ -59,7 +59,6 @@ export const EditProductModal = ({
 
   if (!isOpen || !product) return null;
 
-  // Manejar la selección de fotos nuevas
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
@@ -82,7 +81,6 @@ export const EditProductModal = ({
     setNewPreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Submit de la actualización
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -95,16 +93,13 @@ export const EditProductModal = ({
       setLoading(true);
       setErrorMsg(null);
 
-      // 1. Subir a Storage ÚNICAMENTE los archivos nuevos
       let uploadedUrls: string[] = [];
       if (newFiles.length > 0) {
         uploadedUrls = await uploadProductImages(newFiles);
       }
 
-      // 2. Combinar las fotos anteriores no eliminadas + las recién subidas
       const finalImages = [...existingImages, ...uploadedUrls];
 
-      // 3. Crear el objeto de actualización
       const updates: Partial<Product> = {
         name: formData.name,
         description: formData.description,
@@ -116,10 +111,8 @@ export const EditProductModal = ({
         images: finalImages,
       };
 
-      // 4. Guardar cambios en PostgreSQL mediante Supabase
       const updatedProduct = await productService.updateProduct(product.id, updates);
 
-      // 5. Actualizar el estado en el Dashboard y cerrar
       onProductUpdated(updatedProduct);
       onClose();
     } catch (err: any) {
