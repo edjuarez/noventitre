@@ -86,16 +86,27 @@ export const productService = {
   /**
    * Obtiene un único producto mediante su ID único.
    */
-  async getProduct(id: string): Promise<Product | null> {
-    const { data, error } = await supabase
+  async getProduct(value: string): Promise<Product | null> {
+    const slugResult = await supabase
       .from('products')
       .select('*')
-      .eq('slug', id)
+      .eq('slug', value)
+      .eq('visible', true)
+      .maybeSingle();
+
+    if (slugResult.error) throw new Error(`[getProduct]: ${slugResult.error.message}`);
+    if (slugResult.data) {
+      return slugResult.data;
+    }
+
+    const idResult = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', value)
       .eq('visible', true)
       .single();
-
-    if (error) throw new Error(`[getProduct]: ${error.message}`);
-    return data;
+      if (idResult.error) throw idResult.error;
+      return idResult.data;
   },
 
   /**

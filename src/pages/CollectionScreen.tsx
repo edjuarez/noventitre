@@ -219,7 +219,7 @@ export default function Collection() {
               //   setSelectedProduct(product);
               //   setCurrentImage(0);
               // }}
-              onClick={() => navigate(`/product/${product.slug}`)}
+              onClick={() => navigate(`/product/${product.slug ? product.slug : product.id}`)}
               className="text-left cursor-pointer"
             >
               <div className="overflow-hidden">
