@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 const navItems = [
   { label: "Inicio", href: "#home", navigate: "/" },
   { label: "Sobre mí", href: "#sobre-mi", navigate: "/" },
-  { label: "Galería", href: "#mi-mundo", navigate: "/" },
+  // { label: "Galería", href: "#mi-mundo", navigate: "/" },
   { label: "Proceso", href: "#mi-trabajo", navigate: "/" },
+  { label: "Colección", href: "/collection", navigate: "/collection" },
   { label: "Seguime", href: "#contacto", navigate: "/" },
-  { label: "collection", href: "/collection", navigate: "/collection" },
+  { label: "Admin", href: "/admin", navigate: "/admin" },
 ];
 
 export default function Navbar() {

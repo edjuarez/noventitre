@@ -4,7 +4,6 @@ import { useState } from "react";
 import { userData } from "../data/userData"
 import { useProducts } from '../hooks/useProducts';
 
-
 // const images = [
 //   "/assets/myWorld/myworld_1.webp",
 //   "/assets/myWorld/myworld_2.webp",
@@ -20,8 +19,7 @@ import { useProducts } from '../hooks/useProducts';
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { products, loading, error } = useProducts({ mode: 'featured', limit: 3 });
-  //const { products, loading } = useFeaturedProducts(1);
-console.log({ products });
+
   return (
     <section id="mi-mundo" className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
