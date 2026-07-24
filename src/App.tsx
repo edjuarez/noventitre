@@ -4,6 +4,7 @@ import HomeScreen from "./pages/HomeScreen";
 import CollectionScreen from "./pages/CollectionScreen";
 import ProductDetailScreen from "./pages/ProductDetailScreen";
 import LoginScreen from "./pages/LoginScreen";
+import CheckoutScreen from "./pages/CheckoutScreen";
 import Navbar from './components/Navbar';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLayout from './components/admin/AdminLayout';
@@ -41,6 +42,11 @@ function App() {
       children: [
         { path: "/admin", element: <AdminDashboard /> }
       ]
+    },
+    // Stripe Checkout
+    {
+      path: "/checkout",
+      element: <CheckoutScreen />
     }
   ]);
 
