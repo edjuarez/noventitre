@@ -7,7 +7,7 @@ const navItems = [
   { label: "Sobre mí", href: "#sobre-mi", navigate: "/" },
   // { label: "Galería", href: "#mi-mundo", navigate: "/" },
   { label: "Proceso", href: "#mi-trabajo", navigate: "/" },
-  { label: "Colección", href: "/collection", navigate: "/collection" },
+  { label: "Colección", href: "/catalogo", navigate: "/catalogo" },
   { label: "Seguime", href: "#contacto", navigate: "/" },
   { label: "Admin", href: "/admin", navigate: "/admin" },
 ];

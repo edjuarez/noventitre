@@ -4,12 +4,11 @@ import AddProductModal from "../components/admin/AddProductModal";
 import EditProductModal from "../components/admin/EditProductModal";
 import { useProducts } from '../hooks/useProducts';
 import { productService } from '../services/productService';
-import type { Product } from '../services/productService';
+import type { Product } from '../types/product';
 
 export const AdminDashboard = () => {
   const { products: initialProducts, loading, error, refetch } = useProducts({ mode: 'all' });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  // 2. Estado local para actualizaciones instantáneas en UI (optimistas)
   const [productsList, setProductsList] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);

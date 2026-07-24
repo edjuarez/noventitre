@@ -2,6 +2,7 @@ import './App.css'
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
 import CollectionScreen from "./pages/CollectionScreen";
+import ProductDetailScreen from "./pages/ProductDetailScreen";
 import LoginScreen from "./pages/LoginScreen";
 import Navbar from './components/Navbar';
 import AdminDashboard from './pages/AdminDashboard';
@@ -24,7 +25,8 @@ function App() {
       element: <MainLayout />,
       children: [
         { path: "/", element: <HomeScreen /> },
-        { path: "/collection", element: <CollectionScreen /> }
+        { path: "/catalogo", element: <CollectionScreen /> },
+        { path: "/product/:slug", element: <ProductDetailScreen /> }
       ]
     },
     // Ruta de Login

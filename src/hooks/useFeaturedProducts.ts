@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { productService } from "../services/productService";
-import type { Product } from '../services/productService';
+import type { Product } from '../types/product';
 
 export function useFeaturedProducts(limit = 9) {
   const [products, setProducts] = useState<Product[]>([]);

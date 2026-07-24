@@ -1,17 +1,5 @@
 import { supabase } from '../lib/supabase';
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  images: string[];
-  stock: number;
-  category: string;
-  featured: boolean;
-  visible: boolean;
-  created_at: string;
-}
+import type { Product } from "../types/product";
 
 export type ProductInput = Omit<Product, 'id' | 'created_at'>;
 
@@ -98,16 +86,27 @@ export const productService = {
   /**
    * Obtiene un único producto mediante su ID único.
    */
-  async getProduct(id: string): Promise<Product | null> {
-    const { data, error } = await supabase
+  async getProduct(value: string): Promise<Product | null> {
+    const slugResult = await supabase
       .from('products')
       .select('*')
-      .eq('id', id)
+      .eq('slug', value)
+      .eq('visible', true)
+      .maybeSingle();
+
+    if (slugResult.error) throw new Error(`[getProduct]: ${slugResult.error.message}`);
+    if (slugResult.data) {
+      return slugResult.data;
+    }
+
+    const idResult = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', value)
       .eq('visible', true)
       .single();
-
-    if (error) throw new Error(`[getProduct]: ${error.message}`);
-    return data;
+      if (idResult.error) throw idResult.error;
+      return idResult.data;
   },
 
   /**
