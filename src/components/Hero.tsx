@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { heroSlides } from "../data/heroSlides";
 import { userData } from "../data/userData";
 import { IoMdImages } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
 
 const AUTO_PLAY_DELAY = 6000;
 
@@ -12,6 +14,7 @@ export default function Hero() {
   const intervalRef = useRef<number | null>(null);
   const slide = heroSlides[current];
   const isMobile = window.innerWidth < 768;
+  const navigate = useNavigate()
 
   const handleWhatsAppContact = () => {
     const phoneNumber = userData.number;
@@ -99,9 +102,8 @@ export default function Hero() {
               width: `${heroSlides.length * 100}%`,
             }}
             drag="x"
-dragConstraints={{ left: 0, right: 0 }}
-dragElastic={0.05}
-
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.05}
           >
             {heroSlides.map((item) => (
               <div
@@ -153,7 +155,7 @@ dragElastic={0.05}
         De esta forma, el "área invisible" del contenedor de texto ya no bloquea los clics en los botones de abajo.
       */}
       <div className="relative z-20 flex-1 flex items-center w-full max-w-7xl mx-auto px-6 py-12 md:py-0 md:h-full md:px-12 lg:px-20 pointer-events-none">
-        <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait">
           <motion.div
             key={slide.id}
             initial={{ opacity: 0, y: 30 }}
@@ -165,6 +167,18 @@ dragElastic={0.05}
               color: slide.textColor,
             }}
           >
+{/*         <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.45 }}
+            className="w-36 md:w-30 lg:w-40 mb-5 pl-1">
+          <img
+            src="/assets/logo.webp"
+            alt="Noventitre Logo"
+            className="w-full h-auto object-contain"
+          />
+        </motion.div> */}
             <motion.h1
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -189,23 +203,17 @@ dragElastic={0.05}
               transition={{ delay: 0.45, duration: 0.45 }}
               className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4"
             >
-              <a
-                href={userData.googleFotos}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto"
+              <button
+                onClick={() => navigate("/catalogo")}
+                className="w-full sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
               >
-                <button
-                  className="w-full sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
-                >
-                  <IoMdImages size={24} />
-                  Ver colección
-                </button>
-              </a>
+                <IoMdImages size={24} />
+                Ver colección
+              </button>
 
               <button
                 onClick={handleWhatsAppContact}
-                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
               >
                 <FaWhatsapp size={24} />
                 WhatsApp

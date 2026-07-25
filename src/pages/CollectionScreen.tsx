@@ -184,18 +184,18 @@ export default function Collection() {
   };
 
   return (
-    <section className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
+    <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className=" mx-auto px-6">
 
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-5">
           <h1
             className="
               mt-4
               font-heading
               leading-tight
               text-neutral-900
-              text-4xl md:text-5xl tracking-tighter
+              text-4xl md:text-4xl tracking-tighter
             "
           >
             Colección
@@ -208,7 +208,7 @@ export default function Collection() {
 
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-1">
 
           {products.map((product) => (
             <motion.button

@@ -19,7 +19,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
     description: '',
     price: '',
     category: 'bolsos',
-    stock: '5',
+    stock: '1',
     featured: false,
     visible: true,
     slug: '',

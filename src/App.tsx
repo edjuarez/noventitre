@@ -9,17 +9,16 @@ import Navbar from './components/Navbar';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLayout from './components/admin/AdminLayout';
 
+const MainLayout = () => (
+  <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
+    <Navbar />
+    <main>
+      <Outlet />
+    </main>
+  </div>
+);
 
 function App() {
-  const MainLayout = () => (
-    <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  );
-
   const router = createBrowserRouter([
     {
       path: "/",

@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
+import { FaWhatsapp } from "react-icons/fa";
 
 // Inicializa Stripe con tu PUBLISHABLE KEY (Pública)
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -86,16 +87,37 @@ export default function ProductDetailScreen() {
                         <p className="mt-5 text-2xl text-neutral-900">
                             € {product.price}
                         </p>
-
+                        <div className="flex items-center mt-10 mb-2 gap-2">
+                            <button
+                                onClick={handleCheckout}
+                                className=" w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                            >
+                                <MdShoppingCartCheckout size={24} />
+                                Comprar
+                            </button>
+                            <button
+                                onClick={() => navigate("/catalogo")}
+                                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                            >
+                                <FaWhatsapp size={24} />
+                                Consultar
+                            </button>
+                        </div>
+                            <div className="mt-5 flex items-center justify-center gap-2 text-sm text-neutral-500">
+                                <ShieldCheck size={16} className="text-neutral-700" />
+                                <span>
+                                    Pago seguro con Stripe
+                                </span>
+                            </div>
                         {/* Description */}
 
                         <section className="mt-12">
 
                             <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
-                                Descripción
+                                Descripcion
                             </h2>
 
-                            <p className="leading-8 text-neutral-700">
+                            <p className="text-md text-neutral-500">
                                 {product.description}
                             </p>
 
@@ -103,7 +125,7 @@ export default function ProductDetailScreen() {
 
                         {/* Details */}
 
-                        <section className="mt-10 border-t border-neutral-200 pt-8 space-y-6">
+                        <section className="mt-5 border-t border-neutral-200 pt-8 space-y-6 text-sm">
 
                             <div className="flex justify-between gap-6">
 
@@ -153,13 +175,13 @@ export default function ProductDetailScreen() {
 
                         {/* Shipping */}
 
-                        <section className="mt-10 border-t border-neutral-200 pt-8">
+                        <section className="mt-5 border-t border-neutral-200 pt-8 text-sm">
 
                             <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
                                 Envíos
                             </h2>
 
-                            <p className="leading-7 text-neutral-600">
+                            <p className="text-neutral-600">
                                 Envíos a toda España. El costo del envío se calcula durante el
                                 proceso de compra según el destino seleccionado.
                             </p>
@@ -168,13 +190,13 @@ export default function ProductDetailScreen() {
 
                         {/* Handmade */}
 
-                        <section className="mt-10 border-t border-neutral-200 pt-8">
+                        <section className="mt-5 border-t border-neutral-200 pt-8 text-sm">
 
                             <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
                                 Información
                             </h2>
 
-                            <p className="leading-7 text-neutral-600">
+                            <p className="text-neutral-600">
                                 Cada pieza es confeccionada artesanalmente, por lo que pequeñas
                                 variaciones en el color o la textura forman parte de su identidad
                                 y hacen único cada producto.

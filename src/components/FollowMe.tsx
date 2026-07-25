@@ -22,7 +22,18 @@ export default function FollowMe() {
         >
           Nos seguimos viendo
         </motion.span> */}
-
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: .6, delay: .1 }}
+        className="flex justify-center mb-17">
+          <img
+              src="/assets/logo.webp"
+              alt="Noventitre"
+              className="w-90"
+            />
+        </motion.div>
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,11 +43,12 @@ export default function FollowMe() {
               font-heading
               leading-tight
               text-neutral-900
-              text-4xl md:text-5xl tracking-tighter"
+              text-3xl md:text-4xl tracking-tighter"
         >
           El próximo<br /> ya está en camino.
         </motion.h2>
 
+            
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

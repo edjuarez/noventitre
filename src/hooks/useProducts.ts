@@ -20,7 +20,7 @@ export function useProducts({ mode, limit }: UseProductsOptions) {
       };
     }, []);
 
-  const loadProducts = useCallback(async () => {
+  const refetch = useCallback(async () => {
   try {
     setLoading(true);
     setError(null);
@@ -49,8 +49,35 @@ export function useProducts({ mode, limit }: UseProductsOptions) {
   }, [mode, limit])
 
   useEffect(() => {
-    loadProducts();
-  }, [loadProducts]);
+    const loadProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      let data: Product[] = [];
 
-  return { products, loading, error, refetch: loadProducts , setProducts };
+      if (mode === 'featured') {
+        data = await productService.getFeaturedProducts(limit);
+      } else if (mode === 'all') {
+        data = await productService.getProducts();
+      }
+
+      if (isMounted.current) {
+        setProducts(data);
+      }
+    } catch (err: unknown) {
+      if (isMounted.current) {
+        const errorMessage = err instanceof Error ? err.message : 'Error al cargar los productos';
+        setError(errorMessage);
+      }
+    } finally {
+      if (isMounted.current) {
+        setLoading(false);
+      }
+    }
+    }
+    loadProducts();
+  }, [mode, limit]);
+
+  return { products, loading, error, refetch , setProducts };
 }
