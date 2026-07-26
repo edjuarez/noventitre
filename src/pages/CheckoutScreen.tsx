@@ -4,6 +4,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import OrderSummary from "../components/checkout/OrderSummary";
+
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -15,39 +17,47 @@ export default function CheckoutScreen() {
     const [error, setError] = useState<string | null>(null);
 
     // Datos pasados desde ProductDetailScreen
-    const { productName, price } = location.state || {};
+    const { items } = location.state || {};
 
-    useEffect(() => {
-        // Si no hay datos (ej. recargó la página directamente), redirigimos al catálogo
-        if (!productName || !price) {
-            navigate("/", { replace: true });
-            return;
-        }
+useEffect(() => {
+    // Si no hay productos, volvemos al inicio
+    console.log(items)
+    if (!items || items.length === 0) {
+        navigate("/", { replace: true });
+        return;
+    }
 
-        const initCheckoutSession = async () => {
-            try {
-                const { data, error } = await supabase.functions.invoke("create-checkout-session", {
-                    body: { productName, price },
-                });
-
-                if (error) throw error;
-                if (data?.clientSecret) {
-                    setClientSecret(data.clientSecret);
+    const initCheckoutSession = async () => {
+        try {
+            const { data, error } = await supabase.functions.invoke(
+                "create-checkout-session",
+                {
+                    body: {
+                        items,
+                    },
                 }
-            } catch (err: any) {
-                console.error("Error al iniciar el checkout:", err);
-                setError("No se pudo cargar la pasarela de pago.");
-            } finally {
-                setLoading(false);
-            }
-        };
+            );
 
-        initCheckoutSession();
-    }, [productName, price, navigate]);
+            if (error) throw error;
+
+            if (data?.clientSecret) {
+                setClientSecret(data.clientSecret);
+            }
+        } catch (err) {
+            console.error("Error al iniciar el checkout:", err);
+
+            setError("No se pudo cargar la pasarela de pago.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    initCheckoutSession();
+}, [items, navigate]);
 
     return (
         <main className="min-h-screen bg-brand-crema pt-28 pb-16 px-5 md:px-12">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-7xl mx-auto">
                 <button
                     onClick={() => navigate(-1)}
                     className="flex items-center gap-2 mb-8 text-sm hover:opacity-60 transition cursor-pointer"
@@ -76,15 +86,20 @@ export default function CheckoutScreen() {
                 )}
 
                 {clientSecret && (
-                    <div id="checkout" className="bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-neutral-100">
-                        <EmbeddedCheckoutProvider
-                            stripe={stripePromise}
-                            options={{ clientSecret }}
-                        >
-                            <EmbeddedCheckout />
-                        </EmbeddedCheckoutProvider>
+                    <div className="grid lg:grid-cols-[1fr_420px] gap-16">
+                        <div id="checkout" className="bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-neutral-100">
+                            <EmbeddedCheckoutProvider
+                                stripe={stripePromise}
+                                options={{ clientSecret }}
+                            >
+                                <EmbeddedCheckout />
+                            </EmbeddedCheckoutProvider>
+                        </div>
+                        <OrderSummary items={items} />
                     </div>
+                    
                 )}
+                
             </div>
         </main>
     );

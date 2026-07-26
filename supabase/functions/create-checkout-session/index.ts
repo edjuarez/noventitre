@@ -18,8 +18,23 @@ Deno.serve(async (req) => {
     });
 
     // 3. Recibir los datos del producto desde React
-    const { productName, price } = await req.json();
+    const { items } = await req.json();
+console.log(items);
 
+const lineItems = items.map((item: any) => {
+    console.log(item);
+
+    return {
+        price_data: {
+            currency: "eur",
+            product_data: {
+                name: item.name,
+            },
+            unit_amount: Math.round(Number(item.price) * 100),
+        },
+        quantity: item.quantity,
+    };
+});
     // 4. Crear la sesión de Checkout Embebido
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
@@ -29,18 +44,7 @@ Deno.serve(async (req) => {
       phone_number_collection: {
         enabled: true,
       },
-      line_items: [
-        {
-          price_data: {
-            currency: 'eur',
-            product_data: {
-              name: productName,
-            },
-            unit_amount: Math.round(price * 100), // Stripe cobra en centavos (ej: $10 = 1000)
-          },
-          quantity: 1,
-        },
-      ],
+      line_items: lineItems,
       mode: 'payment',
       return_url: `${req.headers.get('origin')}/success?session_id={CHECKOUT_SESSION_ID}`,
     });

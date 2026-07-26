@@ -203,13 +203,13 @@ export default function Hero() {
               transition={{ delay: 0.45, duration: 0.45 }}
               className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4"
             >
-              <button
+{/*               <button
                 onClick={() => navigate("/catalogo")}
                 className="w-full sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
               >
                 <IoMdImages size={24} />
                 Ver colección
-              </button>
+              </button> */}
 
               <button
                 onClick={handleWhatsAppContact}

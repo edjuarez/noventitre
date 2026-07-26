@@ -83,12 +83,12 @@ export default function FollowMe() {
               items-center
               justify-center
               gap-3
-              bg-black
+              bg-brand-rosa
               text-white
               px-8
               py-4
-              rounded-full
-              hover:bg-brand-rosa
+              rounded
+              hover:bg-gray-600
               transition-all
               duration-300
               shadow-sm
@@ -103,7 +103,7 @@ export default function FollowMe() {
 
           {/* Google Fotos */}
 
-          <motion.a
+          {/* <motion.a
             href={userData.googleFotos}
             target="_blank"
             rel="noopener noreferrer"
@@ -130,8 +130,8 @@ export default function FollowMe() {
             <PiGooglePhotosLogoBold size={22} />
 
             Ver galería completa
-          </motion.a>
-
+          </motion.a> */}
+        
           <motion.a
             href={`https://wa.me/${userData.number}?text=${encodeURIComponent(userData.defaultMessageText)}`}
             target="_blank"
@@ -141,14 +141,14 @@ export default function FollowMe() {
               items-center
               justify-center
               gap-3
-              border
+              border-2
               border-black
               bg-transparent
               text-black
               px-8
               py-4
-              rounded-full
-              hover:bg-black
+              rounded
+              hover:bg-gray-600
               hover:text-white
               transition-all
               duration-300

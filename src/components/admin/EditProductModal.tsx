@@ -106,8 +106,12 @@ export const EditProductModal = ({
 
       onProductUpdated(updatedProduct);
       onClose();
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Error al actualizar el producto');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMsg(err.message);
+      } else {
+        setErrorMsg('Error al actualizar el producto');
+      }
     } finally {
       setLoading(false);
     }

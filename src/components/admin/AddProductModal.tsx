@@ -79,8 +79,12 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
       // 4. Notificar al dashboard y cerrar
       onProductAdded(createdProduct);
       onClose();
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Error al guardar el producto');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMsg(err.message);
+      } else {
+        setErrorMsg('Error al guardar el producto');
+      }
     } finally {
       setLoading(false);
     }

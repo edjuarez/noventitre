@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
 import { useState } from "react";
-import { userData } from "../data/userData"
+//import { userData } from "../data/userData"
 import { useProducts } from '../hooks/useProducts';
+import { useNavigate } from "react-router-dom";
+
 
 // const images = [
 //   "/assets/myWorld/myworld_1.webp",
@@ -19,6 +21,7 @@ import { useProducts } from '../hooks/useProducts';
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { products, loading, error } = useProducts({ mode: 'featured', limit: 3 });
+  const navigate = useNavigate()
 
   return (
     <section id="mi-mundo" className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
@@ -152,43 +155,13 @@ export default function MyWorld() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex justify-center md:mt-16 md:pt-20 pt-5 mt-10"
         >
-          <motion.a
-            href={userData.googleFotos}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{
-              scale: 1.05,
-              y: -2,
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 18,
-            }}
-            className="
-              inline-flex
-              items-center
-              gap-3
-              bg-white
-              text-black
-              hover:bg-gray-800
-              px-8
-              py-4
-              rounded-full
-              hover:scale-105
-              hover:text-white
-              transition-all
-              duration-300
-              shadow-sm
-              border border-black
-            "
-          >
-            <IoMdImages size={22} />
-            Ver galería completa
-          </motion.a>
+              <button
+                onClick={() => navigate("/catalogo")}
+                className="w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
+              >
+                <IoMdImages size={24} />
+                Ver colección
+              </button>
         </motion.div>
       </div>
       <AnimatePresence>

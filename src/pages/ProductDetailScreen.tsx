@@ -14,13 +14,13 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 export default function ProductDetailScreen() {
     const navigate = useNavigate();
     const [isClosing, setIsClosing] = useState(false);
-    const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+    //const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
     const [clientSecret, setClientSecret] = useState<string | null>(null);
 
     const { slug } = useParams();
     const { product, loading, error } = useProduct(slug);
-    const [currentImage, setCurrentImage] = useState(0);
-
+    //const [currentImage, setCurrentImage] = useState(0);
+const currentImage = 0
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => navigate(-1), 200);
@@ -31,9 +31,12 @@ export default function ProductDetailScreen() {
 
         navigate("/checkout", {
             state: {
-                productName: product.name,
-                price: product.price,
-                productImage: product.images[0],
+                items: [
+                    {
+                        ...product,
+                        quantity: 1
+                    }
+                ]
             }
         });
     };
@@ -90,14 +93,14 @@ export default function ProductDetailScreen() {
                         <div className="flex items-center mt-10 mb-2 gap-2">
                             <button
                                 onClick={handleCheckout}
-                                className=" w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                className=" w-full sm:w-56 bg-white border-2 border-black hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
                             >
                                 <MdShoppingCartCheckout size={24} />
                                 Comprar
                             </button>
                             <button
                                 onClick={() => navigate("/catalogo")}
-                                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                className="w-full sm:w-56 bg-brand-rosa border-2 border-brand-rosa hover:border-gray-800 hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
                             >
                                 <FaWhatsapp size={24} />
                                 Consultar
@@ -210,7 +213,7 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCheckout}
-                                disabled={isCheckoutLoading}
+                                //disabled={isCheckoutLoading}
                                 className="w-full bg-brand-rosa hover:bg-gray-800 text-white py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300 cursor-pointer"
                             >
                                 <MdShoppingCartCheckout size={22} />
