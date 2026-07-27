@@ -7,7 +7,7 @@ import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
 import { FaWhatsapp } from "react-icons/fa";
-
+import {useCart} from "../context/CartContext";
 // Inicializa Stripe con tu PUBLISHABLE KEY (Pública)
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -20,7 +20,12 @@ export default function ProductDetailScreen() {
     const { slug } = useParams();
     const { product, loading, error } = useProduct(slug);
     //const [currentImage, setCurrentImage] = useState(0);
-const currentImage = 0
+    const currentImage = 0;
+    const {addToCart} = useCart();
+
+    const handleCart = () => {
+        addToCart(product);
+    }
     const handleClose = () => {
         setIsClosing(true);
         setTimeout(() => navigate(-1), 200);
@@ -48,7 +53,7 @@ const currentImage = 0
             animate={isClosing ? { x: "100%" } : { x: 0 }}
             initial={{ x: "100%" }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-screen bg-brand-crema pt-20 pb-24 px-5 md:px-1 relative"
+            className="min-h-screen bg-brand-crema pt-25 pb-24 px-5 md:px-1 relative"
         >
             <div className="w-full max-w-[1700px] mx-auto px-6 xl:px-24">
                 <button
@@ -79,48 +84,69 @@ const currentImage = 0
                     </div>
 
                     {/* RIGHT: Info y Acción */}
-                     <div className="min-w-0 flex flex-col">
+                    <div className="min-w-0 flex flex-col">
 
                         {/* Header */}
 
-                        <h1 className="font-heading text-3xl md:text-4xl tracking-tighter leading-tight text-neutral-900">
+                        <h1 className="font-heading text-2xl md:text-3xl tracking-tighter leading-tight text-neutral-900">
                             {product.name}
                         </h1>
 
-                        <p className="mt-5 text-2xl text-neutral-900">
+                        <p className="mt-3 text-xl font-medium text-neutral-900">
                             € {product.price}
                         </p>
-                        <div className="flex items-center mt-10 mb-2 gap-2">
+
+                        {/* Actions */}
+
+                        <div className="flex items-center mt-6 gap-3">
+
                             <button
                                 onClick={handleCheckout}
-                                className=" w-full sm:w-56 bg-white border-2 border-black hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                className="w-full sm:w-52 h-11 bg-white border border-black hover:bg-neutral-900 hover:text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
                             >
-                                <MdShoppingCartCheckout size={24} />
+                                <MdShoppingCartCheckout size={18} />
                                 Comprar
                             </button>
+
                             <button
                                 onClick={() => navigate("/catalogo")}
-                                className="w-full sm:w-56 bg-brand-rosa border-2 border-brand-rosa hover:border-gray-800 hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                className="w-full sm:w-52 h-11 bg-brand-rosa border border-brand-rosa hover:bg-neutral-900 hover:border-neutral-900 text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
                             >
-                                <FaWhatsapp size={24} />
+                                <FaWhatsapp size={18} />
                                 Consultar
                             </button>
+                            
+                            <button
+                                onClick={handleCart}
+                                className="w-full sm:w-52 h-11 bg-brand-rosa border border-brand-rosa hover:bg-neutral-900 hover:border-neutral-900 text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
+                            >
+                                <FaWhatsapp size={18} />
+                                ADD to cart
+                            </button>
                         </div>
-                            <div className="mt-5 flex items-center justify-center gap-2 text-sm text-neutral-500">
-                                <ShieldCheck size={16} className="text-neutral-700" />
-                                <span>
-                                    Pago seguro con Stripe
-                                </span>
-                            </div>
+
+                        <div className="mt-3 flex items-center gap-2 text-[13px] text-neutral-500">
+
+                            <ShieldCheck
+                                size={15}
+                                className="text-neutral-700"
+                            />
+
+                            <span>
+                                Pago seguro mediante Stripe
+                            </span>
+
+                        </div>
+
                         {/* Description */}
 
-                        <section className="mt-12">
+                        <section className="mt-8">
 
-                            <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
-                                Descripcion
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
+                                Descripción
                             </h2>
 
-                            <p className="text-md text-neutral-500">
+                            <p className="text-sm leading-6 text-neutral-600">
                                 {product.description}
                             </p>
 
@@ -128,9 +154,9 @@ const currentImage = 0
 
                         {/* Details */}
 
-                        <section className="mt-5 border-t border-neutral-200 pt-8 space-y-6 text-sm">
+                        <section className="mt-6 border-t border-neutral-200 pt-5 space-y-4 text-[13px]">
 
-                            <div className="flex justify-between gap-6">
+                            <div className="flex justify-between gap-5">
 
                                 <span className="text-neutral-500">
                                     Categoría
@@ -142,7 +168,7 @@ const currentImage = 0
 
                             </div>
 
-                            <div className="flex justify-between gap-6">
+                            <div className="flex justify-between gap-5">
 
                                 <span className="text-neutral-500">
                                     Materiales
@@ -154,7 +180,7 @@ const currentImage = 0
 
                             </div>
 
-                            <div className="flex justify-between gap-6">
+                            <div className="flex justify-between gap-5">
 
                                 <span className="text-neutral-500">
                                     Disponibilidad
@@ -178,61 +204,34 @@ const currentImage = 0
 
                         {/* Shipping */}
 
-                        <section className="mt-5 border-t border-neutral-200 pt-8 text-sm">
+                        <section className="mt-6 border-t border-neutral-200 pt-5">
 
-                            <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
                                 Envíos
                             </h2>
 
-                            <p className="text-neutral-600">
-                                Envíos a toda España. El costo del envío se calcula durante el
-                                proceso de compra según el destino seleccionado.
+                            <p className="text-sm leading-6 text-neutral-600">
+                                Envíos a toda España. El costo del envío se calcula durante el proceso
+                                de compra según el destino seleccionado.
                             </p>
 
                         </section>
 
                         {/* Handmade */}
 
-                        <section className="mt-5 border-t border-neutral-200 pt-8 text-sm">
+                        <section className="mt-6 border-t border-neutral-200 pt-5">
 
-                            <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-4">
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
                                 Información
                             </h2>
 
-                            <p className="text-neutral-600">
+                            <p className="text-sm leading-6 text-neutral-600">
                                 Cada pieza es confeccionada artesanalmente, por lo que pequeñas
-                                variaciones en el color o la textura forman parte de su identidad
-                                y hacen único cada producto.
+                                variaciones en el color o la textura forman parte de su identidad y
+                                hacen único cada producto.
                             </p>
 
                         </section>
-
-                        {/* Actions */}
-
-                        <div className="mt-14 flex flex-col gap-4">
-
-                            <button
-                                onClick={handleCheckout}
-                                //disabled={isCheckoutLoading}
-                                className="w-full bg-brand-rosa hover:bg-gray-800 text-white py-4 rounded-full flex items-center justify-center gap-3 transition-all duration-300 cursor-pointer"
-                            >
-                                <MdShoppingCartCheckout size={22} />
-
-                                Comprar ahora
-                            </button>
-
-                            <button
-                                className="w-full border border-neutral-300 hover:bg-neutral-100 py-4 rounded-full transition cursor-pointer"
-                            >
-                                Consultar por WhatsApp
-                            </button>
-                            <div className="mt-5 flex items-center justify-center gap-2 text-sm text-neutral-500">
-                                <ShieldCheck size={16} className="text-neutral-700" />
-                                <span>
-                                    Pago seguro con Stripe
-                                </span>
-                            </div>
-                        </div>
 
                     </div>
                 </div>

@@ -1,14 +1,14 @@
-import Footer from '../components/Footer';
-import About from '../components/About';
-import MyWork from '../components/MyWork';
-import MyWorld from '../components/MyWorld';
-import CustomOrder from '../components/CustomOrder';
-import Hero from '../components/Hero';
+//import Footer from '../components/Footer';
+import About from '../components/home/About';
+import MyWork from '../components/home/MyWork';
+import MyWorld from '../components/home/MyWorld';
+import CustomOrder from '../components/home/CustomOrder';
+import Hero from '../components/home/Hero';
 import { useEffect, useState } from 'react';
 import FloatingWhatsapp from '../components/FloatingWhatsapp';
-import FollowMe from '../components/FollowMe';
+import FollowMe from '../components/home/FollowMe';
 import { useLocation, useNavigate } from "react-router-dom";
-
+//import {CartDrawer} from '../components/CartDrawer';
 export default function HomeScreen() {
   const [showFloatingWhatsapp, setShowFloatingWhatsapp] = useState(false);
   const location = useLocation();
@@ -42,18 +42,17 @@ export default function HomeScreen() {
           navigate("/", { replace: true });
 
       });
-
   }, []);
 
   return (
       <>
         <Hero />
+        {/* <CartDrawer /> */}
         <About />
         <MyWorld />
         <MyWork />
         <CustomOrder />
         <FollowMe />
-        <Footer />
          <FloatingWhatsapp visible={showFloatingWhatsapp} />
       </>
   )

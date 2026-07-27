@@ -1,9 +1,9 @@
 import { FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 //import { IoMdImages } from "react-icons/io";
-import { userData } from "../data/userData";
+import { userData } from "../../data/userData";
 import { FaWhatsapp } from "react-icons/fa";
-import { PiGooglePhotosLogoBold } from "react-icons/pi";
+//import { PiGooglePhotosLogoBold } from "react-icons/pi";
 
 export default function FollowMe() {
   return (
@@ -88,7 +88,7 @@ export default function FollowMe() {
               px-8
               py-4
               rounded
-              hover:bg-gray-600
+              hover:bg-gray-800
               transition-all
               duration-300
               shadow-sm
@@ -143,12 +143,13 @@ export default function FollowMe() {
               gap-3
               border-2
               border-black
+              hover:border-gray-800
               bg-transparent
               text-black
               px-8
               py-4
               rounded
-              hover:bg-gray-600
+              hover:bg-gray-800
               hover:text-white
               transition-all
               duration-300

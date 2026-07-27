@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
 import { useState } from "react";
 //import { userData } from "../data/userData"
-import { useProducts } from '../hooks/useProducts';
+import { useProducts } from '../../hooks/useProducts';
 import { useNavigate } from "react-router-dom";
 
 

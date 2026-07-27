@@ -4,6 +4,8 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from "../types/product";
+import {useCart} from "../context/CartContext";
+
 
 
 // const products: Product[] = [
@@ -161,6 +163,7 @@ export default function Collection() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -239,6 +242,7 @@ export default function Collection() {
               <p className="mt-1 text-sm">
                 € {product.price}
               </p>
+              
 
             </motion.button>
           ))}
