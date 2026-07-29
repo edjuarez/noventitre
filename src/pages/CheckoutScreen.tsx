@@ -56,7 +56,7 @@ useEffect(() => {
 }, [items, navigate]);
 
     return (
-        <main className="min-h-screen bg-brand-crema pt-28 pb-16 px-5 md:px-12">
+        <main className="min-h-screen bg-brand-crema pt-10 pb-16 px-5 md:px-12">
             <div className="max-w-7xl mx-auto">
                 <button
                     onClick={() => navigate(-1)}

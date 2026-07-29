@@ -6,8 +6,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
-import { FaWhatsapp } from "react-icons/fa";
-import {useCart} from "../context/CartContext";
+//import { FaWhatsapp } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 // Inicializa Stripe con tu PUBLISHABLE KEY (Pública)
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -92,7 +92,7 @@ export default function ProductDetailScreen() {
                             {product.name}
                         </h1>
 
-                        <p className="mt-3 text-xl font-medium text-neutral-900">
+                        <p className="mt-3 text-xl font-medium text-brand-rosa">
                             € {product.price}
                         </p>
 
@@ -108,20 +108,20 @@ export default function ProductDetailScreen() {
                                 Comprar
                             </button>
 
-                            <button
+                            {/* <button
                                 onClick={() => navigate("/catalogo")}
                                 className="w-full sm:w-52 h-11 bg-brand-rosa border border-brand-rosa hover:bg-neutral-900 hover:border-neutral-900 text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
                             >
                                 <FaWhatsapp size={18} />
                                 Consultar
-                            </button>
+                            </button> */}
                             
                             <button
                                 onClick={handleCart}
-                                className="w-full sm:w-52 h-11 bg-brand-rosa border border-brand-rosa hover:bg-neutral-900 hover:border-neutral-900 text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
+                                className="w-full sm:w-52 h-11 bg-white border border-black hover:bg-neutral-900 hover:text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
                             >
-                                <FaWhatsapp size={18} />
-                                ADD to cart
+                                {/* <FaWhatsapp size={18} /> */}
+                                Añadir al carro
                             </button>
                         </div>
 
@@ -142,7 +142,7 @@ export default function ProductDetailScreen() {
 
                         <section className="mt-8">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
                                 Descripción
                             </h2>
 
@@ -154,11 +154,11 @@ export default function ProductDetailScreen() {
 
                         {/* Details */}
 
-                        <section className="mt-6 border-t border-neutral-200 pt-5 space-y-4 text-[13px]">
+                        <section className="mt-6 border-t border-brand-rosa pt-5 space-y-4 text-[13px]">
 
                             <div className="flex justify-between gap-5">
 
-                                <span className="text-neutral-500">
+                                <span className="text-brand-rosa">
                                     Categoría
                                 </span>
 
@@ -170,7 +170,7 @@ export default function ProductDetailScreen() {
 
                             <div className="flex justify-between gap-5">
 
-                                <span className="text-neutral-500">
+                                <span className="text-brand-rosa">
                                     Materiales
                                 </span>
 
@@ -182,7 +182,7 @@ export default function ProductDetailScreen() {
 
                             <div className="flex justify-between gap-5">
 
-                                <span className="text-neutral-500">
+                                <span className="text-brand-rosa">
                                     Disponibilidad
                                 </span>
 
@@ -204,9 +204,9 @@ export default function ProductDetailScreen() {
 
                         {/* Shipping */}
 
-                        <section className="mt-6 border-t border-neutral-200 pt-5">
+                        <section className="mt-6 border-t border-brand-rosa pt-5">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
                                 Envíos
                             </h2>
 
@@ -219,9 +219,9 @@ export default function ProductDetailScreen() {
 
                         {/* Handmade */}
 
-                        <section className="mt-6 border-t border-neutral-200 pt-5">
+                        <section className="mt-6 border-t border-brand-rosa pt-5">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-neutral-500 mb-3">
+                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
                                 Información
                             </h2>
 

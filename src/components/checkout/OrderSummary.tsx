@@ -20,7 +20,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
     );
 
     return (
-        <aside className="sticky top-28">
+        <aside className="sticky top-5">
 
             <div className="bg-white border border-neutral-200 rounded-lg p-8">
 

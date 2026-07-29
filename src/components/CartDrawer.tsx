@@ -1,10 +1,32 @@
-import React, { useState, createContext, useContext, useMemo } from 'react';
-import { ShoppingBag, X, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
+//import React, { useState, createContext, useContext, useMemo } from 'react';
+import { ShoppingBag, X, Trash2, ArrowRight } from 'lucide-react';
 import {useCart} from '../context/CartContext';
+import { useNavigate } from "react-router-dom";
 
 export default function CartDrawer() {
   const { isCartOpen, closeCart, cartItems, removeFromCart, cartTotal } = useCart();
-  console.log(isCartOpen)
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    closeCart();
+    
+    if (cartItems.length === 0) return;
+
+    // TRANSFORMACIÓN CLAVE: 
+    // Recorremos todos los items del carrito y les inyectamos "quantity: 1"
+    // para que Stripe esté contento.
+    const itemsForCheckout = cartItems.map(item => ({
+      ...item,
+      quantity: 1
+    }));
+
+    navigate("/checkout", {
+      state: {
+        items: itemsForCheckout,
+        // Ya no necesitas pasar 'total' ni 'quantity' sueltos por aquí
+      }
+    });
+  };
   return (
     <>
       {/* Fondo oscuro (Overlay) - Al hacer clic cierra el carrito */}
@@ -97,7 +119,9 @@ export default function CartDrawer() {
             <p className="text-sm text-gray-500 mb-6 text-center">
               Los gastos de envío se calculan en el siguiente paso.
             </p>
-            <button className="w-full bg-black text-white py-4 rounded-md font-bold uppercase tracking-widest hover:bg-[#ff69b4] transition-colors flex items-center justify-center gap-2 group">
+            <button 
+            onClick={handleCheckout}
+            className="w-full bg-black text-white py-4 rounded-md font-bold uppercase tracking-widest hover:bg-[#ff69b4] transition-colors flex items-center justify-center gap-2 group">
               Finalizar Compra
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>

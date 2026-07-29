@@ -21,6 +21,7 @@ export interface CartContextType {
   closeCart: () => void;
   addToCart: (product: CartItem) => void;
   removeFromCart: (productId: string) => void;
+  clearCart: () => void;
   // updateQuantity: (productId: string, amount: number) => void; -> Removido temporalmente
   cartTotal: number;
   cartCount: number;
@@ -73,6 +74,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   // Calcular totales (Simplificado ya que no hay cantidades)
   const cartTotal = useMemo(() => {
     // Simplemente sumamos los precios de todos los items en el array
@@ -93,6 +98,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         closeCart,
         addToCart,
         removeFromCart,
+        clearCart,
         cartTotal,
         cartCount
       }}

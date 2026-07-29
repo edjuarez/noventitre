@@ -48,10 +48,10 @@ export default function HomeScreen() {
       <>
         <Hero />
         {/* <CartDrawer /> */}
-        <About />
         <MyWorld />
         <MyWork />
         <CustomOrder />
+        <About />
         <FollowMe />
          <FloatingWhatsapp visible={showFloatingWhatsapp} />
       </>
