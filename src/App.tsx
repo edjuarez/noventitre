@@ -5,6 +5,7 @@ import CollectionScreen from "./pages/CollectionScreen";
 import ProductDetailScreen from "./pages/ProductDetailScreen";
 import LoginScreen from "./pages/LoginScreen";
 import CheckoutScreen from "./pages/CheckoutScreen";
+import SuccessScreen from "./pages/SuccessScreen";
 import Navbar from './components/Navbar';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLayout from './components/admin/AdminLayout';
@@ -74,6 +75,8 @@ function App() {
 
         {/* 4. STRIPE CHECKOUT (Pantalla dedicada) */}
         <Route path="/checkout" element={<CheckoutScreen />} />
+
+        <Route path="/success" element={<SuccessScreen />} />
       </Routes>
     </BrowserRouter>
   </CartProvider>

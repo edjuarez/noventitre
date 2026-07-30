@@ -29,6 +29,9 @@ const lineItems = items.map((item: any) => {
             currency: "eur",
             product_data: {
                 name: item.name,
+                metadata: {
+                  supabase_product_id: item.id, // 👈 ¡ESTO ES LO QUE LE PERMITE AL WEBHOOK ENTERARSE!
+                },
             },
             unit_amount: Math.round(Number(item.price) * 100),
         },

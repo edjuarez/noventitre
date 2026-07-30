@@ -1,15 +1,10 @@
 import { createContext, useState, useMemo, useContext,  } from 'react';
 import type {ReactNode} from 'react';
 export interface CartItem {
-  productId: string;
   id: string;
-  brand: string;
   name: string;
   price: number;
-  images: ["string"];
-  selectedColor: string;
-  hexCode: string;
-  selectedStorage: string;
+  images: string[];
   stock?: number; // Agregado como opcional por si decides verificarlo
   // quantity: number; -> Lo comentamos ya que indicaste que por ahora no manejas cantidades
 }

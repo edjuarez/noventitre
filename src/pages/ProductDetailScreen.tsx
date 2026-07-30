@@ -8,6 +8,8 @@ import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
 //import { FaWhatsapp } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
+import type { CartItem } from "../context/CartContext";
+//import useCart } from "../context/CartContext";
 // Inicializa Stripe con tu PUBLISHABLE KEY (Pública)
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -24,7 +26,17 @@ export default function ProductDetailScreen() {
     const {addToCart} = useCart();
 
     const handleCart = () => {
-        addToCart(product);
+    if (!product) return;
+
+    // 2. Mapeamos el objeto 'product' a la interfaz 'CartItem' exigida por CartContext
+    const itemToAdd: CartItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      images: product.images,
+      stock: product.stock,
+    };
+        addToCart(itemToAdd);
     }
     const handleClose = () => {
         setIsClosing(true);
