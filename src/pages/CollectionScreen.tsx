@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from "../types/product";
+//import {useCart} from "../context/CartContext";
+
 
 
 // const products: Product[] = [
@@ -156,11 +158,15 @@ import type { Product } from "../types/product";
 // ];
 
 export default function Collection() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+  }, []);
   const { products } = useProducts({ mode: 'all'});
   //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
+  //const { addToCart } = useCart();
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -184,18 +190,18 @@ export default function Collection() {
   };
 
   return (
-    <section className="bg-brand-crema py-17 md:py-30 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
+    <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
 
       <div className=" mx-auto px-6">
 
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-5">
           <h1
             className="
               mt-4
               font-heading
               leading-tight
               text-neutral-900
-              text-4xl md:text-5xl tracking-tighter
+              text-4xl md:text-4xl tracking-tighter
             "
           >
             Colección
@@ -208,7 +214,7 @@ export default function Collection() {
 
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-1">
 
           {products.map((product) => (
             <motion.button
@@ -239,6 +245,7 @@ export default function Collection() {
               <p className="mt-1 text-sm">
                 € {product.price}
               </p>
+              
 
             </motion.button>
           ))}

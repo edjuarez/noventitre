@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase'; // Ajusta según tu ruta
+import type { Session as SupabaseSession } from '@supabase/supabase-js';
 
 export default function AdminLayout() {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<SupabaseSession | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

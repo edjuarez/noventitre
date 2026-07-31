@@ -1,100 +1,266 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+    Menu,
+    X,
+    User,
+    ShoppingBag
+} from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaInstagram } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 
-const navItems = [
-  { label: "Inicio", href: "#home", navigate: "/" },
-  { label: "Sobre mí", href: "#sobre-mi", navigate: "/" },
-  // { label: "Galería", href: "#mi-mundo", navigate: "/" },
-  { label: "Proceso", href: "#mi-trabajo", navigate: "/" },
-  { label: "Colección", href: "/catalogo", navigate: "/catalogo" },
-  { label: "Seguime", href: "#contacto", navigate: "/" },
-  { label: "Admin", href: "/admin", navigate: "/admin" },
+type NavItem =
+  | {
+      label: string;
+      type: "section";
+      target: string;
+      href?: string;
+    }
+  | {
+      label: string;
+      type: "route";
+      target: string;
+      href?: string;
+    };
+
+const navItems: NavItem[] = [
+  { label: "Inicio", type: "section", target: "home" },
+  { label: "Colección", type: "route", target: "/catalogo" },
+  { label: "Admin", type: "route", target: "/admin" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
 
-  // Bloquear el scroll del body cuando el menú de pantalla completa esté abierto
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.body.style.overflowY = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "unset";
-  //   }
-  //   return () => {
-  //     document.body.style.overflow = "unset";
-  //   };
-  // }, [isOpen]);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isHome = location.pathname === "/";
+  const isExpanded = isHome && !scrolled;
+
+  const { cartItems, toggleCart } = useCart();
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 180);
+    };
+
+    onScroll();
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleNavigation = (item: NavItem) => {
+    setIsOpen(false);
+
+    if (item.type === "route") {
+      navigate(item.target);
+      return;
+    }
+
+    if (location.pathname === "/") {
+      document.getElementById(item.target)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      return;
+    }
+
+    navigate(`/?section=${item.target}`);
+  };
 
   return (
     <header
       className={`
-        fixed inset-x-0 top-0 z-50 transition-colors duration-500 cursor-pointer
-        ${isOpen ? "bg-white" : "hover:bg-white"}
+        fixed inset-x-0 top-0 z-50
+        transition-all duration-500
+        ${
+          isExpanded
+            ? "bg-transparent"
+            : "bg-white/95 backdrop-blur-md shadow-sm"
+        }
       `}
     >
-      <nav className="relative z-50 mx-auto flex h-16 items-center justify-between md:px-6 px-1 md:px-12 lg:px-20">
-        {/* Logo (Siempre visible) */}
-        <a href="/" className="h-16 w-32 p-2 flex items-center justify-center">
-          <img
-            src="/assets/logo.webp"
-            alt="Noventitre Logo"
-            className="h-full md:w-full w-[85%] object-contain"
-          />
-        </a>
+      <nav
+        className={`
+          w-full mx-auto
+          px-6 lg:px-10
+          transition-all duration-500
+          ${isExpanded ? "py-6" : "py-3"}
+        `}
+      >
+        {/* Desktop */}
 
-        {/* Navigation Desktop */}
-        <ul className="hidden md:flex items-center gap-5 h-full">
-          {navItems.map((item) => (
-            <li
-              key={item.label}
-              className="h-full flex items-center p-[10px] transition-colors"
+        <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center">
+
+          {/* Left */}
+
+          <div className="flex justify-start gap-8">
+
+            <button
+              onClick={() => handleNavigation(navItems[0])}
+              className={`
+                uppercase
+                tracking-wide
+                transition-all
+                duration-500
+                hover:text-brand-rosa
+                cursor-pointer
+                ${isExpanded ? "text-base" : "text-sm"}
+              `}
             >
-              <a
-                href={item.href}
-                className="text-sm uppercase transition-opacity hover:opacity-60 hover:text-brand-rosa"
-                onClick={() => navigate(item.navigate)}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+              Inicio
+            </button>
+            <button
+              onClick={() => handleNavigation(navItems[1])}
+              className={`
+                uppercase
+                tracking-wide
+                transition-all
+                duration-500
+                hover:text-brand-rosa
+                cursor-pointer
+                ${isExpanded ? "text-base" : "text-sm"}
+              `}
+            >
+              Catalogo
+            </button>
 
-        {/* Botón Hamburger / Cerrar Mobile */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-black transition-transform active:scale-95"
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+          </div>
+
+          {/* Logo */}
+
+          <div className="flex justify-center">
+
+            <button
+              onClick={() => navigate("/")}
+              className={`
+                transition-all duration-500 ease-in-out
+                ${
+                  isExpanded
+                    ? "w-44 translate-y-2"
+                    : "w-28 translate-y-0"
+                }
+              `}
+            >
+              <img
+                src="/assets/logo.webp"
+                alt="Noventitre"
+                className="w-full h-auto object-contain"
+              />
+            </button>
+
+          </div>
+
+          {/* Right */}
+
+          <div className="flex justify-end items-center gap-6">
+
+              <a
+                  href="https://instagram.com/tuusuario"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-rosa transition"
+              >
+                  <FaInstagram size={20} />
+              </a>
+
+              <button
+                  onClick={() => navigate("/login")}
+                  className="hover:text-brand-rosa transition cursor-pointer"
+              >
+                  <User size={20} />
+              </button>
+
+              <button
+                  onClick={() => toggleCart()}
+                  className="relative hover:text-brand-rosa transition cursor-pointer"
+              >
+                  <ShoppingBag size={20} />
+
+                  {/* Badge */}
+
+                  <span
+                      className="
+                          absolute
+                          -top-2
+                          -right-2
+                          w-5
+                          h-5
+                          rounded-full
+                          bg-brand-rosa
+                          text-white
+                          text-[11px]
+                          flex
+                          items-center
+                          justify-center
+                      "
+                  >
+                      {cartItems.length}
+                  </span>
+
+              </button>
+
+          </div>
+
+        </div>
+
+        {/* Mobile */}
+
+        <div className="md:hidden flex items-center justify-between">
+
+          <button
+            onClick={() => navigate("/")}
+            className="w-28"
+          >
+            <img
+              src="/assets/logo.webp"
+              alt="Noventitre"
+              className="w-full"
+            />
+          </button>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+
+        </div>
+
       </nav>
 
-      {/* Menú Mobile Full Screen */}
+      {/* Mobile Menu */}
+
       <div
         className={`
-          fixed inset-0 z-40 bg-white flex flex-col items-center justify-center
-          transition-all duration-300 ease-in-out md:hidden
+          fixed inset-0 z-40 bg-white
+          flex items-center justify-center
+          transition-all duration-300 md:hidden
           ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
         `}
       >
-        <ul className="flex flex-col items-center gap-8">
+        <ul className="flex flex-col gap-8 text-center">
+
           {navItems.map((item) => (
             <li key={item.label}>
-              <a
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-xl font-medium uppercase transition-colors hover:text-brand-rosa"
+              <button
+                onClick={() => handleNavigation(item)}
+                className="text-2xl uppercase hover:text-brand-rosa transition"
               >
                 {item.label}
-              </a>
+              </button>
             </li>
           ))}
+
         </ul>
+
       </div>
+
     </header>
   );
 }

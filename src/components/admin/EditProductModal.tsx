@@ -22,14 +22,14 @@ export const EditProductModal = ({
 
   // Estado del formulario
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category: 'bolsos',
-    stock: '0',
-    featured: false,
-    visible: true,
-  });
+        name: product?.name || '',
+        description: product?.description || '',
+        price: product?.price ? product.price.toString() : '0',
+        category: product?.category || 'bolsos',
+        stock: product?.stock !== undefined ? product.stock.toString() : '0',
+        featured: Boolean(product?.featured),
+        visible: product?.visible !== undefined ? Boolean(product.visible) : true,
+      });
 
   // Fotos que ya están subidas en Supabase Storage
   const [existingImages, setExistingImages] = useState<string[]>([]);
@@ -41,15 +41,6 @@ export const EditProductModal = ({
   // Pre-poblar los campos cada vez que se selecciona un producto distinto
   useEffect(() => {
     if (product) {
-      setFormData({
-        name: product.name || '',
-        description: product.description || '',
-        price: product.price ? product.price.toString() : '0',
-        category: product.category || 'bolsos',
-        stock: product.stock !== undefined ? product.stock.toString() : '0',
-        featured: Boolean(product.featured),
-        visible: product.visible !== undefined ? Boolean(product.visible) : true,
-      });
       setExistingImages(product.images || []);
       setNewFiles([]);
       setNewPreviews([]);
@@ -115,8 +106,12 @@ export const EditProductModal = ({
 
       onProductUpdated(updatedProduct);
       onClose();
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Error al actualizar el producto');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMsg(err.message);
+      } else {
+        setErrorMsg('Error al actualizar el producto');
+      }
     } finally {
       setLoading(false);
     }
