@@ -29,7 +29,7 @@ export const heroSlides: HeroSlide[] = [
   {
     id: 3,
     image: "/assets/hero_banner_3.webp",
-    title: "Hechos a\nmano.",
+    title: "hechos a\nmano,\ncreados a tu manera.",
     subtitle:
       "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
     background: "#c48ebd",

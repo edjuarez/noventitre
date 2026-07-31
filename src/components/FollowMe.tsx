@@ -1,9 +1,9 @@
 import { FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 //import { IoMdImages } from "react-icons/io";
-import { userData } from "../../data/userData";
+import { userData } from "../data/userData";
 import { FaWhatsapp } from "react-icons/fa";
-//import { PiGooglePhotosLogoBold } from "react-icons/pi";
+import { PiGooglePhotosLogoBold } from "react-icons/pi";
 
 export default function FollowMe() {
   return (
@@ -22,18 +22,7 @@ export default function FollowMe() {
         >
           Nos seguimos viendo
         </motion.span> */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: .6, delay: .1 }}
-        className="flex justify-center mb-17">
-          <img
-              src="/assets/logo.webp"
-              alt="Noventitre"
-              className="w-90"
-            />
-        </motion.div>
+
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,12 +32,11 @@ export default function FollowMe() {
               font-heading
               leading-tight
               text-neutral-900
-              text-3xl md:text-4xl tracking-tighter"
+              text-4xl md:text-5xl tracking-tighter"
         >
           El próximo<br /> ya está en camino.
         </motion.h2>
 
-            
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,102 +53,102 @@ export default function FollowMe() {
           Si querés seguir viendo nuevos diseños o tenés
           una idea para crear juntos, te espero por acá.
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: .3, duration: .6 }}
-          className="mt-14 flex flex-col items-center gap-3 md:gap-5"
-        >
-          {/* Instagram */}
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: .3, duration: .6 }}
+    className="mt-14 flex flex-col items-center gap-3 md:gap-5"
+  >
+    {/* Instagram */}
 
-          <motion.a
-            href={userData.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              gap-3
-              bg-brand-rosa
-              text-white
-              px-8
-              py-4
-              rounded
-              hover:bg-gray-800
-              transition-all
-              duration-300
-              shadow-sm
-              min-w-[280px]
-              hover:scale-105
-            "
-          >
-            <FaInstagram size={22} />
+    <motion.a
+      href={userData.instagram}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        inline-flex
+        items-center
+        justify-center
+        gap-3
+        bg-black
+        text-white
+        px-8
+        py-4
+        rounded-full
+        hover:bg-brand-rosa
+        transition-all
+        duration-300
+        shadow-sm
+        min-w-[280px]
+        hover:scale-105
+      "
+    >
+      <FaInstagram size={22} />
 
-            Seguir en Instagram
-          </motion.a>
+      Seguir en Instagram
+    </motion.a>
 
-          {/* Google Fotos */}
+    {/* Google Fotos */}
 
-          {/* <motion.a
-            href={userData.googleFotos}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              gap-3
-              border
-              border-black
-              bg-transparent
-              text-black
-              px-8
-              py-4
-              rounded-full
-              hover:bg-black
-              hover:text-white
-              transition-all
-              duration-300
-              hover:scale-105
-              min-w-[280px]
-            "
-          >
-            <PiGooglePhotosLogoBold size={22} />
+    <motion.a
+      href={userData.googleFotos}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        inline-flex
+        items-center
+        justify-center
+        gap-3
+        border
+        border-black
+        bg-transparent
+        text-black
+        px-8
+        py-4
+        rounded-full
+        hover:bg-black
+        hover:text-white
+        transition-all
+        duration-300
+        hover:scale-105
+        min-w-[280px]
+      "
+    >
+      <PiGooglePhotosLogoBold size={22} />
 
-            Ver galería completa
-          </motion.a> */}
-        
-          <motion.a
-            href={`https://wa.me/${userData.number}?text=${encodeURIComponent(userData.defaultMessageText)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              gap-3
-              border-2
-              border-black
-              hover:border-gray-800
-              bg-transparent
-              text-black
-              px-8
-              py-4
-              rounded
-              hover:bg-gray-800
-              hover:text-white
-              transition-all
-              duration-300
-              hover:scale-105
-              min-w-[280px]
-            "
-          >
-            <FaWhatsapp size={22} />
-            Escribir por WhatsApp
-          </motion.a>
-        </motion.div>
+      Ver galería completa
+    </motion.a>
+
+    <motion.a
+      href={`https://wa.me/${userData.number}?text=${encodeURIComponent(userData.defaultMessageText)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+        inline-flex
+        items-center
+        justify-center
+        gap-3
+        border
+        border-black
+        bg-transparent
+        text-black
+        px-8
+        py-4
+        rounded-full
+        hover:bg-black
+        hover:text-white
+        transition-all
+        duration-300
+        hover:scale-105
+        min-w-[280px]
+      "
+    >
+      <FaWhatsapp size={22} />
+
+      Escribir por WhatsApp
+    </motion.a>
+  </motion.div>
 
         {/* <div className="mt-24 divide-y divide-neutral-200">
 

@@ -1,85 +1,51 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import HomeScreen from "./pages/HomeScreen";
-import CollectionScreen from "./pages/CollectionScreen";
-import ProductDetailScreen from "./pages/ProductDetailScreen";
-import LoginScreen from "./pages/LoginScreen";
-import CheckoutScreen from "./pages/CheckoutScreen";
-import SuccessScreen from "./pages/SuccessScreen";
-import Navbar from './components/Navbar';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminLayout from './components/admin/AdminLayout';
-import Footer from './components/Footer';
-import { CartProvider } from "./context/CartContext";
-import CartDrawer from './components/CartDrawer';
-
-const MainLayout = () => (
-  <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
-    <Navbar />
-    <main>
-      <Outlet />
-      <Footer />
-      <CartDrawer />
-    </main>
-  </div>
-);
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import About from './components/About'
+import MyWork from './components/MyWork'
+import MyWorld from './components/MyWorld'
+import CustomOrder from './components/CustomOrder'
+import Hero from './components/Hero'
+import { useEffect, useState } from 'react'
+import FloatingWhatsapp from './components/FloatingWhatsapp'
+import FollowMe from './components/FollowMe'
 
 function App() {
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <MainLayout />,
-  //     children: [
-  //       { path: "/", element: <HomeScreen /> },
-  //       { path: "/catalogo", element: <CollectionScreen /> },
-  //       { path: "/product/:slug", element: <ProductDetailScreen /> }
-  //     ]
-  //   },
-  //   // Ruta de Login
-  //   {
-  //     path: "/login",
-  //     element: <LoginScreen />
-  //   },
-  //   // Rutas de Administración Protegidas
-  //   {
-  //     path: "/admin",
-  //     element: <AdminLayout />,
-  //     children: [
-  //       { path: "/admin", element: <AdminDashboard /> }
-  //     ]
-  //   },
-  //   // Stripe Checkout
-  //   {
-  //     path: "/checkout",
-  //     element: <CheckoutScreen />
-  //   }
-  // ]);
+  const [showFloatingWhatsapp, setShowFloatingWhatsapp] = useState(false);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setShowFloatingWhatsapp(window.scrollY > window.innerHeight * 0.7);
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <CartProvider>
-      <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/catalogo" element={<CollectionScreen />} />
-          <Route path="/product/:slug" element={<ProductDetailScreen />} />
-        </Route>
+    <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
 
-        {/* 2. RUTA DE LOGIN (Pantalla limpia, sin Navbar) */}
-        <Route path="/login" element={<LoginScreen />} />
-
-        {/* 3. RUTAS DE ADMINISTRACIÓN (Con su propio AdminLayout) */}
-        <Route element={<AdminLayout />}>
-          <Route path="/admin" element={<AdminDashboard />} />
-        </Route>
-
-        {/* 4. STRIPE CHECKOUT (Pantalla dedicada) */}
-        <Route path="/checkout" element={<CheckoutScreen />} />
-
-        <Route path="/success" element={<SuccessScreen />} />
-      </Routes>
-    </BrowserRouter>
-  </CartProvider>
+      <Navbar />
+      {/* ========================================================================= */}
+      {/* CONTENIDO PRINCIPAL                                                       */}
+      {/* ========================================================================= */}
+      <main>
+        <Hero />
+        <About />
+        <MyWorld />
+        <MyWork />
+        <CustomOrder />
+        <FollowMe />
+        <Footer />
+        
+        {/* <TickerBanner />
+        <WhyNoventitre />
+        <Gallery />
+        <FeaturedProducts />
+         */}
+         <FloatingWhatsapp visible={showFloatingWhatsapp} />
+      </main>
+    </div>
   )
 }
 
