@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import HomeScreen from "../pages/HomeScreen";
 import CollectionScreen from "../pages/CollectionScreen";
-import ProductDetailScreen from "../pages/ProductDetailScreen";
-import LoginScreen from "../pages/LoginScreen";
+/* import ProductDetailScreen from "../pages/ProductDetailScreen";
+import LoginScreen from "../pages/LoginScreen"; */
 import CheckoutScreen from "../pages/CheckoutScreen";
-import Navbar from '../components/Navbar';
+/* import Navbar from '../components/Navbar';
 import AdminDashboard from '../pages/AdminDashboard';
-import AdminLayout from '../components/admin/AdminLayout';
+import AdminLayout from '../components/admin/AdminLayout'; */
 
 export default function AppRoutes() {
   return (

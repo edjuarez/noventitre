@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 
 type NavItem =
   | {
@@ -37,6 +38,8 @@ export default function Navbar() {
 
   const isHome = location.pathname === "/";
   const isExpanded = isHome && !scrolled;
+
+  const { cartItems, toggleCart } = useCart();
 
   useEffect(() => {
     const onScroll = () => {
@@ -154,54 +157,54 @@ export default function Navbar() {
 
           {/* Right */}
 
-<div className="flex justify-end items-center gap-6">
+          <div className="flex justify-end items-center gap-6">
 
-    <a
-        href="https://instagram.com/tuusuario"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:text-brand-rosa transition"
-    >
-        <FaInstagram size={20} />
-    </a>
+              <a
+                  href="https://instagram.com/tuusuario"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-rosa transition"
+              >
+                  <FaInstagram size={20} />
+              </a>
 
-    <button
-        onClick={() => navigate("/login")}
-        className="hover:text-brand-rosa transition cursor-pointer"
-    >
-        <User size={20} />
-    </button>
+              <button
+                  onClick={() => navigate("/login")}
+                  className="hover:text-brand-rosa transition cursor-pointer"
+              >
+                  <User size={20} />
+              </button>
 
-    <button
-        onClick={() => navigate("/checkout")}
-        className="relative hover:text-brand-rosa transition cursor-pointer"
-    >
-        <ShoppingBag size={20} />
+              <button
+                  onClick={() => toggleCart()}
+                  className="relative hover:text-brand-rosa transition cursor-pointer"
+              >
+                  <ShoppingBag size={20} />
 
-        {/* Badge */}
+                  {/* Badge */}
 
-        <span
-            className="
-                absolute
-                -top-2
-                -right-2
-                w-5
-                h-5
-                rounded-full
-                bg-brand-rosa
-                text-white
-                text-[11px]
-                flex
-                items-center
-                justify-center
-            "
-        >
-            0
-        </span>
+                  <span
+                      className="
+                          absolute
+                          -top-2
+                          -right-2
+                          w-5
+                          h-5
+                          rounded-full
+                          bg-brand-rosa
+                          text-white
+                          text-[11px]
+                          flex
+                          items-center
+                          justify-center
+                      "
+                  >
+                      {cartItems.length}
+                  </span>
 
-    </button>
+              </button>
 
-</div>
+          </div>
 
         </div>
 

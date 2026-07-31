@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo, useContext,  } from 'react';
+import { createContext, useState, useMemo, useContext, useEffect } from 'react';
 import type {ReactNode} from 'react';
 export interface CartItem {
   id: string;
@@ -27,7 +27,10 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 // Tipamos el children correctamente en lugar de usar 'any'
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Inicializamos el estado con el tipo correcto (arreglo de CartItem)
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const savedCart = localStorage.getItem("noventitre-cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Abrir y cerrar el carrito
@@ -35,6 +38,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
+/*   const [cart, setCart] = useState<CartItem[]>(() => {
+    const savedCart = localStorage.getItem("shopping-cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  }); */
+
+  useEffect(() => {
+    localStorage.setItem("noventitre-cart", JSON.stringify(cartItems));
+  }, [cartItems]);
   // Agregar al carrito
   const addToCart = (product: CartItem) => {
     // 1. (OPCIONAL) Verificar el stock antes de hacer cualquier cosa

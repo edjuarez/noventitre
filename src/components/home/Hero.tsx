@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 import { heroSlides } from "../../data/heroSlides";
 import { userData } from "../../data/userData";
-import { content } from "../../data/content";
+//import { content } from "../../data/content";
 //import { IoMdImages } from "react-icons/io";
 //import { useNavigate } from "react-router-dom";
 

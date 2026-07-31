@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from "../types/product";
-import {useCart} from "../context/CartContext";
+//import {useCart} from "../context/CartContext";
 
 
 
@@ -158,12 +158,15 @@ import {useCart} from "../context/CartContext";
 // ];
 
 export default function Collection() {
+  useEffect(() => {
+      window.scrollTo(0, 0);
+  }, []);
   const { products } = useProducts({ mode: 'all'});
   //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  //const { addToCart } = useCart();
 
   const closeModal = () => {
     setSelectedProduct(null);

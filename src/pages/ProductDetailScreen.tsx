@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, X, ShieldCheck } from "lucide-react";
@@ -14,6 +14,9 @@ import type { CartItem } from "../context/CartContext";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function ProductDetailScreen() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const navigate = useNavigate();
     const [isClosing, setIsClosing] = useState(false);
     //const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
@@ -79,7 +82,7 @@ export default function ProductDetailScreen() {
                 <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
                     {/* LEFT: Imágenes */}
                     <div>
-                        <div className="relative bg-neutral-100 h-[80vh]">  
+                        <div className="relative bg-neutral-100 h-[80vh]"> 
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={currentImage}

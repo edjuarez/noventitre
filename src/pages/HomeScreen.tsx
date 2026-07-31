@@ -9,12 +9,14 @@ import FloatingWhatsapp from '../components/FloatingWhatsapp';
 import FollowMe from '../components/home/FollowMe';
 import { useLocation, useNavigate } from "react-router-dom";
 //import {CartDrawer} from '../components/CartDrawer';
+
 export default function HomeScreen() {
   const [showFloatingWhatsapp, setShowFloatingWhatsapp] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const onScroll = () => {
       setShowFloatingWhatsapp(window.scrollY > window.innerHeight * 0.7);
     };
