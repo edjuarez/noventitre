@@ -44,7 +44,7 @@ return (
     {/* Drawer */}
 
     <aside
-      className={`fixed inset-y-0 right-0 z-50 w-full md:w-[470px] bg-brand-crema shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${
+      className={`fixed inset-y-0 right-0 z-100 w-full md:w-[470px] bg-brand-crema shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${
         isCartOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -150,7 +150,7 @@ return (
 
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="text-neutral-400 hover:text-red-500 transition"
+                      className="text-neutral-400 hover:text-red-500 transition cursor-pointer"
                     >
                       <Trash2 size={17} />
                     </button>

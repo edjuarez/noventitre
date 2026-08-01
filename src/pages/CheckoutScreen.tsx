@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabase";
 import OrderSummary from "../components/checkout/OrderSummary";
+import { RiHome2Line } from "react-icons/ri";
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
@@ -55,14 +56,13 @@ useEffect(() => {
 }, [items, navigate]);
 
     return (
-        <main className="min-h-screen bg-brand-crema pt-10 pb-16 px-5 md:px-12">
+        <main className="px-5 md:px-12">
             <div className="max-w-7xl mx-auto">
                 <button
-                    onClick={() => navigate(-1)}
-                    className="flex items-center gap-2 mb-8 text-sm hover:opacity-60 transition cursor-pointer"
+                    onClick={() => navigate('/')}
+                    className="flex items-center gap-2 my-5 text-sm hover:opacity-60 transition cursor-pointer hover:text-brand-rosa"
                 >
-                    <ArrowLeft size={18} />
-                    Volver al producto
+                    <RiHome2Line size={25} />
                 </button>
 
                 {loading && (
@@ -86,7 +86,7 @@ useEffect(() => {
 
                 {clientSecret && (
                     <div className="grid lg:grid-cols-[1fr_420px] gap-16">
-                        <div id="checkout" className="bg-white p-6 md:p-10 rounded-2xl shadow-sm border border-neutral-100">
+                        <div id="checkout" className="p-6 md:p-10 rounded-2xl shadow-sm border border-neutral-100">
                             <EmbeddedCheckoutProvider
                                 stripe={stripePromise}
                                 options={{ clientSecret }}

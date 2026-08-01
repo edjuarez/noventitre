@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
 import type { Product } from "../types/product";
-//import {useCart} from "../context/CartContext";
 
 
 
@@ -189,31 +188,9 @@ export default function Collection() {
 
   return (
     <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
-<div className="fixed w-80 h-60">
+      <div className=" mx-auto md:px-6">
 
-    <div className="absolute w-60 h-60 bg-brand-rosa/15 rotate-45" />
-
-    <div className="absolute left-10 top-8 w-52 h-52 border border-black/20 rotate-[18deg]" />
-
-    <div className="absolute left-20 top-20">
-
-        {[...Array(8)].map((_, i) => (
-            <div
-                key={i}
-                className="h-[2px] bg-black/25 mb-3"
-                style={{
-                    width: `${100 + i * 8}px`,
-                    transform: "rotate(-18deg)"
-                }}
-            />
-        ))}
-
-    </div>
-
-</div>
-      <div className=" mx-auto px-6">
-
-        <div className="text-center max-w-3xl mx-auto mb-5">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <h1
             className="
               mt-4
@@ -245,32 +222,28 @@ export default function Collection() {
               //   setCurrentImage(0);
               // }}
               onClick={() => navigate(`/product/${product.slug ? product.slug : product.id}`)}
-              className="text-left cursor-pointer"
+              className="text-left cursor-pointer mb-5"
             >
-              <div className="overflow-hidden">
+              <div className="text-sm overflow-hidden">
 
                 <img
                   src={product.images[0]}
                   alt={product.name}
                   className="aspect-[4/5] w-full object-cover transition duration-500 hover:scale-105"
                 />
-
               </div>
+              <div className="py-2 h-15 flex flex-col">
+                <h3 className="text-sm">
+                  {product.name}
+                </h3>
 
-              <h3 className="mt-4 text-md">
-                {product.name}
-              </h3>
-
-              <p className="mt-1 text-sm">
-                € {product.price}
-              </p>
-              
-
+                <p className="mt-1 text-sm">
+                  € {product.price}
+                </p>
+              </div>
             </motion.button>
           ))}
-
         </div>
-
       </div>
 
       <AnimatePresence>
@@ -358,17 +331,10 @@ export default function Collection() {
                   </div>
 
                 </div> */}
-
-      
-
             </motion.div>
-
           </motion.div>
-
         )}
-
       </AnimatePresence>
-
     </section>
   );
 }

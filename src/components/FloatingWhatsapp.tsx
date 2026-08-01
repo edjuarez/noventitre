@@ -26,7 +26,7 @@ export default function FloatingWhatsapp({ visible }: Props) {
             fixed
             bottom-8
             right-8
-            z-[999]
+            z-99
             w-16
             h-16
             rounded-full

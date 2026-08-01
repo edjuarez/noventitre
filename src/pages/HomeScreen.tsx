@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import FloatingWhatsapp from '../components/FloatingWhatsapp';
 import FollowMe from '../components/home/FollowMe';
 import { useLocation, useNavigate } from "react-router-dom";
+import DecorationSquares from '../components/decorations/DecorationSquares';
+import DecorationCircles from '../components/decorations/DecorationCircles';
 //import {CartDrawer} from '../components/CartDrawer';
 
 export default function HomeScreen() {
@@ -47,7 +49,10 @@ export default function HomeScreen() {
   }, []);
 
   return (
-      <>
+      <div className="relative overflow-hidden">
+       <DecorationSquares />
+       <DecorationCircles />
+       <div className="relative z-10">
         <Hero />
         {/* <CartDrawer /> */}
         <MyWorld />
@@ -55,7 +60,8 @@ export default function HomeScreen() {
         <CustomOrder />
         <About />
         <FollowMe />
-         <FloatingWhatsapp visible={showFloatingWhatsapp} />
-      </>
+        <FloatingWhatsapp visible={showFloatingWhatsapp} />
+        </div>
+      </div>
   )
 }

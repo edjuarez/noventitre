@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import {
     Menu,
     X,
-    User,
     ShoppingBag
 } from "lucide-react";
+import { RiHomeHeartLine  } from "react-icons/ri";
+import { BiCollection } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
@@ -40,6 +41,17 @@ export default function Navbar() {
   const isExpanded = isHome && !scrolled;
 
   const { cartItems, toggleCart } = useCart();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -106,27 +118,45 @@ export default function Navbar() {
                 uppercase
                 tracking-wide
                 transition-all
-                duration-500
+                duration-300
                 hover:text-brand-rosa
                 cursor-pointer
+                drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
                 ${isExpanded ? "text-base" : "text-sm"}
               `}
             >
-              Inicio
+              <RiHomeHeartLine  size={25} />
             </button>
             <button
               onClick={() => handleNavigation(navItems[1])}
               className={`
                 uppercase
+                flex
+                items-center
+                gap-2
                 tracking-wide
                 transition-all
-                duration-500
+                duration-300
                 hover:text-brand-rosa
                 cursor-pointer
+                relative
+                after:content-['']
+                after:absolute
+                after:bottom-[-2px]
+                after:left-0
+                after:w-full
+                after:h-[1px]
+                after:bg-brand-rosa
+                after:scale-x-0
+                hover:after:scale-x-100
+                after:origin-left
+                after:transition-transform
+                after:duration-300
+                drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
                 ${isExpanded ? "text-base" : "text-sm"}
               `}
             >
-              Catalogo
+              Colección
             </button>
 
           </div>
@@ -160,47 +190,40 @@ export default function Navbar() {
           <div className="flex justify-end items-center gap-6">
 
               <a
-                  href="https://instagram.com/tuusuario"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-brand-rosa transition"
+                href="https://instagram.com/tuusuario"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] duration-300 hover:text-brand-rosa transition"
               >
-                  <FaInstagram size={20} />
+                <FaInstagram size={22} />
               </a>
 
               <button
-                  onClick={() => navigate("/login")}
-                  className="hover:text-brand-rosa transition cursor-pointer"
+                onClick={() => toggleCart()}
+                className=" duration-300 relative hover:text-brand-rosa transition cursor-pointer"
               >
-                  <User size={20} />
-              </button>
+                <ShoppingBag size={22} className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]" />
 
-              <button
-                  onClick={() => toggleCart()}
-                  className="relative hover:text-brand-rosa transition cursor-pointer"
-              >
-                  <ShoppingBag size={20} />
+                {/* Badge */}
 
-                  {/* Badge */}
-
-                  <span
-                      className="
-                          absolute
-                          -top-2
-                          -right-2
-                          w-5
-                          h-5
-                          rounded-full
-                          bg-brand-rosa
-                          text-white
-                          text-[11px]
-                          flex
-                          items-center
-                          justify-center
-                      "
-                  >
-                      {cartItems.length}
-                  </span>
+                <span
+                  className="
+                      absolute
+                      -top-2
+                      -right-2
+                      w-5
+                      h-5
+                      rounded-full
+                      bg-brand-rosa
+                      text-white
+                      text-[11px]
+                      flex
+                      items-center
+                      justify-center
+                  "
+                >
+                    {cartItems.length}
+                </span>
 
               </button>
 
@@ -225,7 +248,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2"
+            className="p-2 relative z-50"
           >
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -238,25 +261,45 @@ export default function Navbar() {
 
       <div
         className={`
-          fixed inset-0 z-40 bg-white
-          flex items-center justify-center
+          fixed inset-0 w-screen h-[100dvh] z-40 bg-white
+          flex flex-col items-center justify-center
           transition-all duration-300 md:hidden
-          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+          ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
         `}
       >
-        <ul className="flex flex-col gap-8 text-center">
-
-          {navItems.map((item) => (
-            <li key={item.label}>
+        <ul className="flex flex-col items-center justify-center gap-8 text-center text-neutral-700">
+            <li key="home">
               <button
-                onClick={() => handleNavigation(item)}
-                className="text-2xl uppercase hover:text-brand-rosa transition"
+                onClick={() => handleNavigation(navItems[0])}
+                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
-                {item.label}
+                <RiHomeHeartLine strokeWidth={1} className="stroke-[0]" size={50} />
               </button>
             </li>
-          ))}
-
+            <li key="catalogo">
+              <button
+                onClick={() => handleNavigation(navItems[1])}
+                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
+              >
+                <BiCollection strokeWidth={0} size={50} />
+              </button>
+            </li>
+            <li key="carrito">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  toggleCart();
+                }}
+                className="text-2xl uppercase hover:text-brand-rosa transition p-2 relative"
+              >
+                <ShoppingBag  strokeWidth={2} size={45} />
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-rosa text-white text-[11px] flex items-center justify-center">
+                    {cartItems.length}
+                  </span>
+                )}
+              </button>
+            </li>
         </ul>
 
       </div>

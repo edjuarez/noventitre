@@ -71,7 +71,7 @@ export default function Footer() {
 
               <li><a href="#sobre-mi">Sobre mí</a></li>
 
-              <li><a href="#mi-mundo">Galería</a></li>
+              <li><a href="#mi-mundo">Colección</a></li>
 
               <li><a href="#mi-trabajo">Proceso</a></li>
 

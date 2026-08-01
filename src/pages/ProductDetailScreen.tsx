@@ -64,7 +64,7 @@ export default function ProductDetailScreen() {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="min-h-screen bg-brand-crema pt-25 pb-24 px-5 md:px-1 relative"
         >
-            <div className="w-full max-w-[1700px] mx-auto px-6 xl:px-24">
+            <div className="w-full max-w-[1700px] mx-auto xl:px-24">
                 <button
                     onClick={handleClose}
                     className="flex items-center gap-2 mb-12 text-xl md:text-1xl hover:opacity-60 transition cursor-pointer"
