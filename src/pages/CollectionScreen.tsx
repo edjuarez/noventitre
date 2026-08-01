@@ -162,11 +162,9 @@ export default function Collection() {
       window.scrollTo(0, 0);
   }, []);
   const { products } = useProducts({ mode: 'all'});
-  //console.log(products, "productos");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
   const navigate = useNavigate();
-  //const { addToCart } = useCart();
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -191,7 +189,28 @@ export default function Collection() {
 
   return (
     <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
+<div className="fixed w-80 h-60">
 
+    <div className="absolute w-60 h-60 bg-brand-rosa/15 rotate-45" />
+
+    <div className="absolute left-10 top-8 w-52 h-52 border border-black/20 rotate-[18deg]" />
+
+    <div className="absolute left-20 top-20">
+
+        {[...Array(8)].map((_, i) => (
+            <div
+                key={i}
+                className="h-[2px] bg-black/25 mb-3"
+                style={{
+                    width: `${100 + i * 8}px`,
+                    transform: "rotate(-18deg)"
+                }}
+            />
+        ))}
+
+    </div>
+
+</div>
       <div className=" mx-auto px-6">
 
         <div className="text-center max-w-3xl mx-auto mb-5">

@@ -127,7 +127,20 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
               placeholder="Ej: Bolso Tote Cuero Negro"
             />
           </div>
-
+          {/* Slug */}
+          <div>
+            <label className="block text-xs font-bold uppercase text-neutral-700 mb-1.5">
+              Slug (URL id)
+            </label>
+            <input
+              type="text"
+              required
+              value={formData.slug}
+              onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+              className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+              placeholder="Ej: Bolso Tote Cuero Negro"
+            />
+          </div>
           {/* Precio y Categoría */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>

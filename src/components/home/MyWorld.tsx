@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useProducts } from '../../hooks/useProducts';
 import { useNavigate } from "react-router-dom";
 
-
 // const images = [
 //   "/assets/myWorld/myworld_1.webp",
 //   "/assets/myWorld/myworld_2.webp",
@@ -20,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MyWorld() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { products, loading, error } = useProducts({ mode: 'featured', limit: 3 });
+  const { products, loading, error } = useProducts({ mode: 'featured', limit: 6 });
   const navigate = useNavigate()
 
   return (
@@ -110,7 +109,7 @@ export default function MyWorld() {
                   />
 
                   {/* 🏷️ Info Overlay (Aparece en Hover) */}
-                  <div className="
+                  {/* <div className="
                     absolute
                     inset-0
                     bg-black/0
@@ -141,7 +140,7 @@ export default function MyWorld() {
                         </p>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </motion.article>
               );
             })}

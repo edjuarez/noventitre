@@ -20,7 +20,6 @@ export default function CheckoutScreen() {
     const { items } = location.state || {};
 
 useEffect(() => {
-    // Si no hay productos, volvemos al inicio
     console.log(items)
     if (!items || items.length === 0) {
         navigate("/", { replace: true });

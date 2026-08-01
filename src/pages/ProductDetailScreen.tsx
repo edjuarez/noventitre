@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, X, ShieldCheck } from "lucide-react";
-import { loadStripe } from "@stripe/stripe-js";
-import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
+import { ChevronLeft, ShieldCheck } from "lucide-react";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
 //import { FaWhatsapp } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import type { CartItem } from "../context/CartContext";
 //import useCart } from "../context/CartContext";
-// Inicializa Stripe con tu PUBLISHABLE KEY (Pública)
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function ProductDetailScreen() {
     useEffect(() => {
@@ -20,18 +16,16 @@ export default function ProductDetailScreen() {
     const navigate = useNavigate();
     const [isClosing, setIsClosing] = useState(false);
     //const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-    const [clientSecret, setClientSecret] = useState<string | null>(null);
+    const [zoomOpen, setZoomOpen] = useState(false);
 
     const { slug } = useParams();
     const { product, loading, error } = useProduct(slug);
-    //const [currentImage, setCurrentImage] = useState(0);
-    const currentImage = 0;
+    const [currentImage, setCurrentImage] = useState(0);
     const {addToCart} = useCart();
 
     const handleCart = () => {
     if (!product) return;
 
-    // 2. Mapeamos el objeto 'product' a la interfaz 'CartItem' exigida por CartContext
     const itemToAdd: CartItem = {
       id: product.id,
       name: product.name,
@@ -81,10 +75,48 @@ export default function ProductDetailScreen() {
 
                 <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
                     {/* LEFT: Imágenes */}
-                    <div>
-                        <div className="relative bg-neutral-100 h-[80vh]"> 
+                    <div className="flex gap-5">
+
+                        {/* Miniaturas */}
+
+                        <div className="hidden md:flex flex-col gap-3 w-20">
+
+                            {product.images.map((image, index) => (
+
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentImage(index)}
+                                    className={`
+                                        aspect-[4/5]
+                                        overflow-hidden
+                                        border
+                                        transition
+                                        cursor-pointer
+
+                                        ${
+                                            currentImage === index
+                                                ? "border-black border-2"
+                                                : "border-neutral-200 hover:border-neutral-500"
+                                        }
+                                    `}
+                                >
+                                    <img
+                                        src={image}
+                                        className="w-full h-full object-cover"
+                                    />
+
+                                </button>
+
+                            ))}
+
+                        </div>
+
+                        {/* Imagen principal */}
+
+                        <div className="flex-1">
                             <AnimatePresence mode="wait">
                                 <motion.img
+                                    onClick={() => setZoomOpen(true)}
                                     key={currentImage}
                                     src={product.images[currentImage]}
                                     alt={product.name}
@@ -92,7 +124,13 @@ export default function ProductDetailScreen() {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: .25 }}
-                                    className="w-full h-full object-cover"
+                                    className="w-full
+                                    h-full
+                                    object-cover
+                                    cursor-zoom-in
+                                    transition-transform
+                                    duration-500
+                                    hover:scale-110r"
                                 />
                             </AnimatePresence>
                         </div>
@@ -101,49 +139,67 @@ export default function ProductDetailScreen() {
                     {/* RIGHT: Info y Acción */}
                     <div className="min-w-0 flex flex-col">
 
-                        {/* Header */}
+                        {/* HEADER */}
 
-                        <h1 className="font-heading text-2xl md:text-3xl tracking-tighter leading-tight text-neutral-900">
+                        <h1 className="font-heading text-[26px] leading-none tracking-tight text-neutral-900">
                             {product.name}
                         </h1>
 
-                        <p className="mt-3 text-xl font-medium text-brand-rosa">
+                        <p className="mt-2 text-xl font-normal tracking-tight text-neutral-900">
                             € {product.price}
                         </p>
 
-                        {/* Actions */}
+                        {/* ACTIONS */}
 
-                        <div className="flex items-center mt-6 gap-3">
+                        <div className="mt-5 flex gap-3">
 
                             <button
                                 onClick={handleCheckout}
-                                className="w-full sm:w-52 h-11 bg-white border border-black hover:bg-neutral-900 hover:text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
+                                className="
+                                    flex-1
+                                    h-11
+                                    bg-neutral-900
+                                    hover:bg-black
+                                    text-white
+                                    rounded-[4px]
+                                    flex
+                                    items-center
+                                    justify-center
+                                    gap-2
+                                    transition-all
+                                    duration-300
+                                    cursor-pointer
+                                "
                             >
                                 <MdShoppingCartCheckout size={18} />
                                 Comprar
                             </button>
 
-                            {/* <button
-                                onClick={() => navigate("/catalogo")}
-                                className="w-full sm:w-52 h-11 bg-brand-rosa border border-brand-rosa hover:bg-neutral-900 hover:border-neutral-900 text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
-                            >
-                                <FaWhatsapp size={18} />
-                                Consultar
-                            </button> */}
-                            
                             <button
                                 onClick={handleCart}
-                                className="w-full sm:w-52 h-11 bg-white border border-black hover:bg-neutral-900 hover:text-white rounded flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer"
+                                className="
+                                    flex-1
+                                    h-11
+                                    bg-white
+                                    border
+                                    border-neutral-300
+                                    hover:border-black
+                                    hover:bg-neutral-100
+                                    rounded-[4px]
+                                    transition-all
+                                    duration-300
+                                    cursor-pointer
+                                "
                             >
-                                {/* <FaWhatsapp size={18} /> */}
                                 Añadir al carro
                             </button>
+
                         </div>
 
-                        <div className="mt-3 flex items-center gap-2 text-[13px] text-neutral-500">
+                        <div className="mt-3 flex items-center gap-2 text-[12px] text-neutral-500">
 
                             <ShieldCheck
-                                size={15}
+                                size={14}
                                 className="text-neutral-700"
                             />
 
@@ -153,27 +209,27 @@ export default function ProductDetailScreen() {
 
                         </div>
 
-                        {/* Description */}
+                        {/* DESCRIPCIÓN */}
 
-                        <section className="mt-8">
+                        <section className="mt-6">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
+                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Descripción
                             </h2>
 
-                            <p className="text-sm leading-6 text-neutral-600">
+                            <p className="text-[14px] leading-6 text-neutral-600">
                                 {product.description}
                             </p>
 
                         </section>
 
-                        {/* Details */}
+                        {/* DETAILS */}
 
-                        <section className="mt-6 border-t border-brand-rosa pt-5 space-y-4 text-[13px]">
+                        <section className="mt-6 border-t border-neutral-200 pt-4 space-y-3 text-[13px]">
 
-                            <div className="flex justify-between gap-5">
+                            <div className="flex justify-between gap-6">
 
-                                <span className="text-brand-rosa">
+                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
                                     Categoría
                                 </span>
 
@@ -183,33 +239,33 @@ export default function ProductDetailScreen() {
 
                             </div>
 
-                            <div className="flex justify-between gap-5">
+                            <div className="flex justify-between gap-6">
 
-                                <span className="text-brand-rosa">
-                                    Materiales
+                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
+                                    Material
                                 </span>
 
-                                <span className="text-right text-neutral-900">
+                                <span className="text-right text-neutral-900 max-w-[60%]">
                                     Cuero ecológico, algodón y herrajes metálicos.
                                 </span>
 
                             </div>
 
-                            <div className="flex justify-between gap-5">
+                            <div className="flex justify-between gap-6">
 
-                                <span className="text-brand-rosa">
-                                    Disponibilidad
+                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
+                                    Stock
                                 </span>
 
                                 <span
-                                    className={`text-right ${
+                                    className={`font-medium ${
                                         product.stock > 0
                                             ? "text-green-700"
                                             : "text-red-600"
                                     }`}
                                 >
                                     {product.stock > 0
-                                        ? `En stock (${product.stock})`
+                                        ? `En stock`
                                         : "Agotado"}
                                 </span>
 
@@ -217,30 +273,30 @@ export default function ProductDetailScreen() {
 
                         </section>
 
-                        {/* Shipping */}
+                        {/* ENVÍOS */}
 
-                        <section className="mt-6 border-t border-brand-rosa pt-5">
+                        <section className="mt-5 border-t border-neutral-200 pt-4">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
+                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Envíos
                             </h2>
 
-                            <p className="text-sm leading-6 text-neutral-600">
+                            <p className="text-[13px] leading-6 text-neutral-600">
                                 Envíos a toda España. El costo del envío se calcula durante el proceso
                                 de compra según el destino seleccionado.
                             </p>
 
                         </section>
 
-                        {/* Handmade */}
+                        {/* INFORMACIÓN */}
 
-                        <section className="mt-6 border-t border-brand-rosa pt-5">
+                        <section className="mt-5 border-t border-neutral-200 pt-4">
 
-                            <h2 className="text-[11px] uppercase tracking-[0.18em] text-brand-rosa mb-3">
+                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Información
                             </h2>
 
-                            <p className="text-sm leading-6 text-neutral-600">
+                            <p className="text-[13px] leading-6 text-neutral-600">
                                 Cada pieza es confeccionada artesanalmente, por lo que pequeñas
                                 variaciones en el color o la textura forman parte de su identidad y
                                 hacen único cada producto.
@@ -252,34 +308,48 @@ export default function ProductDetailScreen() {
                 </div>
             </div>
 
-            {/* MODAL / CONTENEDOR DEL CHECKOUT EMBEBIDO */}
+            {/* Imagen Zoom */}
             <AnimatePresence>
-                {clientSecret && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-10"
-                    >
-                        <div className="bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl">
-                            <button
-                                onClick={() => setClientSecret(null)}
-                                className="absolute right-4 top-4 p-2 rounded-full hover:bg-neutral-100 transition cursor-pointer z-10"
-                            >
-                                <X size={20} />
-                            </button>
 
-                            <div id="checkout" className="pt-8">
-                                <EmbeddedCheckoutProvider
-                                    stripe={stripePromise}
-                                    options={{ clientSecret }}
-                                >
-                                    <EmbeddedCheckout />
-                                </EmbeddedCheckoutProvider>
-                            </div>
-                        </div>
+                {zoomOpen && (
+
+                    <motion.div
+
+                        initial={{ opacity:0 }}
+
+                        animate={{ opacity:1 }}
+
+                        exit={{ opacity:0 }}
+
+                        className="
+                        fixed
+                        inset-0
+                        bg-black/90
+                        z-[60]
+                        flex
+                        items-center
+                        justify-center
+                        "
+
+                        onClick={() => setZoomOpen(false)}
+                    >
+
+                        <img
+
+                            src={product.images[currentImage]}
+
+                            className="
+                            max-w-[90vw]
+                            max-h-[90vh]
+                            object-contain
+                            "
+
+                        />
+
                     </motion.div>
+
                 )}
+
             </AnimatePresence>
         </motion.main>
     );
