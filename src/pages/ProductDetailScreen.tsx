@@ -95,7 +95,7 @@ export default function ProductDetailScreen() {
 
                                         ${
                                             currentImage === index
-                                                ? "border-black border-2"
+                                                ? "border-black border-1"
                                                 : "border-neutral-200 hover:border-neutral-500"
                                         }
                                     `}

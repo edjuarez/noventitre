@@ -9,6 +9,7 @@ import { BiCollection } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
+import { userData } from "../data/userData";
 
 type NavItem =
   | {
@@ -190,7 +191,7 @@ export default function Navbar() {
           <div className="flex justify-end items-center gap-6">
 
               <a
-                href="https://instagram.com/tuusuario"
+                href={userData.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] duration-300 hover:text-brand-rosa transition"

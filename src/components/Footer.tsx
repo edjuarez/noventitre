@@ -4,8 +4,11 @@ import { FaMobileScreen } from "react-icons/fa6";
 import { IoIosMail } from "react-icons/io";
 import { BiLogoInstagramAlt } from "react-icons/bi";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { useCart } from "../context/CartContext";
 
 export default function Footer() {
+  const { toggleCart } = useCart();
+
   return (
     <footer id="contacto"className="bg-white border-t border-neutral-100 mb-40">
 
@@ -69,13 +72,17 @@ export default function Footer() {
             <ul className="space-y-5 text-neutral-600">
               <li><a href="#home">Inicio</a></li>
 
-              <li><a href="#sobre-mi">Sobre mí</a></li>
+{/*               <li><a href="#sobre-mi">Sobre mí</a></li> */}
 
               <li><a href="#mi-mundo">Colección</a></li>
 
-              <li><a href="#mi-trabajo">Proceso</a></li>
+              <li><button
+              className="cursor-pointer"
+              onClick={() => toggleCart()}>Carrito</button></li>
 
-              <li><a href="#contacto">Seguime</a></li>
+{/*               <li><a href="#mi-trabajo">Proceso</a></li>
+
+              <li><a href="#contacto">Seguime</a></li> */}
             </ul>
 
           </div>

@@ -83,7 +83,7 @@ return (
 
       {/* ITEMS */}
 
-      <div className="flex-1 overflow-y-auto px-8 pb-6 space-y-5">
+      <div className="flex-1 overflow-y-auto px-4 pb-2">
 
         {cartItems.length === 0 ? (
 
@@ -189,7 +189,7 @@ return (
 
       {cartItems.length > 0 && (
 
-        <div className="bg-stone-50 border-t border-brand-rosa/20 px-8 py-7">
+        <div className="bg-stone-50 border-t border-brand-rosa/20 px-8 pb-7 pt-3">
 
           <div className="flex justify-between items-center">
               <p className="text-sm uppercase tracking-[.18em] text-neutral-400">
@@ -200,7 +200,7 @@ return (
                 €{cartTotal}
               </p>
           </div>
-          <div className="mt-6 space-y-2 text-sm text-neutral-500">
+          <div className="mt-4 space-y-2 text-sm text-neutral-500">
 
             <div className="flex items-center gap-2">
 
