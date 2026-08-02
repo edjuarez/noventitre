@@ -90,7 +90,6 @@ export default function MyWorld() {
                     bg-neutral-100
                     relative
                     aspect-square
-                    ${index === products.length - 1 ? "col-span-2 md:col-span-1" : ""}
                   `}
                 >
                   <img
