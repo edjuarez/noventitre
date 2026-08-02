@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import {
     Menu,
     X,
-    ShoppingBag
+    ShoppingBag,
+    House,
+    GalleryVerticalEnd,
 } from "lucide-react";
-import { RiHomeHeartLine  } from "react-icons/ri";
-import { BiCollection } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
@@ -126,7 +126,7 @@ export default function Navbar() {
                 ${isExpanded ? "text-base" : "text-sm"}
               `}
             >
-              <RiHomeHeartLine  size={25} />
+              <House  size={26} />
             </button>
             <button
               onClick={() => handleNavigation(navItems[1])}
@@ -196,14 +196,14 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] duration-300 hover:text-brand-rosa transition"
               >
-                <FaInstagram size={22} />
+                <FaInstagram size={26} />
               </a>
 
               <button
                 onClick={() => toggleCart()}
                 className=" duration-300 relative hover:text-brand-rosa transition cursor-pointer"
               >
-                <ShoppingBag size={22} className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]" />
+                <ShoppingBag size={26} className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]" />
 
                 {/* Badge */}
 
@@ -274,7 +274,7 @@ export default function Navbar() {
                 onClick={() => handleNavigation(navItems[0])}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
-                <RiHomeHeartLine strokeWidth={1} className="stroke-[0]" size={50} />
+                <House strokeWidth={1} size={50} />
               </button>
             </li>
             <li key="catalogo">
@@ -282,7 +282,7 @@ export default function Navbar() {
                 onClick={() => handleNavigation(navItems[1])}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
-                <BiCollection strokeWidth={0} size={50} />
+                <GalleryVerticalEnd strokeWidth={1} size={50} />
               </button>
             </li>
             <li key="carrito">
@@ -293,7 +293,7 @@ export default function Navbar() {
                 }}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2 relative"
               >
-                <ShoppingBag  strokeWidth={2} size={45} />
+                <ShoppingBag  strokeWidth={1} size={45} />
                 {cartItems.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-rosa text-white text-[11px] flex items-center justify-center">
                     {cartItems.length}

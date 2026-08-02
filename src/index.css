@@ -21,6 +21,8 @@
   --section-pt-mobile: 40px;
   --section-pt-desktop: 100px;
 
+  --text-detail-description-font-size: 0.90rem;
+
   @keyframes marquee {
     from { transform: translateX(0%); }
     to { transform: translateX(-50%); }

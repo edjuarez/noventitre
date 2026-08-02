@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { uploadProductImages, createProduct } from '../../services/productService';
-import type {ProductInput} from '../../services/productService';
-import type {ChangeEvent, FormEvent} from 'react';
+import type { ProductInput } from '../../services/productService';
+import type { ChangeEvent, FormEvent } from 'react';
 import type { Product } from '../../types/product';
 
 interface AddProductModalProps {
@@ -22,7 +22,6 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
     stock: '1',
     featured: false,
     visible: true,
-    slug: '',
   });
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -57,10 +56,21 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
       setLoading(true);
       setErrorMsg(null);
 
-      // 1. Subir imágenes al Storage de Supabase
+      // 1. Generar el slug automáticamente de forma limpia y única
+      const cleanName = formData.name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos
+        .replace(/[^a-z0-9]+/g, "-")     // Reemplaza espacios y símbolos por guiones
+        .replace(/^-+|-+$/g, "");        // Limpia guiones extremos
+
+      const shortCode = Math.random().toString(36).substring(2, 6); // Código aleatorio de 4 caracteres
+      const autoSlug = `${cleanName}-${shortCode}`;
+
+      // 2. Subir imágenes al Storage de Supabase
       const imageUrls = await uploadProductImages(selectedFiles);
 
-      // 2. Preparar el payload con los tipos correctos
+      // 3. Preparar el payload con los tipos correctos y el slug automático
       const newProduct: ProductInput = {
         name: formData.name,
         description: formData.description,
@@ -70,13 +80,13 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
         featured: formData.featured,
         visible: formData.visible,
         images: imageUrls,
-        slug: formData.slug,
+        slug: autoSlug,
       };
 
-      // 3. Crear registro en PostgreSQL
+      // 4. Crear registro en PostgreSQL
       const createdProduct = await createProduct(newProduct);
 
-      // 4. Notificar al dashboard y cerrar
+      // 5. Notificar al dashboard y cerrar
       onProductAdded(createdProduct);
       onClose();
     } catch (err: unknown) {
@@ -100,7 +110,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
           <button
             onClick={onClose}
             disabled={loading}
-            className="text-neutral-400 hover:text-black font-bold p-1 rounded-lg transition-colors"
+            className="text-neutral-400 hover:text-black font-bold p-1 rounded-lg transition-colors cursor-pointer"
           >
             ✕
           </button>
@@ -124,23 +134,10 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-              placeholder="Ej: Bolso Tote Cuero Negro"
+              placeholder="Ej: Mini Cubix Lino Natural"
             />
           </div>
-          {/* Slug */}
-          <div>
-            <label className="block text-xs font-bold uppercase text-neutral-700 mb-1.5">
-              Slug (URL id)
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.slug}
-              onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-              className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-              placeholder="Ej: Bolso Tote Cuero Negro"
-            />
-          </div>
+
           {/* Precio y Categoría */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -164,7 +161,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white"
+                className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white cursor-pointer"
               >
                 <option value="bolsos">Bolsos</option>
                 <option value="accesorios">Accesorios</option>
@@ -195,7 +192,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4"
+                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4 cursor-pointer"
                 />
                 <span className="font-medium text-neutral-700">Producto Destacado</span>
               </label>
@@ -242,7 +239,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
-                      className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700"
+                      className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700 cursor-pointer"
                     >
                       ✕
                     </button>
@@ -258,14 +255,14 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-5 py-2.5 border border-neutral-300 rounded-lg text-sm font-medium hover:bg-neutral-50 transition-colors"
+              className="px-5 py-2.5 border border-neutral-300 rounded-lg text-sm font-medium hover:bg-neutral-50 transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50 cursor-pointer"
             >
               {loading ? 'Subiendo e Insertando...' : 'Guardar Producto'}
             </button>

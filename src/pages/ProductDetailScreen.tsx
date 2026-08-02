@@ -155,21 +155,7 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCheckout}
-                                className="
-                                    flex-1
-                                    h-11
-                                    bg-neutral-900
-                                    hover:bg-black
-                                    text-white
-                                    rounded-[4px]
-                                    flex
-                                    items-center
-                                    justify-center
-                                    gap-2
-                                    transition-all
-                                    duration-300
-                                    cursor-pointer
-                                "
+                                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
                             >
                                 <MdShoppingCartCheckout size={18} />
                                 Comprar
@@ -177,19 +163,7 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCart}
-                                className="
-                                    flex-1
-                                    h-11
-                                    bg-white
-                                    border
-                                    border-neutral-300
-                                    hover:border-black
-                                    hover:bg-neutral-100
-                                    rounded-[4px]
-                                    transition-all
-                                    duration-300
-                                    cursor-pointer
-                                "
+                                className="w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
                             >
                                 Añadir al carro
                             </button>
@@ -211,13 +185,13 @@ export default function ProductDetailScreen() {
 
                         {/* DESCRIPCIÓN */}
 
-                        <section className="mt-6">
+                        <section className="text-detail-description-font-size mt-6">
 
-                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
+                            <h2 className="uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Descripción
                             </h2>
 
-                            <p className="text-[14px] leading-6 text-neutral-600">
+                            <p className="leading-6 text-neutral-600">
                                 {product.description}
                             </p>
 
@@ -225,35 +199,35 @@ export default function ProductDetailScreen() {
 
                         {/* DETAILS */}
 
-                        <section className="mt-6 border-t border-neutral-200 pt-4 space-y-3 text-[13px]">
+                        <section className="text-detail-description-font-size mt-6 border-t border-neutral-200 pt-4 space-y-3 text-[13px]">
 
                             <div className="flex justify-between gap-6">
 
-                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
+                                <span className="uppercase tracking-[0.18em] text-neutral-400">
                                     Categoría
                                 </span>
 
-                                <span className="text-right text-neutral-900 capitalize">
+                                <span className="text-right text-neutral-600 capitalize">
                                     {product.category}
                                 </span>
 
                             </div>
 
-                            <div className="flex justify-between gap-6">
+  {/*                           <div className="flex justify-between gap-6">
 
-                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
+                                <span className="uppercase tracking-[0.18em] text-neutral-400">
                                     Material
                                 </span>
 
-                                <span className="text-right text-neutral-900 max-w-[60%]">
+                                <span className="text-right text-neutral-600 max-w-[60%]">
                                     Cuero ecológico, algodón y herrajes metálicos.
                                 </span>
 
-                            </div>
+                            </div> */}
 
                             <div className="flex justify-between gap-6">
 
-                                <span className="uppercase tracking-[0.18em] text-[10px] text-neutral-400">
+                                <span className="uppercase tracking-[0.18em] text-neutral-400">
                                     Stock
                                 </span>
 
@@ -275,28 +249,27 @@ export default function ProductDetailScreen() {
 
                         {/* ENVÍOS */}
 
-                        <section className="mt-5 border-t border-neutral-200 pt-4">
+                        <section className="text-detail-description-font-size mt-5 border-t border-neutral-200 pt-4">
 
-                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
+                            <h2 className="uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Envíos
                             </h2>
 
-                            <p className="text-[13px] leading-6 text-neutral-600">
-                                Envíos a toda España. El costo del envío se calcula durante el proceso
-                                de compra según el destino seleccionado.
+                            <p className="leading-6 text-neutral-600">
+                                Envíos a toda España.
                             </p>
 
                         </section>
 
                         {/* INFORMACIÓN */}
 
-                        <section className="mt-5 border-t border-neutral-200 pt-4">
+                        <section className="text-detail-description-font-size mt-5 border-t border-neutral-200 pt-4">
 
-                            <h2 className="text-[10px] uppercase tracking-[0.22em] text-neutral-400 mb-2">
+                            <h2 className="uppercase tracking-[0.22em] text-neutral-400 mb-2">
                                 Información
                             </h2>
 
-                            <p className="text-[13px] leading-6 text-neutral-600">
+                            <p className="leading-6 text-neutral-600">
                                 Cada pieza es confeccionada artesanalmente, por lo que pequeñas
                                 variaciones en el color o la textura forman parte de su identidad y
                                 hacen único cada producto.

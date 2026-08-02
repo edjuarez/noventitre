@@ -52,15 +52,15 @@ export default function HomeScreen() {
       <div className="relative overflow-hidden">
        <DecorationSquares />
        <DecorationCircles />
-       <div className="relative z-10">
-        <Hero />
-        {/* <CartDrawer /> */}
-        <MyWorld />
-        <MyWork />
-        <CustomOrder />
-        <About />
-        <FollowMe />
-        <FloatingWhatsapp visible={showFloatingWhatsapp} />
+       <div className="relative">
+          <Hero />
+          {/* <CartDrawer /> */}
+          <MyWorld />
+          <MyWork />
+          <CustomOrder />
+          <About />
+          <FollowMe />
+          <FloatingWhatsapp visible={showFloatingWhatsapp} />
         </div>
       </div>
   )

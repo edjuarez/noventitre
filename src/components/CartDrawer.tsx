@@ -189,14 +189,14 @@ return (
 
       {cartItems.length > 0 && (
 
-        <div className="bg-stone-50 border-t border-brand-rosa/20 px-8 pb-7 pt-3">
+        <div className="bg-stone-50 border-t border-brand-rosa/20 px-8 pb-3 md:pb-7 pt-3">
 
           <div className="flex justify-between items-center">
               <p className="text-sm uppercase tracking-[.18em] text-neutral-400">
                 Total
               </p>
 
-              <p className="text-2xl mt-1 font-bold">
+              <p className="text-2xl mt-1 text-neutral-700">
                 €{cartTotal}
               </p>
           </div>
