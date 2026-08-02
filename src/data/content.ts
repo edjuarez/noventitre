@@ -25,11 +25,11 @@ export const content = {
         {
             id: 3,
             image: "/assets/hero_banner_3.webp",
-            title: "Hechos a\nmano.",
+            title: "Creados \na tu\nmanera.",
             subtitle:
             "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
-            background: "#c48ebd",
-            textColor: "#111111",
+            background: "#e39ad9",
+            textColor: "#290801",
         }
       ],
     },

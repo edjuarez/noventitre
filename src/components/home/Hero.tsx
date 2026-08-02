@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
-import { heroSlides } from "../../data/heroSlides";
+//import { heroSlides } from "../../data/heroSlides";
 import { userData } from "../../data/userData";
-//import { content } from "../../data/content";
+import { content } from "../../data/content";
 //import { IoMdImages } from "react-icons/io";
 //import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,7 @@ const AUTO_PLAY_DELAY = 6000;
 export default function Hero() {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | null>(null);
+  const heroSlides = content.home.hero.slides;
   const slide = heroSlides[current];
   const isMobile = window.innerWidth < 768;
   //const navigate = useNavigate()
