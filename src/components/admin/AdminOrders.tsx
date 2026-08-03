@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../../lib/supabase'; // Ajusta la ruta a tu cliente de Supabase
+import { supabase } from '../../lib/supabase';
 
 type Order = {
   id: string;
@@ -22,6 +22,7 @@ type Order = {
 export function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchOrders();
@@ -43,19 +44,25 @@ export function AdminOrders() {
   }
 
   async function updateOrderStatus(orderId: string, newStatus: Order['status']) {
-    const { error } = await supabase
-      .from('orders')
-      .update({ status: newStatus })
-      .eq('id', orderId);
+    try {
+      setUpdatingId(orderId);
 
-    if (error) {
-      alert('Hubo un error al actualizar el estado');
-      console.error(error);
-    } else {
-      // Actualizamos el estado local para reflejar el cambio en la UI inmediatamente
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId);
+
+      if (error) throw error;
+
+      // Actualizar el estado local solo tras confirmación exitosa de la BD
       setOrders((prev) =>
         prev.map((order) => (order.id === orderId ? { ...order, status: newStatus } : order))
       );
+    } catch (error) {
+      console.error('Error al actualizar la orden:', error);
+      alert('Hubo un error al actualizar el estado en la base de datos');
+    } finally {
+      setUpdatingId(null);
     }
   }
 
@@ -91,47 +98,54 @@ export function AdminOrders() {
                 </td>
               </tr>
             ) : (
-              orders.map((order) => (
-                <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50 transition">
-                  <td className="p-3">
-                    <div className="font-mono text-xs font-bold">{order.id.split('-')[0]}</div>
-                    <div className="text-xs text-gray-500">
-                      {new Date(order.created_at).toLocaleDateString()}
-                    </div>
-                  </td>
-                  <td className="p-3">
-                    <div className="font-bold text-sm">{order.customer_name}</div>
-                    <div className="text-xs text-gray-500">{order.customer_email}</div>
-                  </td>
-                  <td className="p-3 font-mono font-bold">
-                    ${order.total_amount.toFixed(2)}
-                  </td>
-                  <td className="p-3">
-                    <span
-                      className={`px-2 py-1 text-xs font-bold uppercase border ${
-                        order.status === 'paid'
-                          ? 'bg-yellow-100 text-yellow-800 border-yellow-800'
-                          : order.status === 'shipped'
-                          ? 'bg-blue-100 text-blue-800 border-blue-800'
-                          : 'bg-green-100 text-green-800 border-green-800'
-                      }`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
-                  <td className="p-3 text-right">
-                    <select
-                      className="text-xs font-mono border border-black px-2 py-1 bg-white cursor-pointer hover:bg-gray-100"
-                      value={order.status}
-                      onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
-                    >
-                      <option value="paid">PAID (Pendiente)</option>
-                      <option value="shipped">SHIPPED (Enviado)</option>
-                      <option value="delivered">DELIVERED (Entregado)</option>
-                    </select>
-                  </td>
-                </tr>
-              ))
+              orders.map((order) => {
+                const isUpdating = updatingId === order.id;
+
+                return (
+                  <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50 transition">
+                    <td className="p-3">
+                      <div className="font-mono text-xs font-bold">{order.id.split('-')[0]}</div>
+                      <div className="text-xs text-gray-500">
+                        {new Date(order.created_at).toLocaleDateString()}
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <div className="font-bold text-sm">{order.customer_name}</div>
+                      <div className="text-xs text-gray-500">{order.customer_email}</div>
+                    </td>
+                    <td className="p-3 font-mono font-bold">
+                      ${order.total_amount.toFixed(2)}
+                    </td>
+                    <td className="p-3">
+                      <span
+                        className={`px-2 py-1 text-xs font-bold uppercase border ${
+                          order.status === 'paid'
+                            ? 'bg-yellow-100 text-yellow-800 border-yellow-800'
+                            : order.status === 'shipped'
+                            ? 'bg-blue-100 text-blue-800 border-blue-800'
+                            : 'bg-green-100 text-green-800 border-green-800'
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="p-3 text-right">
+                      <select
+                        disabled={isUpdating}
+                        className="text-xs font-mono border border-black px-2 py-1 bg-white cursor-pointer hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        value={order.status}
+                        onChange={(e) =>
+                          updateOrderStatus(order.id, e.target.value as Order['status'])
+                        }
+                      >
+                        <option value="paid">PAID (Pendiente)</option>
+                        <option value="shipped">SHIPPED (Enviado)</option>
+                        <option value="delivered">DELIVERED (Entregado)</option>
+                      </select>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

@@ -7,7 +7,7 @@ export const TermsPage: React.FC = () => {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="max-w-3xl mx-auto px-6 py-12 md:py-20 text-stone-800"
+      className="max-w-3xl mx-auto px-6 py-25 md:py-20 text-stone-800"
     >
       <header className="mb-10 pb-6 border-b border-stone-200">
         <h1 className="text-3xl md:text-4xl font-serif font-bold tracking-tight text-stone-900 mb-2">

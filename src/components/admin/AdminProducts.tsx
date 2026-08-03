@@ -130,7 +130,7 @@ export const AdminProducts = () => {
               <div className="p-4 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-2">
                   <div className="pr-4">
-                    <h3 className="font-semibold text-gray-900 line-clamp-1" title={product.name}>
+                    <h3 className="text-sm font-semibold text-gray-900 line-clamp-1" title={product.name}>
                       {product.name}
                     </h3>
                     <p className="text-sm text-gray-500">{product.category}</p>
@@ -158,7 +158,7 @@ export const AdminProducts = () => {
                 </div>
 
                 <div className="mt-auto pt-4 flex items-center justify-between">
-                  <span className="text-lg font-mono font-medium text-gray-900">
+                  <span className="text-sm font-mono font-medium text-gray-900">
                     ${product.price.toLocaleString()}
                   </span>
                 </div>
