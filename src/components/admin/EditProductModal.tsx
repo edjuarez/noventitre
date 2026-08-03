@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type {ChangeEvent, FormEvent} from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { X, Upload } from 'lucide-react';
 import { productService, uploadProductImages } from '../../services/productService';
 import type { Product } from '../../types/product';
@@ -20,16 +20,22 @@ export const EditProductModal = ({
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // 1. Lista de categorías por defecto
+  const defaultCategories = ['bolsos', 'accesorios', 'mochilas', 'billeteras', 'ropa'];
+
+  // 2. Estado para saber si estamos usando una categoría manual
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+
   // Estado del formulario
   const [formData, setFormData] = useState({
-        name: product?.name || '',
-        description: product?.description || '',
-        price: product?.price ? product.price.toString() : '0',
-        category: product?.category || 'bolsos',
-        stock: product?.stock !== undefined ? product.stock.toString() : '0',
-        featured: Boolean(product?.featured),
-        visible: product?.visible !== undefined ? Boolean(product.visible) : true,
-      });
+    name: product?.name || '',
+    description: product?.description || '',
+    price: product?.price ? product.price.toString() : '0',
+    category: product?.category || 'bolsos',
+    stock: product?.stock !== undefined ? product.stock.toString() : '0',
+    featured: Boolean(product?.featured),
+    visible: product?.visible !== undefined ? Boolean(product.visible) : true,
+  });
 
   // Fotos que ya están subidas en Supabase Storage
   const [existingImages, setExistingImages] = useState<string[]>([]);
@@ -45,6 +51,22 @@ export const EditProductModal = ({
       setNewFiles([]);
       setNewPreviews([]);
       setErrorMsg(null);
+
+      const currentCategory = product.category?.toLowerCase() || 'bolsos';
+      
+      // 3. Si la categoría del producto NO está en las opciones por defecto, activamos el input manual
+      setIsCustomCategory(!defaultCategories.includes(currentCategory));
+
+      // 4. Actualizamos el form data para asegurarnos de que cargue el producto correcto si el modal no se desmonta
+      setFormData({
+        name: product.name || '',
+        description: product.description || '',
+        price: product.price ? product.price.toString() : '0',
+        category: product.category || 'bolsos',
+        stock: product.stock !== undefined ? product.stock.toString() : '0',
+        featured: Boolean(product.featured),
+        visible: product.visible !== undefined ? Boolean(product.visible) : true,
+      });
     }
   }, [product]);
 
@@ -61,12 +83,10 @@ export const EditProductModal = ({
     setNewPreviews((prev) => [...prev, ...newBlobUrls]);
   };
 
-  // Quitar una foto guardada previamente en la BD
   const removeExistingImage = (index: number) => {
     setExistingImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Quitar una foto nueva seleccionada localmente
   const removeNewImage = (index: number) => {
     setNewFiles((prev) => prev.filter((_, i) => i !== index));
     setNewPreviews((prev) => prev.filter((_, i) => i !== index));
@@ -77,6 +97,12 @@ export const EditProductModal = ({
 
     if (existingImages.length === 0 && newFiles.length === 0) {
       setErrorMsg('El producto debe conservar o incluir al menos una imagen.');
+      return;
+    }
+
+    // Validación de categoría manual vacía
+    if (isCustomCategory && !formData.category.trim()) {
+      setErrorMsg('Debes escribir un nombre para la categoría.');
       return;
     }
 
@@ -91,11 +117,12 @@ export const EditProductModal = ({
 
       const finalImages = [...existingImages, ...uploadedUrls];
 
+      // 5. Nos aseguramos de limpiar y guardar en minúsculas la categoría
       const updates: Partial<Product> = {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
-        category: formData.category,
+        category: formData.category.toLowerCase().trim(),
         stock: parseInt(formData.stock, 10),
         featured: formData.featured,
         visible: formData.visible,
@@ -132,7 +159,7 @@ export const EditProductModal = ({
           <button
             onClick={onClose}
             disabled={loading}
-            className="text-neutral-400 hover:text-black font-bold p-1 rounded-lg transition-colors"
+            className="text-neutral-400 hover:text-black font-bold p-1 rounded-lg transition-colors cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -174,21 +201,59 @@ export const EditProductModal = ({
                 className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
               />
             </div>
+            
+            {/* 6. Selector de Categoría (Idéntico al de Crear Producto) */}
             <div>
               <label className="block text-xs font-bold uppercase text-neutral-700 mb-1.5">
                 Categoría
               </label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white"
-              >
-                <option value="bolsos">Bolsos</option>
-                <option value="accesorios">Accesorios</option>
-                <option value="mochilas">Mochilas</option>
-                <option value="billeteras">Billeteras</option>
-                <option value="ropa">Ropa</option>
-              </select>
+              {isCustomCategory ? (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                    placeholder="Escribe la categoría..."
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCustomCategory(false);
+                      setFormData({ ...formData, category: defaultCategories[0] });
+                    }}
+                    className="px-3 border border-neutral-300 rounded-lg hover:bg-neutral-50 text-neutral-500 flex items-center justify-center transition-colors cursor-pointer"
+                    title="Volver a la lista"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <select
+                  value={defaultCategories.includes(formData.category.toLowerCase()) ? formData.category.toLowerCase() : 'ADD_NEW'}
+                  onChange={(e) => {
+                    if (e.target.value === 'ADD_NEW') {
+                      setIsCustomCategory(true);
+                      setFormData({ ...formData, category: '' });
+                    } else {
+                      setFormData({ ...formData, category: e.target.value });
+                    }
+                  }}
+                  className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white cursor-pointer"
+                >
+                  {defaultCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                  <option disabled>──────────</option>
+                  <option value="ADD_NEW" className="font-bold text-black">
+                    + Añadir nueva...
+                  </option>
+                </select>
+              )}
             </div>
           </div>
 
@@ -214,7 +279,7 @@ export const EditProductModal = ({
                   type="checkbox"
                   checked={formData.featured}
                   onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4"
+                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4 cursor-pointer"
                 />
                 <span className="font-medium text-neutral-700">Destacado</span>
               </label>
@@ -226,7 +291,7 @@ export const EditProductModal = ({
                   type="checkbox"
                   checked={formData.visible}
                   onChange={(e) => setFormData({ ...formData, visible: e.target.checked })}
-                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4"
+                  className="rounded border-neutral-300 text-black focus:ring-black w-4 h-4 cursor-pointer"
                 />
                 <span className="font-medium text-neutral-700">Visible</span>
               </label>
@@ -267,7 +332,7 @@ export const EditProductModal = ({
                   <button
                     type="button"
                     onClick={() => removeExistingImage(index)}
-                    className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700"
+                    className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700 cursor-pointer"
                   >
                     ✕
                   </button>
@@ -288,7 +353,7 @@ export const EditProductModal = ({
                   <button
                     type="button"
                     onClick={() => removeNewImage(index)}
-                    className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700"
+                    className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow hover:bg-red-700 cursor-pointer"
                   >
                     ✕
                   </button>
@@ -316,14 +381,14 @@ export const EditProductModal = ({
               type="button"
               onClick={onClose}
               disabled={loading}
-              className="px-5 py-2.5 border border-neutral-300 rounded-lg text-sm font-medium hover:bg-neutral-50 transition-colors"
+              className="px-5 py-2.5 border border-neutral-300 rounded-lg text-sm font-medium hover:bg-neutral-50 transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50"
+              className="px-6 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition-colors disabled:opacity-50 cursor-pointer"
             >
               {loading ? 'Guardando Cambios...' : 'Actualizar Producto'}
             </button>

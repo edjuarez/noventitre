@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Plus, Search, Edit3, Trash2 } from "lucide-react";
+import { Plus, Search, Edit3, Trash2, Image as ImageIcon } from "lucide-react";
 import AddProductModal from "../../components/admin/AddProductModal";
 import EditProductModal from "../../components/admin/EditProductModal";
 import { useProducts } from '../../hooks/useProducts';
@@ -43,6 +43,22 @@ export const AdminProducts = () => {
     }
   };
 
+  // Nueva función para manejar el toggle de visibilidad
+  const handleToggleVisibility = async (id: string, currentStatus: boolean) => {
+    try {
+      // Aquí idealmente llamas a tu backend:
+      // await productService.updateProduct(id, { visible: !currentStatus });
+      
+      setProductsList((prev) =>
+        prev.map((product) =>
+          product.id === id ? { ...product, visible: !currentStatus } : product
+        )
+      );
+    } catch (err: any) {
+      alert(`Error al actualizar la visibilidad: ${err.message}`);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -71,53 +87,104 @@ export const AdminProducts = () => {
         />
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-        {loading ? (
-          <div className="p-8 text-center text-gray-500">Cargando inventario...</div>
-        ) : error ? (
-          <div className="p-8 text-center text-red-500">{error}</div>
-        ) : (
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-gray-200 bg-gray-50/50 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                <th className="p-4">Producto</th>
-                <th className="p-4">Categoría</th>
-                <th className="p-4">Precio</th>
-                <th className="p-4">Stock</th>
-                <th className="p-4 text-right">Acciones</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
-              {filteredProducts.map((product) => (
-                <tr key={product.id} className="hover:bg-gray-50/50 transition-colors">
-                  <td className="p-4 font-medium text-gray-900">{product.name}</td>
-                  <td className="p-4 text-gray-600">{product.category}</td>
-                  <td className="p-4 font-mono">${product.price.toLocaleString()}</td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      product.stock < 5 ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-700"
-                    }`}>
-                      {product.stock} unidades
-                    </span>
-                  </td>
-                  <td className="p-4 text-right space-x-2">
-                    <button className="p-1.5 text-gray-500 hover:text-black transition-colors"
-                    onClick={() => setEditingProduct(product)}>
-                      <Edit3 size={16} />
-                    </button>
-                    <button 
-                      onClick={() => handleDelete(product.id)}
-                      className="p-1.5 text-gray-500 hover:text-red-600 transition-colors"
+      {loading ? (
+        <div className="p-8 text-center bg-white rounded-xl border border-gray-200 text-gray-500">
+          Cargando inventario...
+        </div>
+      ) : error ? (
+        <div className="p-8 text-center bg-white rounded-xl border border-red-200 text-red-500">
+          {error}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-6">
+          {filteredProducts.map((product) => (
+            <div 
+              key={product.id} 
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group"
+            >
+              {/* Imagen del producto */}
+              <div className="relative aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+                {product.images[0] ? (
+                  <img 
+                    src={product.images[0]} // Ajusta esto si usas product.images[0]
+                    alt={product.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <ImageIcon className="text-gray-300" size={48} />
+                )}
+                
+                {/* Badge de Stock flotante sobre la imagen */}
+                <div className="absolute top-3 left-3">
+                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md ${
+                    product.stock < 5 
+                      ? "bg-red-100/90 text-red-800 border border-red-200/50" 
+                      : "bg-white/90 text-gray-800 border border-gray-200/50"
+                  }`}>
+                    {product.stock} un.
+                  </span>
+                </div>
+              </div>
+
+              {/* Contenido de la tarjeta */}
+              <div className="p-4 flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="pr-4">
+                    <h3 className="font-semibold text-gray-900 line-clamp-1" title={product.name}>
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-gray-500">{product.category}</p>
+                  </div>
+                  
+                  {/* Toggle Switch de Visibilidad */}
+                  <div className="flex flex-col items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => handleToggleVisibility(product.id, Boolean(product.visible))}
+                      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-black/10 focus:ring-offset-2 ${
+                        product.visible ? 'bg-black' : 'bg-gray-300'
+                      }`}
                     >
-                      <Trash2 size={16} />
+                      <span className="sr-only">Toggle visibilidad</span>
+                      <span
+                        className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${
+                          product.visible ? 'translate-x-4.5' : 'translate-x-1'
+                        }`}
+                      />
                     </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+                    <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">
+                      {product.visible ? 'Visible' : 'Oculto'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 flex items-center justify-between">
+                  <span className="text-lg font-mono font-medium text-gray-900">
+                    ${product.price.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
+              {/* Acciones */}
+              <div className="grid grid-cols-2 border-t border-gray-100 bg-gray-50/50">
+                <button 
+                  onClick={() => setEditingProduct(product)}
+                  className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-100 transition-colors border-r border-gray-100"
+                >
+                  <Edit3 size={16} />
+                  Editar
+                </button>
+                <button 
+                  onClick={() => handleDelete(product.id)}
+                  className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-colors"
+                >
+                  <Trash2 size={16} />
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {isAddModalOpen && (
         <AddProductModal 

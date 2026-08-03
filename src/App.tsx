@@ -12,6 +12,9 @@ import AdminLayout from './components/admin/AdminLayout';
 import Footer from './components/Footer';
 import { CartProvider } from "./context/CartContext";
 import CartDrawer from './components/CartDrawer';
+import { TermsPage } from './pages/legal/Terms';
+import { PrivacyPage } from './pages/legal/Privacy';
+import { ReturnsScreen } from './pages/legal/Returns';
 
 const MainLayout = () => (
   <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
@@ -63,6 +66,10 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/catalogo" element={<CollectionScreen />} />
           <Route path="/product/:slug" element={<ProductDetailScreen />} />
+          {/* Rutas de Legales */}
+          <Route path="/terminos-y-condiciones" element={<TermsPage />} />
+          <Route path="/politica-privacidad" element={<PrivacyPage />} />
+          <Route path="/politica-devoluciones" element={<ReturnsScreen />} />
         </Route>
 
         {/* 2. RUTA DE LOGIN (Pantalla limpia, sin Navbar) */}

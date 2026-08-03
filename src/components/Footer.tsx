@@ -14,7 +14,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-20">
 
-        <div className="grid lg:grid-cols-[2fr_1fr_1fr] gap-14">
+        <div className="grid lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10">
 
           {/* Logo */}
 
@@ -61,6 +61,20 @@ export default function Footer() {
 
           </div>
 
+          {/* Columna Legales (Requerida por Stripe) */}
+          <div>
+
+            <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">
+              Legales
+            </h3>
+
+            <ul className="space-y-5 text-neutral-600">
+              <li><a href="/politica-devoluciones">Política de Devoluciones</a></li>
+              <li><a href="/politica-privacidad">Política de Privacidad</a></li>
+              <li><a href="/terminos-y-condiciones">Términos y Condiciones</a></li>
+            </ul>
+
+          </div>
           {/* Navegación */}
 
           <div>
@@ -70,11 +84,11 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-5 text-neutral-600">
-              <li><a href="#home">Inicio</a></li>
+              <li><a href="/">Inicio</a></li>
 
 {/*               <li><a href="#sobre-mi">Sobre mí</a></li> */}
 
-              <li><a href="#mi-mundo">Colección</a></li>
+              <li><a href="/catalogo">Colección</a></li>
 
               <li><button
               className="cursor-pointer"

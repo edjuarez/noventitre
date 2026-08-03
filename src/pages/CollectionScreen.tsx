@@ -236,7 +236,9 @@ export default function Collection() {
                 <h3 className="text-sm">
                   {product.name}
                 </h3>
-
+                <p className="text-xs text-neutral-600">
+                  {product.category}
+                </p>
                 <p className="mt-1 text-sm">
                   € {product.price}
                 </p>

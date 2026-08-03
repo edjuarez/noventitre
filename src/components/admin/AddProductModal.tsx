@@ -14,11 +14,22 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // 1. Estado para las categorías por defecto
+  const [defaultCategories] = useState([
+    'bolsos',
+    'accesorios',
+    'mochilas',
+    'billeteras'
+  ]);
+  
+  // 2. Estado para saber si estamos agregando una categoría manual
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: '',
-    category: 'bolsos',
+    category: defaultCategories[0],
     stock: '1',
     featured: false,
     visible: true,
@@ -51,31 +62,37 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
       setErrorMsg('Debes adjuntar al menos una imagen para el producto.');
       return;
     }
+    
+    // Validación de categoría manual vacía
+    if (isCustomCategory && !formData.category.trim()) {
+      setErrorMsg('Debes escribir un nombre para la nueva categoría.');
+      return;
+    }
 
     try {
       setLoading(true);
       setErrorMsg(null);
 
-      // 1. Generar el slug automáticamente de forma limpia y única
+      // Generar el slug automáticamente
       const cleanName = formData.name
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") // Remueve acentos
-        .replace(/[^a-z0-9]+/g, "-")     // Reemplaza espacios y símbolos por guiones
-        .replace(/^-+|-+$/g, "");        // Limpia guiones extremos
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
 
-      const shortCode = Math.random().toString(36).substring(2, 6); // Código aleatorio de 4 caracteres
+      const shortCode = Math.random().toString(36).substring(2, 6);
       const autoSlug = `${cleanName}-${shortCode}`;
 
-      // 2. Subir imágenes al Storage de Supabase
+      // Subir imágenes al Storage
       const imageUrls = await uploadProductImages(selectedFiles);
 
-      // 3. Preparar el payload con los tipos correctos y el slug automático
+      // Preparar el payload (Aseguramos que la categoría guardada esté en minúsculas para mantener consistencia)
       const newProduct: ProductInput = {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
-        category: formData.category,
+        category: formData.category.toLowerCase().trim(),
         stock: parseInt(formData.stock, 10),
         featured: formData.featured,
         visible: formData.visible,
@@ -83,10 +100,10 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
         slug: autoSlug,
       };
 
-      // 4. Crear registro en PostgreSQL
+      // Crear registro
       const createdProduct = await createProduct(newProduct);
 
-      // 5. Notificar al dashboard y cerrar
+      // Notificar al dashboard y cerrar
       onProductAdded(createdProduct);
       onClose();
     } catch (err: unknown) {
@@ -154,20 +171,59 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
                 placeholder="45000"
               />
             </div>
+            
+            {/* 3. Selector de Categoría Modificado */}
             <div>
               <label className="block text-xs font-bold uppercase text-neutral-700 mb-1.5">
                 Categoría
               </label>
-              <select
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white cursor-pointer"
-              >
-                <option value="bolsos">Bolsos</option>
-                <option value="accesorios">Accesorios</option>
-                <option value="mochilas">Mochilas</option>
-                <option value="billeteras">Billeteras</option>
-              </select>
+              {isCustomCategory ? (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                    placeholder="Escribe la nueva categoría..."
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCustomCategory(false);
+                      setFormData({ ...formData, category: defaultCategories[0] });
+                    }}
+                    className="px-3 border border-neutral-300 rounded-lg hover:bg-neutral-50 text-neutral-500 flex items-center justify-center transition-colors"
+                    title="Volver a la lista"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ) : (
+                <select
+                  value={defaultCategories.includes(formData.category) ? formData.category : 'ADD_NEW'}
+                  onChange={(e) => {
+                    if (e.target.value === 'ADD_NEW') {
+                      setIsCustomCategory(true);
+                      setFormData({ ...formData, category: '' }); // Limpiamos para que escriba
+                    } else {
+                      setFormData({ ...formData, category: e.target.value });
+                    }
+                  }}
+                  className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none bg-white cursor-pointer"
+                >
+                  {defaultCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                  <option disabled>──────────</option>
+                  <option value="ADD_NEW" className="font-bold text-black">
+                    + Añadir nueva...
+                  </option>
+                </select>
+              )}
             </div>
           </div>
 
