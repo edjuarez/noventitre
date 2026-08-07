@@ -112,7 +112,7 @@ export default function OrderSummary({ items }: OrderSummaryProps) {
                         <span>Envío</span>
 
                         <span className="text-right text-sm">
-                            Calculado al finalizar la compra
+                           0,00 € (Gratis)
                         </span>
 
                     </div>
