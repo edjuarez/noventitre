@@ -155,6 +155,7 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCheckout}
+                                disabled={product.stock === 0}
                                 className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
                             >
                                 <MdShoppingCartCheckout size={18} />
@@ -163,6 +164,7 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCart}
+                                disabled={product.stock === 0}
                                 className="w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
                             >
                                 Añadir al carro

@@ -99,7 +99,7 @@ Order management:
 
 ### Frontend
 
-- React 18
+- React 19
 - TypeScript
 - Vite
 - React Router

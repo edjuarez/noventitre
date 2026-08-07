@@ -12,7 +12,7 @@ export default function About() {
 
             <img
               src="/assets/carla_working.webp"
-              alt="Noe trabajando en Noventitre"
+              alt="Carla trabajando en Noventitre"
               className="
                 w-full
                 h-[600px]

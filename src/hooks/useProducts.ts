@@ -3,7 +3,7 @@ import { productService } from '../services/productService';
 import type { Product } from '../types/product';
 
 interface UseProductsOptions {
-  mode: 'featured' | 'all';
+  mode: 'featured' | 'all' | 'admin';
   limit?: number;
 }
 
@@ -60,6 +60,8 @@ export function useProducts({ mode, limit }: UseProductsOptions) {
         data = await productService.getFeaturedProducts(limit);
       } else if (mode === 'all') {
         data = await productService.getProducts();
+      } else if (mode === 'admin') {
+        data = await productService.getAdminProducts();
       }
 
       if (isMounted.current) {

@@ -3,9 +3,6 @@ import type { Product } from "../types/product";
 
 export type ProductInput = Omit<Product, 'id' | 'created_at'>;
 
-/**
- * Sube una lista de archivos File al Storage de Supabase y retorna las URLs públicas.
- */
 export const uploadProductImages = async (files: File[]): Promise<string[]> => {
   if (!files || files.length === 0) return [];
 
@@ -37,9 +34,6 @@ export const uploadProductImages = async (files: File[]): Promise<string[]> => {
   return Promise.all(uploadPromises);
 };
 
-/**
- * Operación de Escritura: Crea un producto en la base de datos.
- */
 export const createProduct = async (product: ProductInput): Promise<Product> => {
   const { data, error } = await supabase
     .from('products')
@@ -51,7 +45,6 @@ export const createProduct = async (product: ProductInput): Promise<Product> => 
   return data;
 };
 
-// Servicio unificado exportado por defecto/objeto
 export const productService = {
   /**
    * Obtiene únicamente los productos destacados (featured = true) y visibles para el Home.
@@ -83,6 +76,15 @@ export const productService = {
     return data || [];
   },
 
+  async getAdminProducts(): Promise<Product[]> {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw new Error(`[getAdminProducts]: ${error.message}`);
+    return data || [];
+  },
   /**
    * Obtiene un único producto mediante su ID único.
    */
@@ -158,13 +160,22 @@ export const productService = {
     return data;
   },
 
+  async hideProduct(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('products')
+      .update({ visible: false })
+      .eq('id', id);
+
+    if (error) throw new Error(`[hideProduct]: ${error.message}`);
+  },
+
   /**
    * Borrado Lógico (Soft Delete): Cambia la visibilidad a falso sin destruir registros transaccionales.
    */
   async deleteProduct(id: string): Promise<void> {
     const { error } = await supabase
       .from('products')
-      .update({ visible: false })
+      .delete()
       .eq('id', id);
 
     if (error) throw new Error(`[deleteProduct]: ${error.message}`);
