@@ -56,7 +56,7 @@ useEffect(() => {
 }, [items, navigate]);
 
     return (
-        <main className="px-5 md:px-12">
+        <main className="px-5 md:px-12 pb-20">
             <div className="max-w-7xl mx-auto">
                 <button
                     onClick={() => navigate('/')}

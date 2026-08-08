@@ -155,7 +155,8 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCheckout}
-                                className="w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+                                disabled={product.stock === 0}
+                                className="disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-56 bg-brand-rosa hover:bg-gray-800 text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 cursor-pointer"
                             >
                                 <MdShoppingCartCheckout size={18} />
                                 Comprar
@@ -163,7 +164,8 @@ export default function ProductDetailScreen() {
 
                             <button
                                 onClick={handleCart}
-                                className="w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
+                                disabled={product.stock === 0}
+                                className="disabled:opacity-50 disabled:cursor-not-allowed w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
                             >
                                 Añadir al carro
                             </button>

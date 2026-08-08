@@ -7,7 +7,7 @@ import { productService } from '../../services/productService';
 import type { Product } from '../../types/product';
 
 export const AdminProducts = () => {
-  const { products: initialProducts, loading, error, refetch } = useProducts({ mode: 'all' });
+  const { products: initialProducts, loading, error, refetch } = useProducts({ mode: 'admin' });
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productsList, setProductsList] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,12 +43,13 @@ export const AdminProducts = () => {
     }
   };
 
-  // Nueva función para manejar el toggle de visibilidad
   const handleToggleVisibility = async (id: string, currentStatus: boolean) => {
     try {
       // Aquí idealmente llamas a tu backend:
       // await productService.updateProduct(id, { visible: !currentStatus });
-      
+      console.log("product id", id)
+      await productService.updateProduct(id, { visible: !currentStatus });
+
       setProductsList((prev) =>
         prev.map((product) =>
           product.id === id ? { ...product, visible: !currentStatus } : product
@@ -159,7 +160,7 @@ export const AdminProducts = () => {
 
                 <div className="mt-auto pt-4 flex items-center justify-between">
                   <span className="text-sm font-mono font-medium text-gray-900">
-                    ${product.price.toLocaleString()}
+                    € {product.price.toLocaleString()}
                   </span>
                 </div>
               </div>
