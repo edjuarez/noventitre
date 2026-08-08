@@ -159,7 +159,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold uppercase text-neutral-700 mb-1.5">
-                Precio ($)
+                Precio (€)
               </label>
               <input
                 type="number"
@@ -168,7 +168,7 @@ export default function AddProductModal({ isOpen, onClose, onProductAdded }: Add
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                 className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-                placeholder="45000"
+                placeholder="20"
               />
             </div>
             
