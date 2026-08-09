@@ -21,7 +21,6 @@ export default function CheckoutScreen() {
     const { items } = location.state || {};
 
 useEffect(() => {
-    console.log(items)
     if (!items || items.length === 0) {
         navigate("/", { replace: true });
         return;
@@ -68,7 +67,7 @@ useEffect(() => {
                 {loading && (
                     <div className="flex flex-col items-center justify-center py-24 gap-4">
                         <Loader2 className="animate-spin text-neutral-600" size={32} />
-                        <p className="text-sm text-neutral-500">Cargando pasarela de pago segura...</p>
+                        <p className="text-sm text-neutral-500">Cargando pasarela de pago...</p>
                     </div>
                 )}
 
