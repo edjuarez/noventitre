@@ -30,7 +30,7 @@ const lineItems = items.map((item: any) => {
             product_data: {
                 name: item.name,
                 metadata: {
-                  supabase_product_id: item.id, // 👈 ¡ESTO ES LO QUE LE PERMITE AL WEBHOOK ENTERARSE!
+                  supabase_product_id: item.id,
                 },
             },
             unit_amount: Math.round(Number(item.price) * 100),

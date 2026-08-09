@@ -132,14 +132,46 @@ serve(async (req) => {
           const { data: emailRes, error: emailErr } = await resend.emails.send({
             from: "Noventitre <onboarding@resend.dev>", // Cambia a tu dominio al verificar
             to: [customerEmail],
+            bcc: [customerEmail],
             subject: `Confirmación de pedido #${order.id.slice(0, 8)}`,
             html: emailHtml,
           });
 
-          if (emailErr) {
-            console.error("❌ Error enviando correo vía Resend:", emailErr);
+          if (emailErr) console.error("❌ Error enviando mail al cliente:", emailErr);
+
+          // 2. Correo al admin (Verificando que la variable exista)
+          const adminEmail = Deno.env.get("ADMIN_EMAIL");
+
+          if (adminEmail && adminEmail.trim() !== "") {
+            const { error: adminErr } = await resend.emails.send({
+              from: "Noventitre <onboarding@resend.dev>",
+              to: [adminEmail], // Enviar directamente al admin
+              subject: `🎉 Nueva Venta: $${((session.amount_total || 0) / 100).toFixed(2)}`,
+              html: `
+                <div style="font-family: sans-serif; padding: 20px; color: #111;">
+                  <h2 style="color: #2b2b2b;">¡Tienes una nueva venta! 🚀</h2>
+                  <p><strong>Cliente:</strong> ${session.customer_details?.name || "Sin nombre"} (${customerEmail})</p>
+                  <p><strong>Monto total:</strong> $${((session.amount_total || 0) / 100).toFixed(2)}</p>
+                  <p><strong>ID de Orden:</strong> ${order.id}</p>
+                  <p><strong>Dirección de Envío:</strong></p>
+                  <p style="margin: 0; font-size: 14px; color: #555555; line-height: 1.5;">
+                    ${shippingAddress?.address?.line1 || ""}<br>
+                    ${shippingAddress?.address?.city || ""}, ${shippingAddress?.address?.postal_code || ""}<br>
+                    ${shippingAddress?.address?.country || ""}
+                  </p>
+                  <hr style="border: 1px solid #eee; margin: 20px 0;" />
+                  <p>Revisa el dashboard de Supabase para ver los detalles de envío y descontar el stock si es necesario.</p>
+                </div>
+              `,
+            });
+
+            if (adminErr) {
+              console.error("❌ Error enviando mail al Admin:", adminErr.message);
+            } else {
+              console.log("✉️ Mail al admin enviado correctamente a:", adminEmail);
+            }
           } else {
-            console.log(`✉️ Correo de confirmación enviado exitosamente (ID: ${emailRes?.id})`);
+            console.log("⚠️ La variable ADMIN_EMAIL no está configurada en Supabase Secrets.");
           }
         } catch (mailError: any) {
           console.error("❌ Excepción al intentar enviar correo:", mailError.message);
@@ -166,6 +198,7 @@ function buildOrderEmailHTML(params: {
   totalAmount: number;
   items: Array<{ description: string; quantity: number; amount: number }>;
   shippingAddress: any;
+  logoUrl?: string;
 }) {
   const { customerName, orderId, totalAmount, items, shippingAddress } = params;
 
@@ -194,42 +227,50 @@ function buildOrderEmailHTML(params: {
     : `<p style="margin: 0; font-size: 14px; color: #777777;">Sin dirección registrada</p>`;
 
   return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-      </head>
-      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 40px 20px;">
-        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 32px; border-radius: 8px; border: 1px solid #e5e5e5;">
-          <h1 style="font-size: 22px; font-weight: 700; color: #111111; margin-top: 0; margin-bottom: 8px;">¡Gracias por tu compra, ${customerName}!</h1>
-          <p style="font-size: 14px; color: #666666; margin-top: 0; margin-bottom: 24px;">Hemos recibido tu pedido correctamente. A continuación encuentras el resumen de la orden <strong>#${orderId.slice(0, 8)}</strong>.</p>
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+        </head>
+        <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 40px 20px;">
+          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 32px; border-radius: 8px; border: 1px solid #e5e5e5;">
+            
+            <!-- Cabecera con Marca en Texto -->
+            <div style="text-align: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0;">
+              <span style="font-size: 24px; font-weight: 900; letter-spacing: 3px; color: #111111; text-transform: uppercase; display: inline-block;">
+                NOVENTITRE
+              </span>
+            </div>
 
-          <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
-            <thead>
-              <tr>
-                <th style="text-align: left; padding-bottom: 8px; border-bottom: 2px solid #111111; font-size: 12px; text-transform: uppercase; color: #888888;">Producto</th>
-                <th style="text-align: right; padding-bottom: 8px; border-bottom: 2px solid #111111; font-size: 12px; text-transform: uppercase; color: #888888;">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${itemsListHTML}
-            </tbody>
-            <tfoot>
-              <tr>
-                <td style="padding-top: 16px; font-weight: 700; font-size: 16px; color: #111111;">Total Pagado</td>
-                <td style="padding-top: 16px; font-weight: 700; font-size: 16px; color: #111111; text-align: right;">$${totalAmount.toFixed(2)}</td>
-              </tr>
-            </tfoot>
-          </table>
+            <h1 style="font-size: 22px; font-weight: 700; color: #111111; margin-top: 0; margin-bottom: 8px;">¡Gracias por tu compra, ${customerName}!</h1>
+            <p style="font-size: 14px; color: #666666; margin-top: 0; margin-bottom: 24px;">Hemos recibido tu pedido correctamente. A continuación encuentras el resumen de la orden <strong>#${orderId.slice(0, 8)}</strong>.</p>
 
-          <div style="background-color: #f5f5f5; padding: 16px; border-radius: 6px; margin-bottom: 24px;">
-            <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #111111;">Dirección de Envío</h3>
-            ${addressHTML}
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+              <thead>
+                <tr>
+                  <th style="text-align: left; padding-bottom: 8px; border-bottom: 2px solid #111111; font-size: 12px; text-transform: uppercase; color: #888888;">Producto</th>
+                  <th style="text-align: right; padding-bottom: 8px; border-bottom: 2px solid #111111; font-size: 12px; text-transform: uppercase; color: #888888;">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${itemsListHTML}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td style="padding-top: 16px; font-weight: 700; font-size: 16px; color: #111111;">Total Pagado</td>
+                  <td style="padding-top: 16px; font-weight: 700; font-size: 16px; color: #111111; text-align: right;">$${totalAmount.toFixed(2)}</td>
+                </tr>
+              </tfoot>
+            </table>
+
+            <div style="background-color: #f5f5f5; padding: 16px; border-radius: 6px; margin-bottom: 24px;">
+              <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #111111;">Dirección de Envío</h3>
+              ${addressHTML}
+            </div>
+
+            <p style="font-size: 12px; color: #999999; text-align: center; margin-bottom: 0;">Si tienes alguna duda sobre tu compra, responde directamente a este correo.</p>
           </div>
-
-          <p style="font-size: 12px; color: #999999; text-align: center; margin-bottom: 0;">Si tienes alguna duda sobre tu compra, responde directamente a este correo.</p>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
   `;
 }

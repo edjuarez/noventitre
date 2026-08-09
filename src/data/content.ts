@@ -27,7 +27,7 @@ export const content = {
             image: "/assets/hero_banner_3.webp",
             title: "Creados \na tu\nmanera.",
             subtitle:
-            "Elegí colores, telas y detalles para crear un bolso\ncompletamente personalizado.",
+            "Elegí colores, telas y detalles para crear un artículo\ncompletamente personalizado.",
             background: "#e39ad9",
             textColor: "#290801",
         }
@@ -37,7 +37,7 @@ export const content = {
     about: {
       title: "Sobre Noventitre",
       description:
-        "Cada pieza es creada a mano, priorizando la calidad, los detalles y la identidad.",
+        "Cada accesorio es creado a mano, priorizando la calidad, los detalles y la identidad.",
     },
 
     process: {
