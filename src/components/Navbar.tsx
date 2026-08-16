@@ -28,6 +28,7 @@ type NavItem =
 const navItems: NavItem[] = [
   { label: "Inicio", type: "section", target: "home" },
   { label: "Colección", type: "route", target: "/catalogo" },
+  { label: "Acerca de", type: "route", target: "/acerca-de" },
   { label: "Admin", type: "route", target: "/admin" },
 ];
 
@@ -122,11 +123,23 @@ export default function Navbar() {
                 duration-300
                 hover:text-brand-rosa
                 cursor-pointer
+                after:content-['']
+                after:absolute
+                after:bottom-[-2px]
+                after:left-0
+                after:w-full
+                after:h-[1px]
+                after:bg-brand-rosa
+                after:scale-x-0
+                hover:after:scale-x-100
+                after:origin-left
+                after:transition-transform
+                after:duration-300
                 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
                 ${isExpanded ? "text-base" : "text-sm"}
               `}
             >
-              <House  size={26} />
+              Inicio
             </button>
             <button
               onClick={() => handleNavigation(navItems[1])}
@@ -159,7 +172,33 @@ export default function Navbar() {
             >
               Colección
             </button>
-
+            <button
+              onClick={() => handleNavigation(navItems[2])}
+              className={`
+                uppercase
+                tracking-wide
+                transition-all
+                duration-300
+                hover:text-brand-rosa
+                cursor-pointer
+                after:content-['']
+                after:absolute
+                after:bottom-[-2px]
+                after:left-0
+                after:w-full
+                after:h-[1px]
+                after:bg-brand-rosa
+                after:scale-x-0
+                hover:after:scale-x-100
+                after:origin-left
+                after:transition-transform
+                after:duration-300
+                drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
+                ${isExpanded ? "text-base" : "text-sm"}
+              `}
+            >
+              Acerca de
+            </button>
           </div>
 
           {/* Logo */}

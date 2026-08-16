@@ -2,159 +2,9 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
-import { useNavigate } from 'react-router-dom';
 import type { Product } from "../types/product";
+import ProductCard from "../components/collection/ProductCard";
 
-
-
-// const products: Product[] = [
-//   {
-//     id: 1,
-//     name: "Bolso Nube",
-//     price: 95,
-//     images: [
-//       "/assets/myWorld/myworld_1.webp",
-//       "/assets/myWorld/myworld_2.webp",
-//       "/assets/myWorld/myworld_3.webp",
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Tote Camel",
-//     price: 82,
-//     images: [
-//       "/assets/myWorld/myworld_2.webp",
-//       "/assets/myWorld/myworld_3.webp",
-//       "/assets/myWorld/myworld_4.webp",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_3.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_4.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_5.webp"
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Tote Camel",
-//     price: 82,
-//     images: [
-//       "/assets/myWorld/myworld_2.webp",
-//       "/assets/myWorld/myworld_3.webp",
-//       "/assets/myWorld/myworld_4.webp",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_3.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_4.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_5.webp"
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Tote Camel",
-//     price: 82,
-//     images: [
-//       "/assets/myWorld/myworld_2.webp",
-//       "/assets/myWorld/myworld_3.webp",
-//       "/assets/myWorld/myworld_4.webp",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_3.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_4.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_5.webp"
-//     ],
-//   },
-//   {
-//     id: 2,
-//     name: "Tote Camel",
-//     price: 82,
-//     images: [
-//       "/assets/myWorld/myworld_2.webp",
-//       "/assets/myWorld/myworld_3.webp",
-//       "/assets/myWorld/myworld_4.webp",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_3.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_4.webp"
-//     ],
-//   },
-//   {
-//     id: 3,
-//     name: "Necessaire",
-//     price: 35,
-//     images: [
-//       "/assets/myWorld/myworld_5.webp"
-//     ],
-//   },
-// ];
 
 export default function Collection() {
   useEffect(() => {
@@ -163,7 +13,7 @@ export default function Collection() {
   const { products } = useProducts({ mode: 'all'});
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -190,7 +40,7 @@ export default function Collection() {
     <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
       <div className=" mx-auto md:px-6">
 
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="max-w-3xl mb-7">
           <h1
             className="
               mt-4
@@ -203,47 +53,17 @@ export default function Collection() {
             Colección
           </h1>
 
-          <p className="mt-6 text-neutral-600 max-w-2xl mx-auto leading-7">
+          {/* <p className="mt-6 text-neutral-600 max-w-2xl mx-auto leading-7">
             Descubrí una selección de piezas artesanales creadas con dedicación,
             pensadas para acompañarte todos los días.
-          </p>
+          </p> */}
 
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-1">
 
           {products.map((product) => (
-            <motion.button
-              key={product.id}
-              whileHover={{ y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              // onClick={() => {
-              //   setSelectedProduct(product);
-              //   setCurrentImage(0);
-              // }}
-              onClick={() => navigate(`/product/${product.slug ? product.slug : product.id}`)}
-              className="text-left cursor-pointer mb-5"
-            >
-              <div className="text-sm overflow-hidden">
-
-                <img
-                  src={product.images[0]}
-                  alt={product.name}
-                  className="aspect-[4/5] w-full object-cover transition duration-500 hover:scale-105"
-                />
-              </div>
-              <div className="py-2 h-15 flex flex-col">
-                <h3 className="text-sm">
-                  {product.name}
-                </h3>
-                <p className="text-xs text-neutral-600 capitalize">
-                  {product.category}
-                </p>
-                <p className="mt-1 text-sm">
-                  € {product.price}
-                </p>
-              </div>
-            </motion.button>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

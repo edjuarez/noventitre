@@ -78,7 +78,7 @@ export default function MyWorld() {
                   key={product.id || index}
                   initial={{ opacity: 0, x: 35 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false, amount: 0.2 }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{
                     duration: 0.6,
                     delay: index * 0.12,
@@ -149,7 +149,7 @@ export default function MyWorld() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="flex justify-center md:mt-16 md:pt-20 pt-5 mt-10"
         >

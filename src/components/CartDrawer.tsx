@@ -108,7 +108,7 @@ return (
                 closeCart();
                 navigate("/catalogo");
               }}
-              className="mt-8 border border-neutral-300 px-8 py-3 rounded-sm hover:bg-white transition"
+              className="cursor-pointer mt-8 border border-neutral-300 px-8 py-3 rounded-sm hover:bg-white transition"
             >
               Ver colección
             </button>

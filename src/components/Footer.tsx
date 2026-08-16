@@ -35,30 +35,27 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-4 mt-10">
-
-              {/* <a
-                href="#"
-                className="w-12 h-12 rounded-full border flex items-center justify-center hover:bg-black hover:text-white transition"
-              >
-                <MessageCircle size={20} />
-              </a>
-
-              <a
-                href="#"
-                className="w-12 h-12 rounded-full border flex items-center justify-center hover:bg-black hover:text-white transition"
-              >
-                <FaInstagram size={20} />
-              </a>
-
-              <a
-                href="#"
-                className="w-12 h-12 rounded-full border flex items-center justify-center hover:bg-black hover:text-white transition"
-              >
-                <Images size={20} />
-              </a> */}
-
             </div>
 
+          </div>
+          {/* Navegación */}
+
+          <div>
+            <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">
+              Navegación
+            </h3>
+            <ul className="space-y-5 text-neutral-600">
+              <li><a href="/">Inicio</a></li>
+              <li><a href="/catalogo">Colección</a></li>
+                <li><a href="/acerca-de">Acerca de</a></li>
+              <li>
+                <button
+                  className="cursor-pointer"
+                  onClick={() => toggleCart()}>
+                  Carrito
+                </button>
+              </li>
+            </ul>
           </div>
 
           {/* Columna Legales (Requerida por Stripe) */}
@@ -75,31 +72,7 @@ export default function Footer() {
             </ul>
 
           </div>
-          {/* Navegación */}
 
-          <div>
-
-            <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">
-              Navegación
-            </h3>
-
-            <ul className="space-y-5 text-neutral-600">
-              <li><a href="/">Inicio</a></li>
-
-{/*               <li><a href="#sobre-mi">Sobre mí</a></li> */}
-
-              <li><a href="/catalogo">Colección</a></li>
-
-              <li><button
-              className="cursor-pointer"
-              onClick={() => toggleCart()}>Carrito</button></li>
-
-{/*               <li><a href="#mi-trabajo">Proceso</a></li>
-
-              <li><a href="#contacto">Seguime</a></li> */}
-            </ul>
-
-          </div>
           {/* <div>
 
             <h3 className="uppercase tracking-widest text-sm font-semibold mb-8">

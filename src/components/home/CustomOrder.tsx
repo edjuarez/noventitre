@@ -67,7 +67,7 @@ export default function CustomOrder() {
             variants={container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0 }}
+            viewport={{ once: true, amount: 0 }}
             className="
               flex
               items-center

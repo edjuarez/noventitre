@@ -1,5 +1,6 @@
 //import Footer from '../components/Footer';
 import About from '../components/home/About';
+import BrandIntro from '../components/home/BrandIntro';
 import MyWork from '../components/home/MyWork';
 import MyWorld from '../components/home/MyWorld';
 import CustomOrder from '../components/home/CustomOrder';
@@ -55,6 +56,7 @@ export default function HomeScreen() {
        <div className="relative">
           <Hero />
           {/* <CartDrawer /> */}
+          <BrandIntro />
           <MyWorld />
           <MyWork />
           <CustomOrder />

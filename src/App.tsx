@@ -15,6 +15,7 @@ import CartDrawer from './components/CartDrawer';
 import { TermsPage } from './pages/legal/Terms';
 import { PrivacyPage } from './pages/legal/Privacy';
 import { ReturnsScreen } from './pages/legal/Returns';
+import AboutScreen from './pages/AboutScreen';
 
 const MainLayout = () => (
   <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
@@ -65,6 +66,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/catalogo" element={<CollectionScreen />} />
+          <Route path="/acerca-de" element={<AboutScreen />} />
           <Route path="/product/:slug" element={<ProductDetailScreen />} />
           {/* Rutas de Legales */}
           <Route path="/terminos-y-condiciones" element={<TermsPage />} />

@@ -17,7 +17,7 @@ export default function MyWork() {
         aria-hidden="true"
         initial={{ x: 120, opacity: 0 }}
         whileInView={{ x: 0, opacity: 0.70 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         transition={{ duration: 1 }}
         className="
           absolute
@@ -47,7 +47,7 @@ export default function MyWork() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
           transition={{ duration: .6 }}
           className="text-center max-w-3xl mx-auto"
         >
@@ -80,7 +80,7 @@ export default function MyWork() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: .1 }}
             className="px-10 py-14 text-center bg-white/50 md:border-r border-neutral-200"
           >
@@ -106,7 +106,7 @@ export default function MyWork() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: .25 }}
             className="px-10 py-14 text-center md:border-r border-neutral-200 bg-white/50"
           >
@@ -132,7 +132,7 @@ export default function MyWork() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ delay: .4 }}
             className="px-10 py-14 text-center bg-white/50"
           >
