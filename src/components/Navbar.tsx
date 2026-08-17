@@ -3,8 +3,6 @@ import {
     Menu,
     X,
     ShoppingBag,
-    House,
-    GalleryVerticalEnd,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
@@ -313,7 +311,7 @@ export default function Navbar() {
                 onClick={() => handleNavigation(navItems[0])}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
-                <House strokeWidth={1} size={50} />
+                Inicio
               </button>
             </li>
             <li key="catalogo">
@@ -321,7 +319,15 @@ export default function Navbar() {
                 onClick={() => handleNavigation(navItems[1])}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
-                <GalleryVerticalEnd strokeWidth={1} size={50} />
+                Colección
+              </button>
+            </li>
+            <li key="acerca-de">
+              <button
+                onClick={() => handleNavigation(navItems[1])}
+                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
+              >
+                Acerca de
               </button>
             </li>
             <li key="carrito">
@@ -332,7 +338,7 @@ export default function Navbar() {
                 }}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2 relative"
               >
-                <ShoppingBag  strokeWidth={1} size={45} />
+                Carrito
                 {cartItems.length > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-brand-rosa text-white text-[11px] flex items-center justify-center">
                     {cartItems.length}

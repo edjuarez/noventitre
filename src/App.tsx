@@ -16,6 +16,8 @@ import { TermsPage } from './pages/legal/Terms';
 import { PrivacyPage } from './pages/legal/Privacy';
 import { ReturnsScreen } from './pages/legal/Returns';
 import AboutScreen from './pages/AboutScreen';
+import ScrollToTop from './components/ScrollToTop';
+
 
 const MainLayout = () => (
   <div className="min-h-screen bg-brand-crema text-black antialiased selection:bg-brand-rosa selection:text-white">
@@ -62,6 +64,7 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomeScreen />} />

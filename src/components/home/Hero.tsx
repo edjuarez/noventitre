@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaArrowRight } from "react-icons/fa";
 import { AnimatePresence, motion } from "framer-motion";
 //import { heroSlides } from "../../data/heroSlides";
 import { userData } from "../../data/userData";
 import { content } from "../../data/content";
-//import { IoMdImages } from "react-icons/io";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const AUTO_PLAY_DELAY = 6000;
@@ -16,7 +15,7 @@ export default function Hero() {
   const heroSlides = content.home.hero.slides;
   const slide = heroSlides[current];
   const isMobile = window.innerWidth < 768;
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const handleWhatsAppContact = () => {
     const phoneNumber = userData.number;
@@ -219,6 +218,13 @@ export default function Hero() {
               >
                 <FaWhatsapp size={24} />
                 WhatsApp
+              </button>
+             <button
+                onClick={() => navigate("/catalogo")}
+                className="w-full border-2 border-black sm:w-56 bg-white hover:bg-gray-800 text-black hover:text-white px-8 py-4 rounded flex items-center justify-center gap-3 transition-all duration-300 hover:scale-105 transition cursor-pointer"
+              >
+                Ver colección
+                <FaArrowRight size={20} />
               </button>
             </motion.div>
           </motion.div>
