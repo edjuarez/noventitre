@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { supabase } from '../lib/supabase'; // O '../lib/supabase' según el nombre de tu archivo
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -10,24 +10,50 @@ export default function LoginScreen() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Guarda la ruta de la que venía el usuario si intentó acceder a una página protegida
+  const from = location.state?.from?.pathname;
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
+    // 1. Iniciar sesión en Supabase Auth
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) {
-        console.log('Error exacto de Supabase:', error.message);
+    if (authError) {
+      console.log('Error de autenticación:', authError.message);
       setErrorMsg('Credenciales inválidas. Revisa tu email y contraseña.');
       setLoading(false);
-    } else {
-      // Redirigir al panel de administración tras un login exitoso
-      navigate('/admin');
+      return;
+    }
+
+    // 2. Si el login es exitoso, verificar el rol en la tabla profiles
+    if (authData.user) {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', authData.user.id)
+        .single();
+
+      if (profileError) {
+        console.error('Error al obtener el perfil:', profileError.message);
+      }
+
+      setLoading(false);
+
+      // 3. Redirección condicional según el rol
+      if (profile?.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        // Redirige a la página que intentaba visitar o al inicio por defecto
+        navigate(from || '/', { replace: true });
+      }
     }
   };
 
@@ -38,7 +64,7 @@ export default function LoginScreen() {
           NOVENTITRE
         </h1>
         <p className="text-sm text-neutral-500 text-center mb-8">
-          Acceso al Panel de Administración
+          Iniciar Sesión
         </p>
 
         {errorMsg && (
@@ -58,7 +84,7 @@ export default function LoginScreen() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full border border-neutral-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-              placeholder="admin@noventitre.com"
+              placeholder="tu@email.com"
             />
           </div>
 

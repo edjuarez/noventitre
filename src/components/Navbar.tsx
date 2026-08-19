@@ -3,6 +3,7 @@ import {
     Menu,
     X,
     ShoppingBag,
+    CircleUserRound
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
@@ -226,6 +227,13 @@ export default function Navbar() {
           {/* Right */}
 
           <div className="flex justify-end items-center gap-6">
+
+              <button
+                onClick={() => navigate("/cuenta")}
+                className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] duration-300 relative hover:text-brand-rosa transition cursor-pointer"
+              >
+                <CircleUserRound size={26} />
+              </button>
 
               <a
                 href={userData.instagram}
