@@ -7,12 +7,12 @@ import About from '../components/home/About';
 
 export default function AboutScreen() {
     return(
-        <>
+        <div className="relative overflow-hidden">
             <BrandIntro />
             <MyWork />
             <CustomOrder />
             <About />
             <FloatingWhatsapp visible={true} /> 
-        </>
+        </div>
     )
 }

@@ -3,12 +3,14 @@ import {
     Menu,
     X,
     ShoppingBag,
-    CircleUserRound
+    User,
+    UserCheck
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { userData } from "../data/userData";
+import { useAuth } from "../context/AuthContext";
 
 type NavItem =
   | {
@@ -42,6 +44,9 @@ export default function Navbar() {
   const isExpanded = isHome && !scrolled;
 
   const { cartItems, toggleCart } = useCart();
+
+  const { user } = useAuth();
+  console.log("Navbar user:", user);
 
   useEffect(() => {
     if (isOpen) {
@@ -135,7 +140,7 @@ export default function Navbar() {
                 after:transition-transform
                 after:duration-300
                 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
-                ${isExpanded ? "text-base" : "text-sm"}
+                ${isExpanded ? "text-[0.95rem]" : "text-[0.85rem]"}
               `}
             >
               Inicio
@@ -166,7 +171,7 @@ export default function Navbar() {
                 after:transition-transform
                 after:duration-300
                 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
-                ${isExpanded ? "text-base" : "text-sm"}
+                ${isExpanded ? "text-[0.95rem]" : "text-[0.85rem]"}
               `}
             >
               Colección
@@ -193,7 +198,7 @@ export default function Navbar() {
                 after:transition-transform
                 after:duration-300
                 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]
-                ${isExpanded ? "text-base" : "text-sm"}
+                ${isExpanded ? "text-[0.95rem]" : "text-[0.85rem]"}
               `}
             >
               Acerca de
@@ -232,7 +237,11 @@ export default function Navbar() {
                 onClick={() => navigate("/cuenta")}
                 className="drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] duration-300 relative hover:text-brand-rosa transition cursor-pointer"
               >
-                <CircleUserRound size={26} />
+                {user ? (
+                  <UserCheck size={26} />
+                ) : (
+                  <User size={26} />
+                )}
               </button>
 
               <a
@@ -332,7 +341,7 @@ export default function Navbar() {
             </li>
             <li key="acerca-de">
               <button
-                onClick={() => handleNavigation(navItems[1])}
+                onClick={() => handleNavigation(navItems[2])}
                 className="text-2xl uppercase hover:text-brand-rosa transition p-2"
               >
                 Acerca de

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { supabase } from '../lib/supabase'; // Ajusta el path según tu proyecto
+import { supabase } from '../lib/supabase';
 
 type AuthMode = 'login' | 'register';
 
@@ -77,7 +77,7 @@ export default function AuthPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/`,
+        redirectTo: `${window.location.origin}/cuenta`,
       },
     });
 
@@ -87,10 +87,14 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-brand-crema flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-2xl border border-neutral-100 bg-white p-8 shadow-xl">
-        
-        <h1 className="font-heading text-3xl font-bold text-center text-neutral-900 mb-1">
-          NOVENTITRE
-        </h1>
+        <button
+          className="flex justify-center w-full"
+          onClick={() => navigate("/")}>
+          <h1 className="cursor-pointer font-heading text-3xl font-bold text-center text-neutral-900 mb-1">
+            NOVENTITRE
+          </h1>
+        </button>
+
         <p className="text-sm text-neutral-500 text-center mb-6">
           {mode === 'login' ? 'Bienvenido de nuevo' : 'Crea tu cuenta'}
         </p>
@@ -169,7 +173,7 @@ export default function AuthPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-neutral-900 py-3 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-50 transition-colors"
+            className="cursor-pointer w-full rounded-lg bg-neutral-900 py-3 text-sm font-medium text-white hover:bg-neutral-800 disabled:opacity-50 transition-colors"
           >
             {loading ? 'Procesando...' : mode === 'login' ? 'Iniciar Sesión' : 'Crear Cuenta'}
           </button>

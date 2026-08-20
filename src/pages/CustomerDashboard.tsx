@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import ActionButton from '../components/ActionButton';
 
 type TabType = 'pedidos' | 'perfil' | 'direcciones';
 
@@ -181,12 +182,19 @@ console.log('Datos del perfil cargados:', data);
               ) : orders.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-sm text-neutral-500 mb-4">Aún no has realizado ninguna compra.</p>
-                  <button
-                    onClick={() => navigate('/')}
-                    className="px-4 py-2 bg-neutral-900 text-white text-xs font-medium rounded-lg hover:bg-neutral-800 transition"
-                  >
-                    Explorar Productos
-                  </button>
+                  
+                  {/* flex-col mantiene la columna y max-w-xs le da el mismo ancho delimitado a ambos */}
+                  <div className="flex flex-col gap-3 max-w-xs mx-auto">
+                    <ActionButton
+                      text="Explorar Productos"
+                      onClick={() => navigate('/')} 
+                    />
+{/*                     <ActionButton
+                      text="Cerrar Sesión"
+                      onClick={handleLogout} 
+                      color="rosa"
+                    /> */}
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-4">
