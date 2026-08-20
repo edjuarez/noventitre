@@ -24,16 +24,13 @@ export interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Tipamos el children correctamente en lugar de usar 'any'
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  // Inicializamos el estado con el tipo correcto (arreglo de CartItem)
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     const savedCart = localStorage.getItem("noventitre-cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Abrir y cerrar el carrito
   const toggleCart = () => setIsCartOpen(!isCartOpen);
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
@@ -46,7 +43,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem("noventitre-cart", JSON.stringify(cartItems));
   }, [cartItems]);
-  // Agregar al carrito
+  
   const addToCart = (product: CartItem) => {
     // 1. (OPCIONAL) Verificar el stock antes de hacer cualquier cosa
     /*
@@ -57,17 +54,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     */
 
     setCartItems((prevItems) => {
-      // Usamos .some() porque solo nos interesa saber si existe (true/false)
       const itemExists = prevItems.some((item) => item.id === product.id);
       console.log(cartItems, "cartItems")
       if (itemExists) {
         console.log("El producto ya existe en el carrito. Ignorando.");
         // CRÍTICO: Si existe, DEBEMOS retornar el array previo intacto. 
-        // Si haces un 'return;' vacío, el carrito se convierte en 'undefined' y rompes la app.
         return prevItems; 
       }
-      
-      // Si es nuevo, lo agregamos tal cual
+
       return [...prevItems, product];
     });
     

@@ -30,7 +30,7 @@ export default function BrandIntro() {
                 tracking-tighter
               "
             >
-              ¿Por qué Noventitre?
+              Por qué Noventitre?
             </h2>
 
             <div className="mt-10 space-y-6 text-neutral-700 leading-8 text-lg">

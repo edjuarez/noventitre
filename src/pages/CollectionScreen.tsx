@@ -42,7 +42,7 @@ export default function Collection() {
   }, [products]);
 
   return (
-    <section className="bg-brand-crema py-17 md:py-25 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
+    <section className="bg-brand-crema py-22 md:py-27 md:px-6 px-3 mb-[var(--section-mb-mobile)] md:mb-[var(--section-mb-desktop)]">
       <div className="mx-auto md:px-6">
 
         {/* Título Principal */}
