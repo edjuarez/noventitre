@@ -2,7 +2,9 @@ import { StrictMode } from 'react'
 import ReactDOM from "react-dom/client";
 import './index.css'
 import App from './App.tsx'
-
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
