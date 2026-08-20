@@ -43,7 +43,11 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-neutral-50 flex flex-col">
       <header className="bg-neutral-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
         <div className="flex items-center space-x-3">
-          <span className="font-heading font-bold text-xl">NOVENTITRE</span>
+          
+          <button onClick={() => navigate('/')}>
+<span className="font-heading font-bold text-xl">NOVENTITRE</span>
+          </button>
+          
           <span className="bg-neutral-800 text-xs text-neutral-300 px-2.5 py-1 rounded-full uppercase tracking-wider">
             Admin Panel
           </span>

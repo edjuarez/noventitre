@@ -171,7 +171,7 @@ console.log('Datos del perfil cargados:', data);
 
         {/* Contenido según pestaña activa */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200/60">
-
+          
           {/* TAB 1: HISTORIAL DE COMPRAS */}
           {activeTab === 'pedidos' && (
             <div>
@@ -182,7 +182,7 @@ console.log('Datos del perfil cargados:', data);
               ) : orders.length === 0 ? (
                 <div className="text-center py-8">
                   <p className="text-sm text-neutral-500 mb-4">Aún no has realizado ninguna compra.</p>
-
+                  
                   {/* flex-col mantiene la columna y max-w-xs le da el mismo ancho delimitado a ambos */}
                   <div className="flex flex-col gap-3 max-w-xs mx-auto">
                     <ActionButton
@@ -307,6 +307,7 @@ console.log('Datos del perfil cargados:', data);
               </form>
             </div>
           )}
+
         </div>
       </div>
     </div>
