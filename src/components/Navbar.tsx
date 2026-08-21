@@ -30,6 +30,7 @@ const navItems: NavItem[] = [
   { label: "Inicio", type: "section", target: "home" },
   { label: "Colección", type: "route", target: "/catalogo" },
   { label: "Acerca de", type: "route", target: "/acerca-de" },
+  { label: "Cuenta", type: "route", target: "/cuenta" },
   { label: "Admin", type: "route", target: "/admin" },
 ];
 
@@ -116,7 +117,7 @@ export default function Navbar() {
 
           {/* Left */}
 
-          <div className="flex justify-start gap-8">
+          <div className="flex justify-start gap-5">
 
             <button
               onClick={() => handleNavigation(navItems[0])}
@@ -322,30 +323,52 @@ export default function Navbar() {
           ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
         `}
       >
-        <ul className="flex flex-col items-center justify-center gap-8 text-center text-neutral-700">
+        <div
+          className="w-30 h-auto mb-15"
+        >
+          <img
+          src="/assets/logo.webp"
+          alt="Noventitre"
+          className="w-full h-auto object-contain"
+          />
+        </div>
+        <ul className="flex flex-col gap-4 text-center text-neutral-700">
             <li key="home">
               <button
                 onClick={() => handleNavigation(navItems[0])}
-                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
+                className="text-2xl hover:text-brand-rosa transition p-2"
               >
                 Inicio
               </button>
+              <hr className="w-full border-neutral-300" />
             </li>
+            
             <li key="catalogo">
               <button
                 onClick={() => handleNavigation(navItems[1])}
-                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
+                className="text-2xl hover:text-brand-rosa transition p-2"
               >
                 Colección
               </button>
+              <hr className="w-full border-neutral-300" />
             </li>
             <li key="acerca-de">
               <button
                 onClick={() => handleNavigation(navItems[2])}
-                className="text-2xl uppercase hover:text-brand-rosa transition p-2"
+                className="text-2xl hover:text-brand-rosa transition p-2"
               >
                 Acerca de
               </button>
+              <hr className="w-full border-neutral-300" />
+            </li>
+            <li key="cuenta">
+              <button
+                onClick={() => handleNavigation(navItems[3])}
+                className="text-2xl hover:text-brand-rosa transition p-2 relative"
+              >
+                Cuenta
+              </button>
+              <hr className="w-full border-neutral-300" />
             </li>
             <li key="carrito">
               <button
@@ -353,7 +376,7 @@ export default function Navbar() {
                   setIsOpen(false);
                   toggleCart();
                 }}
-                className="text-2xl uppercase hover:text-brand-rosa transition p-2 relative"
+                className="text-2xl hover:text-brand-rosa transition p-2 relative"
               >
                 Carrito
                 {cartItems.length > 0 && (
