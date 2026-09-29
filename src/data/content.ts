@@ -1,5 +1,3 @@
-// src/data/content.ts
-
 export const content = {
   home: {
     hero: {

@@ -78,7 +78,6 @@ export const EditProductModal = ({
     const filesArray = Array.from(e.target.files);
     setNewFiles((prev) => [...prev, ...filesArray]);
 
-    // Blob local para preview inmediato
     const newBlobUrls = filesArray.map((file) => URL.createObjectURL(file));
     setNewPreviews((prev) => [...prev, ...newBlobUrls]);
   };
@@ -100,7 +99,6 @@ export const EditProductModal = ({
       return;
     }
 
-    // Validación de categoría manual vacía
     if (isCustomCategory && !formData.category.trim()) {
       setErrorMsg('Debes escribir un nombre para la categoría.');
       return;
