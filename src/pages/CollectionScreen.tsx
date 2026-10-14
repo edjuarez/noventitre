@@ -1,12 +1,13 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, X } from "lucide-react";
 import { useProducts } from '../hooks/useProducts';
 import type { Product } from "../types/product";
 import ProductCard from "../components/collection/ProductCard";
+import Spinner from "../components/Spinner";
 
 export default function Collection() {
-  const { products } = useProducts({ mode: 'all' });
+  const { products, loading, error, refetch } = useProducts({ mode: 'all' });
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -29,7 +30,6 @@ export default function Collection() {
     );
   };
 
-  // Agrupamos los productos por categoría
   const groupedProducts = useMemo(() => {
     return products.reduce<Record<string, Product[]>>((acc, product) => {
       const category = product.category ? product.category.toLowerCase().trim() : 'otros';
@@ -52,28 +52,51 @@ export default function Collection() {
           </h1>
         </div> */}
 
+        {loading && (
+          <Spinner
+            label="Cargando colección..."
+            className="min-h-[50vh] w-full"
+          />
+        )}
+
+        {error && (
+          <div className="text-center py-12 border border-dashed border-red-200 rounded-xl bg-red-50/50">
+            <p className="text-red-600 font-medium">{error}</p>
+
+            <button
+              onClick={refetch}
+              className="mt-4 inline-flex items-center gap-2 text-sm text-red-600 underline cursor-pointer"
+            >
+              <RefreshCw size={16} />
+              Reintentar
+            </button>
+          </div>
+        )}
+
         {/* Secciones agrupadas por categoría */}
-        <div className="space-y-16">
-          {Object.entries(groupedProducts).map(([category, items]) => (
-            <div key={category} className="flex flex-col">
-              
-              {/* Título de la Categoría con el mismo estilo */}
-              <div className="mb-6">
-                <h2 className="font-heading leading-tight text-neutral-900 text-3xl md:text-4xl tracking-tighter capitalize">
-                  {category}
-                </h2>
-              </div>
+        {!loading && !error && (
+          <div className="space-y-16">
+            {Object.entries(groupedProducts).map(([category, items]) => (
+              <div key={category} className="flex flex-col">
+                
+                {/* Título de la Categoría con el mismo estilo */}
+                <div className="mb-6">
+                  <h2 className="font-heading leading-tight text-neutral-900 text-3xl md:text-4xl tracking-tighter capitalize">
+                    {category}
+                  </h2>
+                </div>
 
-              {/* Grid de productos de la categoría */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {items.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+                {/* Grid de productos de la categoría */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  {items.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
 
-            </div>
-          ))}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
 
       </div>
 

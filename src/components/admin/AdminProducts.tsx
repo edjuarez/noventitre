@@ -45,9 +45,6 @@ export const AdminProducts = () => {
 
   const handleToggleVisibility = async (id: string, currentStatus: boolean) => {
     try {
-      // Aquí idealmente llamas a tu backend:
-      // await productService.updateProduct(id, { visible: !currentStatus });
-      console.log("product id", id)
       await productService.updateProduct(id, { visible: !currentStatus });
 
       setProductsList((prev) =>

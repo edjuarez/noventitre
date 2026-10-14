@@ -162,8 +162,16 @@ export default function Footer() {
 
         </div>
 
-        <div className="border-t border-neutral-200 mt-20 pt-8 text-sm text-neutral-500 text-center">
+        <div className="flex gap-4 justify-between border-t border-neutral-200 mt-20 pt-8 text-sm text-neutral-500 text-center">
           <p>© 2026 Noventitre.</p>
+          <a
+            href="https://tuchidigital.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="uppercase text-[0.75rem]"
+          >
+            Hecho por tuchidigital
+          </a>
         </div>
 
       </div>
