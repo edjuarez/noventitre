@@ -11,7 +11,8 @@ export default function AuthPage() {
   const [mode, setMode] = useState<AuthMode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -52,7 +53,11 @@ export default function AuthPage() {
           email,
           password,
           options: {
-            data: { full_name: fullName },
+            data: {
+              first_name: firstName.trim(),
+              last_name: lastName.trim(),
+              full_name: `${firstName.trim()} ${lastName.trim()}`.trim(),
+            },
           },
         });
 
@@ -127,18 +132,33 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'register' && (
-            <div>
-              <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
-                Nombre completo
-              </label>
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Ej. María García"
-                className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-              />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Ej. María"
+                  className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
+                  Apellido
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Ej. García"
+                  className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                />
+              </div>
             </div>
           )}
 

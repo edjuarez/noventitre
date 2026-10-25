@@ -24,6 +24,8 @@ export default function CustomerDashboard() {
   const [loadingOrders, setLoadingOrders] = useState(true);
 
   // Estado del formulario de perfil
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [savingProfile, setSavingProfile] = useState(false);
@@ -39,12 +41,17 @@ export default function CustomerDashboard() {
   const loadProfileData = async () => {
     const { data } = await supabase
       .from('profiles')
-      .select('full_name, phone')
+      .select('first_name, last_name, full_name, phone')
       .eq('id', user?.id)
       .single();
 console.log('Datos del perfil cargados:', data);
     if (data) {
-      setFullName(data.full_name || '');
+      const rawFullName = data.full_name || '';
+      const nameParts = rawFullName.trim().split(/\s+/).filter(Boolean);
+
+      setFirstName(data.first_name || nameParts[0] || '');
+      setLastName(data.last_name || nameParts.slice(1).join(' ') || '');
+      setFullName(rawFullName);
       setPhone(data.phone || '');
     }
   };
@@ -68,10 +75,16 @@ console.log('Datos del perfil cargados:', data);
     setSavingProfile(true);
     setMessage(null);
 
+    const normalizedFullName = [firstName.trim(), lastName.trim()]
+      .filter(Boolean)
+      .join(' ');
+
     const { error } = await supabase
       .from('profiles')
       .update({
-        full_name: fullName,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        full_name: normalizedFullName,
         phone: phone,
         updated_at: new Date().toISOString(),
       })
@@ -81,6 +94,7 @@ console.log('Datos del perfil cargados:', data);
     if (error) {
       setMessage({ text: 'Error al actualizar datos.', type: 'error' });
     } else {
+      setFullName(normalizedFullName);
       setMessage({ text: 'Datos actualizados correctamente.', type: 'success' });
     }
   };
@@ -122,7 +136,7 @@ console.log('Datos del perfil cargados:', data);
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200/60 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-neutral-900 font-heading">
-              Hola, {fullName || user?.email?.split('@')[0]}
+              Hola, {firstName || fullName || user?.email?.split('@')[0]}
             </h1>
             <p className="text-sm text-neutral-500">{user?.email}</p>
           </div>
@@ -271,17 +285,31 @@ console.log('Datos del perfil cargados:', data);
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
-                    Nombre Completo
-                  </label>
-                  <input
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Tu nombre completo"
-                    className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
-                  />
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="Tu nombre"
+                      className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold uppercase text-neutral-700 mb-1">
+                      Apellido
+                    </label>
+                    <input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Tu apellido"
+                      className="w-full rounded-lg border border-neutral-300 p-2.5 text-sm focus:ring-2 focus:ring-black outline-none"
+                    />
+                  </div>
                 </div>
 
                 <div>
