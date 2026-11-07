@@ -73,21 +73,18 @@ export default function Collection() {
           </div>
         )}
 
-        {/* Secciones agrupadas por categoría */}
         {!loading && !error && (
           <div className="space-y-16">
             {Object.entries(groupedProducts).map(([category, items]) => (
               <div key={category} className="flex flex-col">
                 
-                {/* Título de la Categoría con el mismo estilo */}
                 <div className="mb-6">
                   <h2 className="font-heading leading-tight text-neutral-900 text-3xl md:text-4xl tracking-tighter capitalize">
                     {category}
                   </h2>
                 </div>
 
-                {/* Grid de productos de la categoría */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                   {items.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}

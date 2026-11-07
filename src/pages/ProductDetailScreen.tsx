@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ShieldCheck } from "lucide-react";
+import { ChevronLeft, ShieldCheck, ZoomIn, ZoomOut, X } from "lucide-react";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useProduct } from "../hooks/useProduct";
 //import { FaWhatsapp } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import type { CartItem } from "../context/CartContext";
-//import useCart } from "../context/CartContext";
 
 export default function ProductDetailScreen() {
     useEffect(() => {
@@ -17,6 +16,7 @@ export default function ProductDetailScreen() {
     const [isClosing, setIsClosing] = useState(false);
     //const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
     const [zoomOpen, setZoomOpen] = useState(false);
+    const [isZoomed, setIsZoomed] = useState(false);
 
     const { slug } = useParams();
     const { product, loading, error } = useProduct(slug);
@@ -112,25 +112,21 @@ export default function ProductDetailScreen() {
                         </div>
 
                         {/* Imagen principal */}
-
                         <div className="flex-1">
                             <AnimatePresence mode="wait">
                                 <motion.img
-                                    onClick={() => setZoomOpen(true)}
                                     key={currentImage}
                                     src={product.images[currentImage]}
                                     alt={product.name}
+                                    onClick={() => {
+                                        setIsZoomed(false);
+                                        setZoomOpen(true);
+                                    }}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    transition={{ duration: .25 }}
-                                    className="w-full
-                                    h-full
-                                    object-cover
-                                    cursor-zoom-in
-                                    transition-transform
-                                    duration-500
-                                    hover:scale-110r"
+                                    transition={{ duration: 0.25 }}
+                                    className="w-full max-h-[600px] object-contain mx-auto cursor-zoom-in transition-transform duration-500 hover:scale-105"
                                 />
                             </AnimatePresence>
                         </div>
@@ -285,46 +281,55 @@ export default function ProductDetailScreen() {
 
             {/* Imagen Zoom */}
             <AnimatePresence>
-
                 {zoomOpen && (
-
                     <motion.div
-
-                        initial={{ opacity:0 }}
-
-                        animate={{ opacity:1 }}
-
-                        exit={{ opacity:0 }}
-
-                        className="
-                        fixed
-                        inset-0
-                        bg-black/90
-                        z-[60]
-                        flex
-                        items-center
-                        justify-center
-                        "
-
-                        onClick={() => setZoomOpen(false)}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => {
+                            setZoomOpen(false);
+                            setIsZoomed(false);
+                        }}
+                        className="fixed inset-0 z-[60] bg-black/90 flex items-center justify-center overflow-hidden"
                     >
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setZoomOpen(false);
+                                setIsZoomed(false);
+                            }}
+                            className="absolute top-6 right-6 text-white hover:opacity-60 transition cursor-pointer"
+                            aria-label="Cerrar imagen"
+                        >
+                            <X size={28} />
+                        </button>
 
-                        <img
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsZoomed(!isZoomed);
+                            }}
+                            className="absolute top-6 right-20 text-white hover:opacity-60 transition cursor-pointer"
+                            aria-label={isZoomed ? "Alejar imagen" : "Acercar imagen"}
+                        >
+                            {isZoomed ? <ZoomOut size={26} /> : <ZoomIn size={26} />}
+                        </button>
 
+                        <motion.img
                             src={product.images[currentImage]}
-
-                            className="
-                            max-w-[90vw]
-                            max-h-[90vh]
-                            object-contain
-                            "
-
+                            alt={product.name}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setIsZoomed(!isZoomed);
+                            }}
+                            animate={{ scale: isZoomed ? 2 : 1 }}
+                            transition={{ duration: 0.3 }}
+                            className={`max-w-[90vw] max-h-[90vh] object-contain ${
+                                isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
+                            }`}
                         />
-
                     </motion.div>
-
                 )}
-
             </AnimatePresence>
         </motion.main>
     );
